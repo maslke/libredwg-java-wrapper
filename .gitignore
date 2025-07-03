@@ -1,0 +1,29 @@
+# Maven specific
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+
+# Java specific
+.classpath
+.project
+.settings
+
+# IDE files
+.idea
+*.iws
+*.iml
+*.ipr
+.vscode/
+.cursor/
+
+# Java class files
+*.class
+
+# Log files
+*.log
+
+# Build directories
+build/
+Debug/
+Release/
