@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Point2d {
+public class Vector3d {
     private double x;
-    private double y; 
+    private double y;
+    private double z;
+
 }

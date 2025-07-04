@@ -1,6 +1,13 @@
 package io.github.maslke.dwg.entity;
 
-public class Text {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class Text extends BaseEntity {
     private String text;
     private int color;
     private Double rotation;
