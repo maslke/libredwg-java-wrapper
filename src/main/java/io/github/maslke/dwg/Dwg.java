@@ -6,6 +6,11 @@ import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.common.Point3d;
 
 public class Dwg {
+
+    static {
+        System.loadLibrary("dwg_java");
+    }
+
     public Dwg() {
 
     }
@@ -16,7 +21,7 @@ public class Dwg {
 
     public static Dwg openDocument(String path) {
         return new Dwg();
-    } 
+    }
 
     public boolean save(String path) {
         return true;
@@ -34,6 +39,6 @@ public class Dwg {
         return null;
     }
 
-    public native int getVersion();
+    public native String getVersion();
 
 }
