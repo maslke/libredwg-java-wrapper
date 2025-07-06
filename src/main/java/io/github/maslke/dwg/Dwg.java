@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Dwg {
+public final class Dwg {
 
     private long ref;
     private String file;
@@ -14,7 +14,7 @@ public class Dwg {
         System.loadLibrary("dwg_java");
     }
 
-    public Dwg() {
+    private Dwg() {
 
     }
 
@@ -32,6 +32,11 @@ public class Dwg {
         return instance;
     }
 
+    public boolean save(String path) {
+        int ret = save(this.ref, path);
+        return ret == 0;
+    }
+
     public DwgBlockHeader getBlockHeader() {
         long instance = getRef();
         DwgBlockHeader header = new DwgBlockHeader();
@@ -43,6 +48,8 @@ public class Dwg {
     public native String getVersion();
 
     public static native long create();
+
+    public native int save(long ref, String path);
 
     public static native long open(String path);
 

@@ -12,12 +12,20 @@
 
 JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersion
   (JNIEnv *env, jobject obj) {
-    return (*env)->NewStringUTF(env, "0.0.1");
+    return (*env)->NewStringUTF(env, "0.13.3");
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_create(JNIEnv *env, jclass clazz) {
     Dwg_Data *dwg_data = dwg_new_Document(R_2000, 0, 0);
     return (jlong)(intptr_t)dwg_data;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_save(JNIEnv *env, jobject obj, jlong ref, jstring filename) {
+    DWG_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    const char *file = (*env)->GetStringUTFChars(env, filename, NULL);
+    jint ret = dwg_write_file(file, dwg_data);
+    (*env)->ReleaseStringUTFChars(env, filename, file);
+    return ret;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_open(JNIEnv *env, jclass clazz, jstring filename) {
