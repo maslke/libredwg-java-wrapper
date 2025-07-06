@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Text extends BaseEntity {
     private String text;
+    private double height;
     private int color;
-    private Double rotation;
+    private double rotation;
 }

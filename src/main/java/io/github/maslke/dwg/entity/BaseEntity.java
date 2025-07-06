@@ -9,6 +9,6 @@ public abstract class BaseEntity {
     private int color;
     private String lltype;
     private String linewt;
-    private Boolean visible;
+    private boolean visible;
     private String layer;
 }

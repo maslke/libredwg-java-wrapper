@@ -1,11 +1,14 @@
 package io.github.maslke.dwg;
 
-import io.github.maslke.dwg.entity.Text;
-import io.github.maslke.dwg.entity.Point;
-import io.github.maslke.dwg.entity.Line;
-import io.github.maslke.dwg.common.Point3d;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class Dwg {
+
+    private long ref;
+    private String file;
 
     static {
         System.loadLibrary("dwg_java");
@@ -15,30 +18,34 @@ public class Dwg {
 
     }
 
-    public static Dwg createDocument() {
-        return new Dwg();
-    }
-
     public static Dwg openDocument(String path) {
-        return new Dwg();
+        long handler = open(path);
+        Dwg instance = new Dwg();
+        instance.setRef(handler);
+        return instance;
     }
 
-    public boolean save(String path) {
-        return true;
+    public static Dwg createDocument() {
+        long handler = create();
+        Dwg instance = new Dwg();
+        instance.setRef(handler);
+        return instance;
     }
 
-    public Text createText(String text, Point3d insertPoint) {
-        return null;
-    }
-
-    public Point createPoint(Point3d point) {
-        return null;
-    }
-
-    public Line createLine(Point3d startPoint, Point3d endPoint) {
-        return null;
+    public DwgBlockHeader getBlockHeader() {
+        long instance = getRef();
+        DwgBlockHeader header = new DwgBlockHeader();
+        header.setRef(this.getHeaderNative(instance));
+        header.setDwg(this);
+        return header;
     }
 
     public native String getVersion();
+
+    public static native long create();
+
+    public static native long open(String path);
+
+    public native long getHeaderNative(long dwg);
 
 }

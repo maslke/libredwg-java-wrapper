@@ -9,5 +9,5 @@ import io.github.maslke.dwg.common.Point3d;
 public class Insert extends BaseEntity {
     private String blockName;
     private Point3d insertPoint;
-    private Double rotation;
+    private double rotation;
 }
