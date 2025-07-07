@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ParentEntity {
+public class Parent {
     private long ref;
     private int color;
     private String ltype;
@@ -13,7 +13,7 @@ public class ParentEntity {
     private boolean visible;
     private String layer;
 
-    public ParentEntity(long ref) {
+    public Parent(long ref) {
         this.ref = ref;
     }
 
@@ -28,7 +28,14 @@ public class ParentEntity {
         this.setLinewtNative(this.ref, this.linewt);
     }
 
+    public void setLtype(String ltype) {
+        this.ltype = ltype;
+        this.setLtypeNative(this.ref, this.ltype);
+    }
+
     private native void setColorNative(long ref, int color);
 
     private native void setLinewtNative(long ref, int linewt);
+
+    private native void setLtypeNative(long ref, String ltype);
 }

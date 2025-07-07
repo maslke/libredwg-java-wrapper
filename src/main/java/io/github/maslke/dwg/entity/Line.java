@@ -48,8 +48,8 @@ public class Line {
         this.setThicknessNative(this.ref, this.thickness);
     }
 
-    public ParentEntity getParentEntity() {
-        return new ParentEntity(this.getParentEntityNative(this.ref));
+    public Parent getParent() {
+        return new Parent(this.getParentNative(this.ref));
     }
 
 
@@ -59,5 +59,5 @@ public class Line {
     public native void setExtrusionNative(long ref, Vector3d extrusion);
     public native void setThicknessNative(long ref, double thickness);
 
-    public native long getParentEntityNative(long ref);
+    public native long getParentNative(long ref);
 }

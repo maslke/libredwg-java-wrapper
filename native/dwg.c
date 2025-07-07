@@ -99,13 +99,13 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_Dwg_setCodePageNative(JNIEnv *e
 
 
 // parent entity
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setColorNative(JNIEnv *env, jobject job, jlong ref, jint color) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *env, jobject job, jlong ref, jint color) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     entity->color.index = color;
     entity->color.flag = 0;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setLinewtNative(JNIEnv *env, jobject job, jlong ref, jint linewt) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *env, jobject job, jlong ref, jint linewt) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     entity->linewt = dxf_find_lweight(linewt);
 }
@@ -164,7 +164,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env,
     line_entity->end = e;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentEntityNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     return (intptr_t)line_entity->parent;
 }

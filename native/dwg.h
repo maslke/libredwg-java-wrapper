@@ -15,8 +15,8 @@ JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getBlockHeaderNative(JNI
 // end dwg
 
 // parent entity
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setColorNative(JNIEnv *, jobject, jlong ref, jint color);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setLinewtNative(JNIEnv *, jobject, jlong ref, jstring ltype);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *, jobject, jlong ref, jint color);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *, jobject, jlong ref, jstring ltype);
 // end
 
 
@@ -30,7 +30,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Point_setExtrusion(JNIEn
 // line entity
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_SetStart(JNIEnv *env, jobject obj, jlong ref, jobject start);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_SetEnd(JNIEnv *env, jobject obj, jlong ref, jobject end);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_getParentEntityNative(JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *, jobject, jlong);
 //
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addPointNative(JNIEnv *env, jobject obj, jlong ref,
