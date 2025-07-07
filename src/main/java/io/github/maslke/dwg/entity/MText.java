@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MText extends BaseEntity {
-    
+public class MText {
+    private long ref;
+    private long header;
 }

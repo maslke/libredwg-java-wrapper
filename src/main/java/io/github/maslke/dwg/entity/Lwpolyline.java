@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Lwpolyline extends BaseEntity {
-    
+public class Lwpolyline {
+    private long ref;
+    private long header;
 }

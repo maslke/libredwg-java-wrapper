@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Point extends BaseEntity {
-    private long header;
+public class Point {
     private long ref;
+    private long header;
     private double x;
     private double y;
     private double z;

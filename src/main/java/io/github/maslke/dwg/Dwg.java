@@ -9,6 +9,7 @@ public final class Dwg {
 
     private long ref;
     private String file;
+    private String codePage;
 
     static {
         System.loadLibrary("dwg_java");
@@ -18,41 +19,51 @@ public final class Dwg {
 
     }
 
-    public static Dwg openDocument(String path) {
-        long handler = open(path);
+    public static Dwg open(String path) {
+        long handler = openNative(path);
         Dwg instance = new Dwg();
         instance.setRef(handler);
         return instance;
     }
 
-    public static Dwg createDocument() {
-        long handler = create();
+    public static Dwg create() {
+        long handler = createNative();
         Dwg instance = new Dwg();
         instance.setRef(handler);
         return instance;
     }
 
     public boolean save(String path) {
-        int ret = save(this.ref, path);
+        int ret = saveNative(this.ref, path);
         return ret == 0;
     }
 
     public DwgBlockHeader getBlockHeader() {
-        long instance = getRef();
         DwgBlockHeader header = new DwgBlockHeader();
-        header.setRef(this.getHeaderNative(instance));
+        header.setRef(this.getBlockHeaderNative(this.ref));
         header.setDwg(this);
         return header;
     }
 
-    public native String getVersion();
+    public void setCodePage(String codePage) {
+        this.setCodePageNative(this.ref, codePage);
+        this.codePage = codePage;
+    }
 
-    public static native long create();
+    public String getVersion() {
+        return this.getVersionNative();
+    }
 
-    public native int save(long ref, String path);
+    private native String getVersionNative();
 
-    public static native long open(String path);
+    private static native long createNative();
 
-    public native long getHeaderNative(long dwg);
+    private native int saveNative(long ref, String path);
+
+    private static native long openNative(String path);
+
+    private native long getBlockHeaderNative(long ref);
+
+    private native void setCodePageNative(long ref, String codePage);
 
 }

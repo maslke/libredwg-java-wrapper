@@ -12,15 +12,16 @@ import io.github.maslke.dwg.common.Vector3d;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Line extends BaseEntity {
-    private long header;
+public class Line {
     private long ref;
+    private long header;
     private Point3d start;
     private Point3d end;
     private Vector3d extrusion;
     private double thickness;
 
     public Line(Long header, Point3d start, Point3d end) {
+        super();
         this.header = header;
         this.start = start;
         this.end = end;
@@ -47,8 +48,16 @@ public class Line extends BaseEntity {
         this.setThicknessNative(this.ref, this.thickness);
     }
 
+    public ParentEntity getParentEntity() {
+        return new ParentEntity(this.getParentEntityNative(this.ref));
+    }
+
+
+
     public native void setStartNative(long ref, Point3d start);
     public native void setEndNative(long ref, Point3d end);
     public native void setExtrusionNative(long ref, Vector3d extrusion);
     public native void setThicknessNative(long ref, double thickness);
+
+    public native long getParentEntityNative(long ref);
 }

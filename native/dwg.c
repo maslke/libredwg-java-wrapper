@@ -10,25 +10,78 @@
 #include <math.h>
 #include "cjson/cJSON.h"
 
-JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersion
-  (JNIEnv *env, jobject obj) {
+
+// helper function
+BITCODE_RC dxf_find_lweight(const int lw) {
+    // See acdb.h: 100th of a mm, enum of
+    const int lweights[] = {0,
+                            5,
+                            9,
+                            13,
+                            15,
+                            18,
+                            20,
+                            25,
+                            30,
+                            35,
+                            40,
+                            50,
+                            53,
+                            60,
+                            70,
+                            80,
+                            90,
+                            100,
+                            106,
+                            120,
+                            140,
+                            158,
+                            200,
+                            211,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            -1,         // BYLAYER
+                            -2,         // BYBLOCK
+                            -3};        // BYLWDEFAULT
+    for (int i = 0; i < 32; i++) {
+        if (lweights[i] == lw)
+            return i;
+    }
+    return 0;
+}
+//
+
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersionNative(JNIEnv *env, jobject obj) {
     return (*env)->NewStringUTF(env, "0.13.3");
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_create(JNIEnv *env, jclass clazz) {
-    Dwg_Data *dwg_data = dwg_new_Document(R_2000, 0, 0);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_createNative(JNIEnv *env, jclass clazz) {
+    Dwg_Data *dwg_data = (Dwg_Data *) malloc(sizeof(Dwg_Data));
+    memset(dwg_data, 0, sizeof(Dwg_Data));
     return (jlong)(intptr_t)dwg_data;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_save(JNIEnv *env, jobject obj, jlong ref, jstring filename) {
-    DWG_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_saveNative(JNIEnv *env, jobject obj, jlong ref, jstring filename) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    dwg_data->header.version = R_2000;
     const char *file = (*env)->GetStringUTFChars(env, filename, NULL);
     jint ret = dwg_write_file(file, dwg_data);
     (*env)->ReleaseStringUTFChars(env, filename, file);
+    dwg_free(dwg_data);
     return ret;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_open(JNIEnv *env, jclass clazz, jstring filename) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getBlockHeaderNative(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    int error = 0;
+    Dwg_Object_BLOCK_HEADER *hdr = dwg_get_block_header(dwg_data, &error);
+    return (jlong)(intptr_t)hdr;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_openNative(JNIEnv *env, jclass clazz, jstring filename) {
     Dwg_Data *dwg_data = (Dwg_Data *) malloc(sizeof(Dwg_Data));
     const char *file = (*env)->GetStringUTFChars(env, filename, NULL);
     memset(dwg_data, 0, sizeof(Dwg_Data));
@@ -36,6 +89,28 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_open(JNIEnv *env, jclass c
     (*env)->ReleaseStringUTFChars(env, filename, file);
     return (jlong)(intptr_t)dwg_data;
 }
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_Dwg_setCodePageNative(JNIEnv *env, jobject job, jlong ref, jstring code_page) {
+    Dwg_Data *dwg_data = (Dwg_Data *)(intptr_t)ref;
+    const char *code = (*env)->GetStringUTFChars(env, code_page, NULL);
+    dwg_data->header_vars.DWGCODEPAGE = strdup(code);
+    (*env)->ReleaseStringUTFChars(env, code_page, code);
+}
+
+
+// parent entity
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setColorNative(JNIEnv *env, jobject job, jlong ref, jint color) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    entity->color.index = color;
+    entity->color.flag = 0;
+}
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_ParentEntity_setLinewtNative(JNIEnv *env, jobject job, jlong ref, jint linewt) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    entity->linewt = dxf_find_lweight(linewt);
+}
+// end
+
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Point_setXNative(JNIEnv *env, jobject obj, jlong ref, jdouble x) {
     Dwg_Entity_POINT *point_entity = (Dwg_Entity_POINT*)(intptr_t)ref;
@@ -88,6 +163,12 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env,
     BITCODE_3BD e = {.x = x, .y = y, .z = z};
     line_entity->end = e;
 }
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentEntityNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
+    return (intptr_t)line_entity->parent;
+}
+
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addPointNative(JNIEnv *env, jobject obj, jlong ref,
 jdouble x, jdouble y, jdouble z
