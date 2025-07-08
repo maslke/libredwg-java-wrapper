@@ -12,9 +12,7 @@ import io.github.maslke.dwg.common.Vector3d;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Line {
-    private long ref;
-    private long header;
+public class Line extends Common {
     private Point3d start;
     private Point3d end;
     private Vector3d extrusion;

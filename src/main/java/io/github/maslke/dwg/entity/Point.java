@@ -10,9 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Point {
-    private long ref;
-    private long header;
+public class Point extends Common {
     private double x;
     private double y;
     private double z;
@@ -54,6 +52,10 @@ public class Point {
         setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
     }
 
+    public Parent getParent() {
+        return new Parent(this.getParentNative(this.ref));
+    }
+
     public native void setXNative(long ref, double x);
 
     public native void setYNative(long ref, double y);
@@ -63,4 +65,6 @@ public class Point {
     public native void setThicknessNative(long ref, double thickness);
 
     public native void setExtrusionNative(long ref, double x, double y, double z);
+
+    private native long getParentNative(long ref);
 }

@@ -1,6 +1,9 @@
 package io.github.maslke.dwg;
 
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.entity.Arc;
+import io.github.maslke.dwg.entity.Circle;
+import io.github.maslke.dwg.entity.Ellipse;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
@@ -24,8 +27,15 @@ public class DwgBlockHeader {
         return pointEntity;
     }
 
-    public Text addText(String text, Point3d point) {
-        return null;
+    public Text addText(String textValue, Point3d point, double height)
+    {
+        if (point == null || textValue == null) {
+            return null;
+        }
+        Text text = new Text(this.ref, textValue, point, height);
+        long reference = this.addTextNative(this.ref, textValue, point, height);
+        text.setRef(reference);
+        return text;
     }
 
     public Line addLine(Point3d start, Point3d end) {
@@ -38,6 +48,35 @@ public class DwgBlockHeader {
         return lineEntity;
     }
 
-    public native long addPointNative(long ref, double x, double y, double z);
-    public native long addLineNative(long ref, Point3d start, Point3d end);
+    public Circle addCircle(Point3d center, double radius) {
+        Circle circle = new Circle(this.ref, center, radius);
+        long reference = this.addCircleNative(this.ref, center, radius);
+        circle.setRef(reference);
+        return circle;
+    }
+
+    public Arc addArc(Point3d center, double radius, double startAngle, double endAngle) {
+        Arc arc = new Arc(this.ref, center, radius, startAngle, endAngle);
+        long reference = this.addArcNative(this.ref, center, radius, startAngle, endAngle);
+        arc.setRef(reference);
+        return arc;
+    }
+
+    public Ellipse addEllipse(Point3d center, double majorAxis, double axisRatio) {
+        Ellipse ellipse = new Ellipse(this.ref, center, majorAxis, axisRatio);
+        long reference = this.addEllipseNative(this.ref, center, majorAxis, axisRatio);
+        ellipse.setRef(reference);
+        return ellipse;
+    }
+
+    private native long addPointNative(long ref, double x, double y, double z);
+    private native long addLineNative(long ref, Point3d start, Point3d end);
+
+    private native long addTextNative(long ref, String textValue, Point3d insPt, double height);
+
+    private native long addCircleNative(long ref, Point3d center, double radius);
+
+    private native long addArcNative(long ref, Point3d center, double radius, double startAngle, double endAngle);
+
+    private native long addEllipseNative(long ref, Point3d center, double majorAxis, double axisRatio);
 }

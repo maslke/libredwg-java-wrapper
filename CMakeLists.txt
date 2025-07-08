@@ -12,6 +12,10 @@ include_directories(
 include_directories("/usr/local/include")
 link_directories("/usr/local/lib")
 
-add_library(dwg_java SHARED native/dwg.c)
+file(GLOB ENTITY_SOURCES "${PROJECT_SOURCE_DIR}/native/entity/*.c")
+
+add_library(dwg_java SHARED native/dwg.c  ${ENTITY_SOURCES})
 
 target_link_libraries(dwg_java redwg cjson m)
+
+

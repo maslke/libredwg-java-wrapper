@@ -6,10 +6,14 @@ import io.github.maslke.dwg.common.Point3d;
 
 @Getter
 @Setter
-public class Insert {
-    private long ref;
-    private long header;
+public class Insert extends Common {
     private String blockName;
     private Point3d insertPoint;
     private double rotation;
+
+    public Parent getParent() {
+        return new Parent(this.getParentNative(this.ref));
+    }
+
+    private native long getParentNative(long ref);
 }

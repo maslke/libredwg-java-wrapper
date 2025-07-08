@@ -7,7 +7,11 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Lwpolyline {
-    private long ref;
-    private long header;
+public class Lwpolyline extends Common {
+
+    public Parent getParent() {
+        return new Parent(this.getParentNative(this.ref));
+    }
+
+    private native long getParentNative(long ref);
 }

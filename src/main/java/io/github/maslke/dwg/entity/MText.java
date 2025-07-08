@@ -5,7 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MText {
-    private long ref;
-    private long header;
+public class MText extends Common {
+
+    public Parent getParent() {
+        return new Parent(this.getParentNative(this.ref));
+    }
+
+    private native long getParentNative(long ref);
 }
