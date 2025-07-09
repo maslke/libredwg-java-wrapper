@@ -6,8 +6,10 @@
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStartNative(JNIEnv *env, jobject obj, jlong ref, jobject start);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv *env, jobject obj, jlong ref, jobject end);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStartNative(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThicknessNative(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus

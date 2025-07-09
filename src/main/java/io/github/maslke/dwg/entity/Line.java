@@ -37,8 +37,11 @@ public class Line extends Common {
     }
 
     public void setExtrusion(Vector3d extrusion) {
+        if (extrusion == null) {
+            return;
+        }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion);
+        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
     }
 
     public void setThickness(double thickness) {
@@ -54,7 +57,7 @@ public class Line extends Common {
 
     public native void setStartNative(long ref, Point3d start);
     public native void setEndNative(long ref, Point3d end);
-    public native void setExtrusionNative(long ref, Vector3d extrusion);
+    public native void setExtrusionNative(long ref, double x, double y, double z);
     public native void setThicknessNative(long ref, double thickness);
 
     public native long getParentNative(long ref);

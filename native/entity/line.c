@@ -38,6 +38,17 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv
     line_entity->end = e;
 }
 
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThickness(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
+    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
+    line_entity->thickness = thickness;
+}
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusion(JNIEnv *env, jobject, jlong ref, jdouble x, jdouble y, jdouble z) {
+    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
+    BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
+    line_entity->extrusion = extrusion;
+}
+
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     return (intptr_t)line_entity->parent;
