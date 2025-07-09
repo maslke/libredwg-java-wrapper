@@ -1,6 +1,14 @@
 package io.github.maslke.dwg.obj;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class DwgColor {
+    private long ref;
     private int index;
     private int flag;
     private int raw;
@@ -8,7 +16,7 @@ public class DwgColor {
     private int method;
     private String name;
     private String bookName;
-    // TODO handle
+    private DwgObjectRef handle;
     private int alphaRaw;
     private short alphaType;
     private int alpha;

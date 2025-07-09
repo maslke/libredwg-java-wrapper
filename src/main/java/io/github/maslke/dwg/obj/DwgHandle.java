@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Vport {
+public class DwgHandle {
     private long ref;
-    private double ratio;
-    
+    private short code;
+    private short size;
+    private long value;
+    private short isGlobal;
 }
