@@ -12,4 +12,13 @@ public class DwgObjectRef {
     private DwgHandle handleRef;
     private long absoluteRef;
     private short r11Idx;
+
+
+    public void setRef(long ref) {
+        this.ref = ref;
+        this.absoluteRef = this.getAbsoluteRefNative(ref);
+    }
+
+    private native long getAbsoluteRefNative(long ref);
+
 }

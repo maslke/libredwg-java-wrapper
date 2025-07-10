@@ -8,7 +8,9 @@ import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Parent;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.support.HorizAlignment;
+import io.github.maslke.dwg.support.TableType;
 import io.github.maslke.dwg.support.VertAlignment;
 
 import java.nio.file.Files;
@@ -23,6 +25,8 @@ public class Test {
         String path2 = "/mnt/c/Users/maslke/Desktop/seed_2.dwg";
         deleteFile(path2);
 
+        DwgObjectRef style = dwg.findTableHandle("1", TableType.STYLE);
+
         DwgBlockHeader dwgBlockHeader = dwg.getBlockHeader();
         Point3d start = new Point3d(100, 100, 0);
         Point3d end = new Point3d(200, 200, 0);
@@ -31,13 +35,14 @@ public class Test {
         parent.setColor(3);
         parent.setLinewt(50);
 
-        Text text = dwgBlockHeader.addText("test", new Point3d(150, 150, 0), 2.5);
+        Text text = dwgBlockHeader.addText("This is libredwg", new Point3d(150, 150, 0), 2.5);
 //        text.setRotation(90);
         text.setAlignmentPt(new Point2d(150, 150));
         text.setHorizAlignment(HorizAlignment.CENTER);
         text.setVertAlignment(VertAlignment.BOTTOM);
+        text.setStyle(dwg.addHandleRef(5, style.getAbsoluteRef(), 0));
 //        text.setWidthFactor(1);
-        text.setTextValue("This is libredwg java wrapper");
+        text.setTextValue("汉字测试");
 
         Circle circle = dwgBlockHeader.addCircle(new Point3d(150, 150, 0), 30);
         Arc arc = dwgBlockHeader.addArc(new Point3d(300, 300, 0), 100, 0, 1.57);

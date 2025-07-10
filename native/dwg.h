@@ -12,6 +12,9 @@ JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_openNative(JNIEnv *, jcl
 JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_saveNative(JNIEnv *, jobject, jlong, jstring);
 JNIEXPORT void    JNICALL Java_io_github_maslke_dwg_Dwg_setCodePageNative(JNIEnv *, jobject, jlong, jstring);
 JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getBlockHeaderNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_findTableHandleNative(JNIEnv *, jobject, jlong, jstring, jstring);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_addHandleRefNative(JNIEnv *, jobject, jlong, jint, jlong, jlong);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getVportNative(JNIEnv *, jobject, jstring);
 // end dwg
 
 // parent entity
@@ -27,6 +30,8 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addCircleNative
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addArcNative(JNIEnv *, jobject, jlong, jobject, jdouble, jdouble, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addEllipseNative(JNIEnv *, jobject, jlong, jobject, jdouble, jdouble);
 
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

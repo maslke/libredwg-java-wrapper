@@ -1,5 +1,7 @@
 package io.github.maslke.dwg;
 
+import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectVport;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,6 +56,27 @@ public final class Dwg {
         return this.getVersionNative();
     }
 
+    public DwgObjectRef findTableHandle(String name, String table) {
+        long handle = this.findTableHandleNative(this.ref, name, table);
+        DwgObjectRef ref = new DwgObjectRef();
+        ref.setRef(handle);
+        return ref;
+    }
+
+    public DwgObjectRef addHandleRef(int code, long value, long obj) {
+        long handle = this.addHandleRefNative(this.ref, code, value, obj);
+        DwgObjectRef ref = new DwgObjectRef();
+        ref.setRef(handle);
+        return ref;
+    }
+
+    public DwgObjectVport getVport(String portName) {
+        long handle = this.getVportNative(this.ref, portName);
+        DwgObjectVport vport = new DwgObjectVport();
+        vport.setRef(handle);
+        return vport;
+    }
+
     private native String getVersionNative();
 
     private static native long createNative();
@@ -66,4 +89,9 @@ public final class Dwg {
 
     private native void setCodePageNative(long ref, String codePage);
 
+    private native long findTableHandleNative(long ref, String name, String table);
+
+    private native long addHandleRefNative(long ref, int code, long value, long obj);
+
+    private native long getVportNative(long ref, String name);
 }

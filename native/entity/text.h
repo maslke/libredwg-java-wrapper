@@ -19,6 +19,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setWidthFactorNativ
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setObliqueAngleNative(JNIEnv *, jobject, jlong, jdouble);
 JNIEXPORT long JNICALL Java_io_github_maslke_dwg_entity_Text_getParentNative(JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setStyleNative(JNIEnv *, jobject, jlong, jlong);
 
 #ifdef __cplusplus
 }

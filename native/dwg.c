@@ -55,6 +55,30 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_Dwg_setCodePageNative(JNIEnv *e
     (*env)->ReleaseStringUTFChars(env, code_page, code);
 }
 
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_findTableHandleNative(JNIEnv *env, jobject job, jlong ref, jstring name, jstring table) {
+    Dwg_Data *dwg_data = (Dwg_Data *)(intptr_t)ref;
+    const char *name_str = (*env)->GetStringUTFChars(env, name, NULL);
+    const char *table_str = (*env)->GetStringUTFChars(env, table, NULL);
+    Dwg_Object_Ref *table_entity = dwg_find_tablehandle(dwg_data, name_str, table_str);
+    (*env)->ReleaseStringUTFChars(env, name, name_str);
+    (*env)->ReleaseStringUTFChars(env, table, table_str);
+    return (jlong)(intptr_t)table_entity;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_addHandleRefNative(JNIEnv *env, jobject job, jlong ref, jint code, jlong value, jlong obj) {
+    Dwg_Data *dwg_data = (Dwg_Data *)(intptr_t)ref;
+    Dwg_Object *obj_entity = NULL;
+    if (obj != 0) {
+        obj_entity = (Dwg_Object *)(intptr_t)obj;
+    }
+    Dwg_Object_Ref *ref_entity = dwg_add_handleref(dwg_data, code, value, obj_entity);
+    return (jlong)(intptr_t)ref_entity;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getVportNative(JNIEnv *env, jobject job, jlong ref, jstring name) {
+    // TODO
+}
+
 
 // parent entity
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *env, jobject job, jlong ref, jint color) {
@@ -67,8 +91,8 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(J
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     entity->linewt = dxf_find_lweight(linewt);
 }
-// end
 
+// end
 
 // Dwg block header
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addPointNative(JNIEnv *env, jobject obj, jlong ref,
@@ -162,6 +186,8 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addEllipseNativ
     return (jlong)(intptr_t)ellipse_entity;
 }
 
-//
-
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Object_Ref *ref_entity = (Dwg_Object_Ref *)(intptr_t)ref;
+    return (jlong)(intptr_t)ref_entity->absolute_ref;
+}
 
