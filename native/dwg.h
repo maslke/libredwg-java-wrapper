@@ -22,14 +22,15 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JN
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *, jobject, jlong, jstring);
 // end
 
-
+// block header
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addPointNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addLineNative(JNIEnv *, jobject, jlong, jobject, jobject);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addTextNative(JNIEnv *, jobject, jlong, jstring, jobject, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addCircleNative(JNIEnv *, jobject, jlong, jobject, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addArcNative(JNIEnv *, jobject, jlong, jobject, jdouble, jdouble, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addEllipseNative(JNIEnv *, jobject, jlong, jobject, jdouble, jdouble);
-
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addInsertNative(JNIEnv *, jobject, jlong, jobject, jstring, jdouble, jdouble, jdouble, jdouble);
+// end block header
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *, jobject, jlong);
 

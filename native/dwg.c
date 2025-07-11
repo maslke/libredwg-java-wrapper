@@ -206,6 +206,24 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addEllipseNativ
     return (jlong)(intptr_t)ellipse_entity;
 }
 
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_DwgBlockHeader_addInsertNative(JNIEnv *env, jobject job, jlong ref, jobject insert_pt, jstring block_name, jdouble scale_x, jdouble scale_y, jdouble scale_z, jdouble rotation) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    jclass clazz = (*env)->GetObjectClass(env, insert_pt);
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, insert_pt, fidX);
+    jdouble y = (*env)->GetDoubleField(env, insert_pt, fidY);
+    jdouble z = (*env)->GetDoubleField(env, insert_pt, fidZ);
+    dwg_point_3d ins_pt = {.x = x, .y = y, .z = z};
+    const char* chars = (*env)->GetStringUTFChars(env, block_name, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    Dwg_Entity_INSERT *insert_entity = dwg_add_INSERT(hdr, &ins_pt, chars, scale_x, scale_y, scale_z, rotation);
+    (*env)->ReleaseStringUTFChars(env, block_name, chars);
+    return (jlong)(intptr_t)insert_entity;
+}
+
 // end block header
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *env, jobject obj, jlong ref) {
