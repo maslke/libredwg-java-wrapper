@@ -2,6 +2,7 @@ package io.github.maslke.dwg;
 
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.common.Vector2d;
 import io.github.maslke.dwg.entity.Arc;
 import io.github.maslke.dwg.entity.Circle;
 import io.github.maslke.dwg.entity.Line;
@@ -9,6 +10,7 @@ import io.github.maslke.dwg.entity.Parent;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectVport;
 import io.github.maslke.dwg.support.HorizAlignment;
 import io.github.maslke.dwg.support.TableType;
 import io.github.maslke.dwg.support.VertAlignment;
@@ -51,6 +53,15 @@ public class Test {
         arc.getParent().setColor(4);
 
         dwgBlockHeader.addEllipse(new Point3d(120, 120, 0), 100, 0.8);
+
+        DwgObjectVport vport = dwg.getVport("*Active");
+        if (vport.getRef() != 0) {
+            vport.setViewCtr(new Vector2d(200, 200));
+            vport.setViewTarget(new Point3d(200, 200, 0));
+            vport.setViewSize(400);
+            vport.setAspectRatio(16.0 / 9);
+            vport.setViewWidth(vport.getAspectRatio() * vport.getViewSize());
+        }
 
         if (dwg.save(path2)) {
             System.out.println("save successfully.");

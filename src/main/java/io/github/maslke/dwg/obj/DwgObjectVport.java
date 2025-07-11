@@ -60,7 +60,25 @@ public class DwgObjectVport {
 
     public void setAspectRatio(double aspectRatio) {
         this.aspectRatio = aspectRatio;
-        this.setAspectRatio(this.ref, this.aspectRatio);
+        this.setAspectRatioNative(this.ref, this.aspectRatio);
+    }
+
+    public void setViewTarget(Point3d viewTarget) {
+        if (viewTarget == null) {
+            return;
+        }
+        this.viewTarget = viewTarget;
+        this.setViewTargetNative(this.ref, this.viewTarget.getX(), this.viewTarget.getY(), this.viewTarget.getX());
+    }
+
+    public void setContrast(double contrast) {
+        this.contrast = contrast;
+        this.setContrastNative(this.ref, this.contrast);
+    }
+
+    public void setBrightness(double brightness) {
+        this.brightness = brightness;
+        this.setBrightnessNative(this.ref, this.brightness);
     }
 
     private native void setViewCtrNative(long ref, double x, double y);
@@ -68,6 +86,12 @@ public class DwgObjectVport {
     private native void setViewSizeNative(long ref, double viewSize);
     private native void setViewWidthNative(long ref, double viewWidth);
 
-    private native void setAspectRatio(long ref, double aspectRatio);
+    private native void setAspectRatioNative(long ref, double aspectRatio);
+
+    private native void setViewTargetNative(long ref, double x, double y, double z);
+
+    private native void setContrastNative(long ref, double contrast);
+
+    private native void setBrightnessNative(long ref, double brightness);
 
 }
