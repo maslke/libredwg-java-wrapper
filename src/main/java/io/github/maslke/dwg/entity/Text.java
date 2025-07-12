@@ -3,6 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectRef;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Text extends Common {
     private double widthFactor;
     private int horizAlignment;
     private int vertAlignment;
+    private DwgObjectRef style;
     private Parent parent;
 
     public Text(long header, String textValue, Point3d insertPoint, double height) {
@@ -103,6 +105,14 @@ public class Text extends Common {
         this.setObliqueAngleNative(this.ref, this.obliqueAngle);
     }
 
+    public void setStyle(DwgObjectRef style) {
+        if (style == null || style.getRef() == 0) {
+            return;
+        }
+        this.style = style;
+        this.setStyleNative(this.ref, this.style.getRef());
+    }
+
     public Parent getParent() {
         return new Parent(this.getParentNative(this.ref));
     }
@@ -132,4 +142,6 @@ public class Text extends Common {
     private native void setObliqueAngleNative(long ref, double obliqueAngle);
 
     private native long getParentNative(long ref);
+
+    private native void setStyleNative(long ref, long style);
 }

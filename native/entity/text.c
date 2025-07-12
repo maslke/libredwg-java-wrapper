@@ -82,3 +82,9 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Text_getParentNative(JN
     Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
     return (intptr_t)text_entity->parent;
 }
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setStyleNative(JNIEnv *env, jobject job, jlong ref, jlong style) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    Dwg_Object_Ref *style_ref = (Dwg_Object_Ref*)(intptr_t)style;
+    text_entity->style = style_ref;
+}
