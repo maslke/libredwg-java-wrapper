@@ -3,7 +3,7 @@
 #include "arc.h"
 #include <dwg_api.h>
 #include <string.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
 #include <ctype.h>

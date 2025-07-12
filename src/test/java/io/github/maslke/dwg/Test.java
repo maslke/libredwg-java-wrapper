@@ -6,8 +6,8 @@ import io.github.maslke.dwg.entity.Arc;
 import io.github.maslke.dwg.entity.Circle;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Parent;
-import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.support.HorizAlignment;
 import io.github.maslke.dwg.support.VertAlignment;
 
@@ -23,7 +23,7 @@ public class Test {
         String path2 = "/mnt/c/Users/maslke/Desktop/seed_2.dwg";
         deleteFile(path2);
 
-        DwgBlockHeader dwgBlockHeader = dwg.getBlockHeader();
+        DwgObjectBlockHeader dwgBlockHeader = dwg.getObjectBlockHeader();
         Point3d start = new Point3d(100, 100, 0);
         Point3d end = new Point3d(200, 200, 0);
         Line line = dwgBlockHeader.addLine(start, end);

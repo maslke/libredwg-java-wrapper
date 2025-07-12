@@ -1,5 +1,6 @@
-package io.github.maslke.dwg;
+package io.github.maslke.dwg.obj;
 
+import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.entity.Arc;
 import io.github.maslke.dwg.entity.Circle;
@@ -12,8 +13,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DwgBlockHeader {
+public class DwgObjectBlockHeader {
     private Dwg dwg;
+    private String name;
     private long ref;
 
 
