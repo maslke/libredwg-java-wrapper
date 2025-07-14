@@ -29,9 +29,18 @@ public class Block extends Common {
         this.setXrefPnameNative(this.ref, this.xrefPname);
     }
 
+    public void setBasePt(Point2d basePt) {
+        if (basePt == null) {
+            return;
+        }
+        this.basePt = basePt;
+        this.setBasePtNative(this.ref, this.basePt.getX(), this.basePt.getY());
+    }
 
     private native long getParentNative(long ref);
 
     private native void setNameNative(long ref, String name);
     private native void setXrefPnameNative(long ref, String xrefPname);
+
+    private native void setBasePtNative(long ref, double x, double y);
 }

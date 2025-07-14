@@ -1,10 +1,13 @@
 package io.github.maslke.dwg.obj;
 
 import io.github.maslke.dwg.Dwg;
+import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.entity.Arc;
+import io.github.maslke.dwg.entity.Block;
 import io.github.maslke.dwg.entity.Circle;
 import io.github.maslke.dwg.entity.Ellipse;
+import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Point;
@@ -80,6 +83,27 @@ public class DwgObjectBlockHeader {
         return insert;
     }
 
+    public Block addBlock(String name) {
+        Block block = new Block();
+        block.setRef(this.addBlockNative(this.ref, name));
+        return block;
+    }
+
+    public Block addBlock(String name, Point2d basePoint) {
+        Block block = this.addBlock(name);
+        if (basePoint != null) {
+            block.setBasePt(basePoint);
+        }
+        return block;
+    }
+
+    public EndBlk addEndBlk() {
+        EndBlk endBlk = new EndBlk();
+        endBlk.setHeader(this.ref);
+        endBlk.setRef(this.addEndBlkNative(this.ref));
+        return endBlk;
+    }
+
     private native long addPointNative(long ref, double x, double y, double z);
     private native long addLineNative(long ref, Point3d start, Point3d end);
 
@@ -92,4 +116,8 @@ public class DwgObjectBlockHeader {
     private native long addEllipseNative(long ref, Point3d center, double majorAxis, double axisRatio);
 
     private native long addInsertNative(long ref, Point3d insPt, String blockName, double scaleX, double scaleY, double scaleZ, double rotation);
+
+    private native long addBlockNative(long ref, String name);
+
+    private native long addEndBlkNative(long ref);
 }

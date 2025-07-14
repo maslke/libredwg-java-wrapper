@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Insert extends Common {
     private Point3d insPt;
-    private short scaleFlag;
+    private int scaleFlag;
     private Point3d scale;
     private double rotation;
     private Vector3d extrusion;
@@ -40,7 +40,7 @@ public class Insert extends Common {
         this.setInsPtNative(this.ref, this.insPt.getX(), this.insPt.getY(), this.insPt.getZ());
     }
 
-    public void setScaleFlag(short scaleFlag) {
+    public void setScaleFlag(int scaleFlag) {
         this.scaleFlag = scaleFlag;
         this.setScaleFlagNative(this.ref, this.scaleFlag);
     }
@@ -71,18 +71,17 @@ public class Insert extends Common {
         this.setHasAttribsNative(this.ref, this.hasAttribs);
     }
 
-
-    private native void setInsPtNative(long ref, double x, double y, double z);
-
-    private native void setScaleFlagNative(long ref, short scaleFlag);
-    private native void setScaleNative(long ref, double scaleX, double scaleY, double scaleZ);
-    private native void setRotationNative(long ref, double rotation);
-    private native void setExtrusionNative(long ref, double x, double y, double z);
-    private native void setHasAttribsNative(long ref, short hasAttribs);
-
     public Parent getParent() {
         return new Parent(this.getParentNative(this.ref));
     }
 
+
+    private native void setInsPtNative(long ref, double x, double y, double z);
+
+    private native void setScaleFlagNative(long ref, int scaleFlag);
+    private native void setScaleNative(long ref, double scaleX, double scaleY, double scaleZ);
+    private native void setRotationNative(long ref, double rotation);
+    private native void setExtrusionNative(long ref, double x, double y, double z);
+    private native void setHasAttribsNative(long ref, short hasAttribs);
     private native long getParentNative(long ref);
 }

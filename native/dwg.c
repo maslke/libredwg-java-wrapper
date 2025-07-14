@@ -40,8 +40,13 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getObjectBlockHeaderNative
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_createObjectBlockHeaderNative(JNIEnv *env, jobject job, jlong ref, jstring name) {
-    // TODO
-    return NULL;
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    Dwg_Object_BLOCK_HEADER *block_header = dwg_add_BLOCK_HEADER(dwg_data, chars);
+    (*env)->ReleaseStringUTFChars(env, name, chars);
+    return (jlong)(intptr_t)block_header;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_openNative(JNIEnv *env, jclass clazz, jstring filename) {
@@ -227,6 +232,22 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addIn
     Dwg_Entity_INSERT *insert_entity = dwg_add_INSERT(hdr, &ins_pt, chars, scale_x, scale_y, scale_z, rotation);
     (*env)->ReleaseStringUTFChars(env, block_name, chars);
     return (jlong)(intptr_t)insert_entity;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addBlockNative(JNIEnv *env, jobject obj, jlong ref, jstring name) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    Dwg_Entity_BLOCK *block = dwg_add_BLOCK(hdr, chars);
+    (*env)->ReleaseStringUTFChars(env, name, chars);
+    return (jlong)(intptr_t)block;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_Dwg_obj_DwgObjectBlockHeader_addEndBlk(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    Dwg_Entity_ENDBLK *endblk_entity = dwg_add_ENDBLK(hdr);
+    return (jlong)(intptr_t)endblk_entity;
 }
 
 // end block header
