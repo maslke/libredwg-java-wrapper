@@ -27,7 +27,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setThicknessNativ
     circle_entity->thickness = thickness;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusion(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusionNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
     Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
     BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
     circle_entity->extrusion = extrusion;
@@ -36,4 +36,50 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusion(JNIE
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Circle_getParentNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
     return (intptr_t)circle_entity->parent;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getCenterNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, circle_entity->center.x);
+    (*env)->SetDoubleField(env, pointObj, yField, circle_entity->center.y);
+    (*env)->SetDoubleField(env, pointObj, zField, circle_entity->center.z);
+    return pointObj;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getRadiusNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
+    return circle_entity->radius;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getThicknessNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
+    return circle_entity->thickness;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, circle_entity->extrusion.x);
+    (*env)->SetDoubleField(env, pointObj, yField, circle_entity->extrusion.y);
+    (*env)->SetDoubleField(env, pointObj, zField, circle_entity->extrusion.z);
+    return pointObj;
 }

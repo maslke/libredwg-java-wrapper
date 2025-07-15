@@ -61,4 +61,12 @@ public class Line extends Common {
     public native void setThicknessNative(long ref, double thickness);
 
     public native long getParentNative(long ref);
+
+    public native Point3d getStartNative(long ref);
+
+    public native Point3d getEndNative(long ref);
+
+    public native Vector3d getExtrusionNative(long ref);
+
+    public native double getThicknessNative(long ref);
 }

@@ -17,8 +17,7 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersionNative(JNIEnv 
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_createNative(JNIEnv *env, jclass clazz) {
-    Dwg_Data *dwg_data = (Dwg_Data *) malloc(sizeof(Dwg_Data));
-    memset(dwg_data, 0, sizeof(Dwg_Data));
+    Dwg_Data *dwg_data = dwg_new_Document (R_2000, 0, 0);
     return (jlong)(intptr_t)dwg_data;
 }
 
@@ -36,6 +35,12 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getObjectBlockHeaderNative
     Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
     int error = 0;
     Dwg_Object_BLOCK_HEADER *hdr = dwg_get_block_header(dwg_data, &error);
+    if (hdr == NULL) {
+      Dwg_Object *mspace = dwg_model_space_object (dwg_data);
+      if (mspace != NULL) {
+        hdr = mspace->tio.object->tio.BLOCK_HEADER;
+      }
+    }
     return (jlong)(intptr_t)hdr;
 }
 
@@ -120,6 +125,11 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JN
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *env, jobject job, jlong ref, jint linewt) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     entity->linewt = dxf_find_lweight(linewt);
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwgNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    return (jlong)(intptr_t)entity->dwg;
 }
 
 // end parent

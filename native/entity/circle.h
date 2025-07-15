@@ -12,6 +12,11 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setThicknessNativ
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Circle_getParentNative(JNIEnv *, jobject, jlong);
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getCenterNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getRadiusNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getThicknessNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getExtrusionNative(JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

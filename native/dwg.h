@@ -20,8 +20,9 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getVportNative(JNIEnv *, j
 // end dwg
 
 // parent entity
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *, jobject, jlong, jint);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *, jobject, jlong, jstring);
+JNIEXPORT void  JNICALL  Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void  JNICALL  Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *, jobject, jlong, jstring);
+JNIEXPORT jlong JNICALL  Java_io_github_maslke_dwg_entity_parent_getDwgnative(JNIEnv *, jobject, jlong);
 // end
 
 

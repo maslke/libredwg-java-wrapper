@@ -1,5 +1,6 @@
 package io.github.maslke.dwg.entity;
 
+import io.github.maslke.dwg.Dwg;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,15 @@ public class Parent {
         this.ltype = ltype;
         this.setLtypeNative(this.ref, this.ltype);
     }
+
+    public Dwg getDwgReference() {
+        long reference = this.getDwgNative(this.ref);
+        Dwg dwg = new Dwg();
+        dwg.setRef(ref);
+        return dwg;
+    }
+
+    private native long getDwgNative(long ref);
 
     private native void setColorNative(long ref, int color);
 

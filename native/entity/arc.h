@@ -16,6 +16,13 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setStartAngleNative(
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setEndAngleNative(JNIEnv *, jobject, jlong, jdouble);
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Arc_getParentNative(JNIEnv *, jobject, jlong);
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getCenterNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getRadiusNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getThicknessNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getExtrusionNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getStartAngleNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getEndAngleNative(JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

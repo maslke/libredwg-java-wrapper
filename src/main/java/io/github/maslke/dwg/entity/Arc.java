@@ -77,4 +77,11 @@ public class Arc extends Common {
     private native void setEndAngleNative(long ref, double angle);
 
     private native long getParentNative(long ref);
+
+    public native Point3d getCenterNative(long ref);
+    public native double getRadiusNative(long ref);
+    public native double getThicknessNative(long ref);
+    public native Vector3d getExtrusionNative(long ref);
+    public native double getStartAngleNative(long ref);
+    public native double getEndAngleNative(long ref);
 }

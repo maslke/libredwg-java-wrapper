@@ -37,6 +37,7 @@ public class Test {
         parent.setColor(3);
         parent.setLinewt(50);
 
+
         Text text = dwgBlockHeader.addText("This is libredwg", new Point3d(150, 150, 0), 2.5);
 //        text.setRotation(90);
         text.setAlignmentPt(new Point2d(150, 150));

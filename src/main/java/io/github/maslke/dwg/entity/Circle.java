@@ -62,4 +62,12 @@ public class Circle extends Common {
 
     private native long getParentNative(long ref);
 
+    public native Point3d getCenterNative(long ref);
+
+    public native double getRadiusNative(long ref);
+
+    public native double getThicknessNative(long ref);
+
+    public native Vector3d getExtrusionNative(long ref);
+
 }

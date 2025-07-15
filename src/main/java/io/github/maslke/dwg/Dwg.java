@@ -18,7 +18,7 @@ public final class Dwg {
         System.loadLibrary("dwg_java");
     }
 
-    private Dwg() {
+    public Dwg() {
 
     }
 
