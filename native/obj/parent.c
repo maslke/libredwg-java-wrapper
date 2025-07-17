@@ -8,7 +8,6 @@
 #include <iconv.h>
 #include <ctype.h>
 #include <math.h>
-#include "cjson/cJSON.h"
 #include "helper.h"
 
 

@@ -8,7 +8,6 @@
 #include <iconv.h>
 #include <ctype.h>
 #include <math.h>
-#include "cjson/cJSON.h"
 #include "helper.h"
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *env, jobject obj, jlong ref) {

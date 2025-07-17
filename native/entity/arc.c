@@ -8,7 +8,6 @@
 #include <iconv.h>
 #include <ctype.h>
 #include <math.h>
-#include "cjson/cJSON.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setCenterNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;

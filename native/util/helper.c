@@ -1,6 +1,6 @@
 #include <jni.h>
 #include <stdio.h>
-#include "text.h"
+#include "helper.h"
 #include <dwg_api.h>
 #include <string.h>
 #include <stdlib.h>
@@ -8,7 +8,6 @@
 #include <iconv.h>
 #include <ctype.h>
 #include <math.h>
-#include "cjson/cJSON.h"
 
 
 // helper function

@@ -8,7 +8,6 @@
 #include <iconv.h>
 #include <ctype.h>
 #include <math.h>
-#include "cjson/cJSON.h"
 #include "helper.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_Dwg_entity_Block_setNameNative(JNIEnv *env, jobject obj, jlong ref, jstring name) {
