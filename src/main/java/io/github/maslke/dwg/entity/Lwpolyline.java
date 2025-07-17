@@ -4,6 +4,7 @@ import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.entity.component.LwpolylineWidth;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Lwpolyline extends Common {
 
     private int flag;
@@ -31,22 +33,31 @@ public class Lwpolyline extends Common {
 
     public void setFlag(int flag) {
         this.flag = flag;
-        this.setFlagNative(this.ref, this.flag);
+        if (this.ref > 0) {
+            this.setFlagNative(this.ref, this.flag);
+        }
     }
 
     public void setConstWidth(double constWidth) {
         this.constWidth = constWidth;
-        this.setConstWidthNative(this.ref, this.constWidth);
+        if (this.ref > 0) {
+            this.setConstWidthNative(this.ref, this.constWidth);
+        }
+
     }
 
     public void setElevation(double elevation) {
         this.elevation = elevation;
-        this.setElevationNative(this.ref, this.elevation);
+        if (this.ref > 0) {
+            this.setElevationNative(this.ref, this.elevation);
+        }
     }
 
     public void setThickness(double thickness) {
         this.thickness = thickness;
-        this.setThicknessNative(this.ref, this.thickness);
+        if (this.ref > 0) {
+            this.setThicknessNative(this.ref, this.thickness);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -54,47 +65,65 @@ public class Lwpolyline extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public void setNumPoints(int numPoints) {
         this.numPoints = numPoints;
-        this.setNumPointsNative(this.ref, this.numPoints);
+        if (this.ref > 0) {
+            this.setNumPointsNative(this.ref, this.numPoints);
+        }
     }
 
     public void setPoints(List<Point2d> points) {
         this.points = points;
-        this.setPointsNative(this.ref, this.points);
+        if (this.ref > 0) {
+            this.setPointsNative(this.ref, this.points);
+        }
     }
 
     public void setNumbulges(int numBulges) {
         this.numBulges = numBulges;
-        this.setNumBulgesNative(this.ref, this.numBulges);
+        if (this.ref > 0) {
+            this.setNumBulgesNative(this.ref, this.numBulges);
+        }
     }
 
     public void setBulges(List<Integer> bulges) {
         this.bulges = bulges;
-        this.setBulgesNative(this.ref, this.bulges);
+        if (this.ref > 0) {
+            this.setBulgesNative(this.ref, this.bulges);
+        }
     }
 
     public void setNumVertexids(int numVertexids) {
         this.numVertexids = numVertexids;
-        this.setNumVertexidsNative(this.ref, this.numVertexids);
+        if (this.ref > 0) {
+            this.setNumVertexidsNative(this.ref, this.numVertexids);
+        }
     }
 
     public void setVertexids(List<Integer> vertexids) {
         this.vertexids = vertexids;
-        this.setVertexidsNative(this.ref, this.vertexids);
+        if (this.ref > 0) {
+            this.setVertexidsNative(this.ref, this.vertexids);
+        }
     }
 
     public void setNumWidths(int numWidths) {
         this.numWidths = numWidths;
-        this.setNumWidthsNative(this.ref, this.numWidths);
+        if (this.ref > 0) {
+            this.setNumWidthsNative(this.ref, this.numWidths);
+        }
     }
 
     public void setWidths(List<LwpolylineWidth> widths) {
         this.widths = widths;
-        this.setWidthsNative(this.ref, this.widths);
+        if (this.ref > 0) {
+            this.setWidthsNative(this.ref, this.widths);
+        }
     }
 
 
@@ -104,28 +133,56 @@ public class Lwpolyline extends Common {
 
 
     private native void setFlagNative(long ref, int flag);
+
+    protected native int getFlagNative(long ref);
     private native void setConstWidthNative(long ref, double constWidth);
 
+    protected native double getConstWidthNative(long ref);
+
     private native void setElevationNative(long ref, double elevation);
+
+    protected native double getElevationNative(long ref);
+
     private native void setThicknessNative(long ref, double thickness);
+
+    protected native double getThicknessNative(long ref);
 
     private native void setExtrusionNative(long ref, double x, double y, double z);
 
+    protected native Vector3d getExtrusionNative(long ref);
+
     private native void setNumPointsNative(long ref, int numPoints);
+
+    protected native int getNumPointsNative(long ref);
 
     private native void setPointsNative(long ref, List<Point2d> points);
 
+    protected native List<Point2d> getPointsNative(long ref);
+
     private native void setNumBulgesNative(long ref, int numBulges);
+
+    protected native int getNumBulgesNative(long ref);
 
     private native void setBulgesNative(long ref, List<Integer> bulges);
 
+    protected native List<Integer> getBulgesNative(long ref);
+
     private native void setNumVertexidsNative(long ref, int numVertexids);
+
+
+    protected native int getNumVertexidsNative(long ref);
 
     private native void setVertexidsNative(long ref, List<Integer> vertexids);
 
+    protected native List<Integer> getVertexidsNative(long ref);
+
     private native void setNumWidthsNative(long ref, int numWidths);
 
+    protected native int getNumWidthsNative(long ref);
+
     private native void setWidthsNative(long ref, List<LwpolylineWidth> widths);
+
+    protected native List<LwpolylineWidth> getWidthsNative(long ref);
 
     private native long getParentNative(long ref);
 }

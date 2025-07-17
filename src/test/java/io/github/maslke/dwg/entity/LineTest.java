@@ -4,15 +4,18 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class LineTest {
+public class LineTest extends AbstractEntityTest {
 
-    private static final double TOLERANCE = 1e-3;
+
+    private Line line;
 
     private Line createLine() {
         Dwg dwg = Dwg.create();
@@ -22,9 +25,15 @@ public class LineTest {
         return hdr.addLine(start, end);
     }
 
+    @After
+    public void release() {
+        if (line != null) {
+            releaseDwg(line);
+        }
+    }
     @Test
-    public void testGetStart() {
-        Line line = createLine();
+    public void testStart() {
+        line = createLine();
         Point3d start = line.getStart();
         assertNotNull(start);
         assertEquals(0, start.getX(), TOLERANCE);
@@ -49,8 +58,8 @@ public class LineTest {
 
 
     @Test
-    public void testGetEnd() {
-        Line line = createLine();
+    public void testEnd() {
+        line = createLine();
 
         Point3d end = line.getEnd();
         assertNotNull(end);
@@ -74,12 +83,23 @@ public class LineTest {
     }
 
     @Test
-    public void testGetExtrusion() {
-        Line line = createLine();
+    public void testExtrusion() {
+        line = createLine();
+        assertNotNull(line);
+        assertNotEquals(0, line.getRef());
+        Vector3d defaultExtrusion = line.getExtrusionNative(line.getRef());
+        assertNotNull(defaultExtrusion);
+        assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
+        assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
+        assertEquals(1, defaultExtrusion.getZ(), TOLERANCE);
         Vector3d extrusion = new Vector3d(1, 0, 0);
         line.setExtrusion(extrusion);
-
         Vector3d extrusion2 = line.getExtrusionNative(line.ref);
+        assertNotNull(extrusion2);
+        assertEquals(1, extrusion2.getX(), TOLERANCE);
+        assertEquals(0, extrusion2.getY(), TOLERANCE);
+        assertEquals(0, extrusion2.getZ(), TOLERANCE);
+        extrusion2 = line.getExtrusion();
         assertNotNull(extrusion2);
         assertEquals(1, extrusion2.getX(), TOLERANCE);
         assertEquals(0, extrusion2.getY(), TOLERANCE);
@@ -87,11 +107,20 @@ public class LineTest {
     }
 
     @Test
-    public void testGetThickness() {
-        Line line = createLine();
+    public void testThickness() {
+        line = createLine();
         line.setThickness(2.5);
         double thickness = line.getThicknessNative(line.ref);
         assertEquals(2.5, thickness, TOLERANCE);
     }
 
+    @Test
+    public void testParent() {
+        line = createLine();
+        assertNotNull(line);
+        assertNotEquals(0, line.getRef());
+        Parent parent = line.getParent();
+        assertNotNull(parent);
+        assertNotEquals(0, parent.getRef());
+    }
 }

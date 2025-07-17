@@ -88,3 +88,108 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setStyleNative(JNIE
     Dwg_Object_Ref *style_ref = (Dwg_Object_Ref*)(intptr_t)style;
     text_entity->style = style_ref;
 }
+
+
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_entity_Text_getTextValueNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    char *chars = text_entity->text_value;
+    char utf_chars[256];
+    gbk_to_utf8(chars, utf_chars, sizeof(utf_chars));
+    return (*env)->NewStringUTF(env, utf_chars);
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getRotationNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->rotation;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getElevationNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->elevation;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getThicknessNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->thickness;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, text_entity->extrusion.x);
+    (*env)->SetDoubleField(env, pointObj, yField, text_entity->extrusion.y);
+    (*env)->SetDoubleField(env, pointObj, zField, text_entity->extrusion.z);
+    return pointObj;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getHeightNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->height;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getWidthFactorNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->width_factor;
+}
+
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Text_getHorizAlignmentNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->horiz_alignment;
+}
+
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Text_getVertAlignmentNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->vert_alignment;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getInsPtNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, text_entity->ins_pt.x);
+    (*env)->SetDoubleField(env, pointObj, yField, text_entity->ins_pt.y);
+    return pointObj;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getObliqueAngleNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    return text_entity->oblique_angle;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getAlignmentPtNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, text_entity->alignment_pt.x);
+    (*env)->SetDoubleField(env, pointObj, yField, text_entity->alignment_pt.y);
+    return pointObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getStyleNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_TEXT *text_entity = (Dwg_Entity_TEXT*)(intptr_t)ref;
+    Dwg_Object_Ref *style = text_entity->style;
+    return createDwgObjectRef(env, style);
+}

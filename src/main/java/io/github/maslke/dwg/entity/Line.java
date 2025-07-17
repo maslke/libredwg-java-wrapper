@@ -28,12 +28,16 @@ public class Line extends Common {
 
     public void setStart(Point3d start) {
         this.start = start;
-        this.setStartNative(this.ref, start);
+        if (this.ref > 0) {
+            this.setStartNative(this.ref, start);
+        }
     }
 
     public void setEnd(Point3d end) {
         this.end = end;
-        this.setEndNative(this.ref, end);
+        if (this.ref > 0) {
+            this.setEndNative(this.ref, end);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -41,12 +45,16 @@ public class Line extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public void setThickness(double thickness) {
         this.thickness = thickness;
-        this.setThicknessNative(this.ref, this.thickness);
+        if (this.ref > 0) {
+            this.setThicknessNative(this.ref, this.thickness);
+        }
     }
 
     public Parent getParent() {
@@ -62,11 +70,11 @@ public class Line extends Common {
 
     public native long getParentNative(long ref);
 
-    public native Point3d getStartNative(long ref);
+    protected native Point3d getStartNative(long ref);
 
-    public native Point3d getEndNative(long ref);
+    protected native Point3d getEndNative(long ref);
 
-    public native Vector3d getExtrusionNative(long ref);
+    protected native Vector3d getExtrusionNative(long ref);
 
-    public native double getThicknessNative(long ref);
+    protected native double getThicknessNative(long ref);
 }

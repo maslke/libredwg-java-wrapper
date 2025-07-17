@@ -30,17 +30,23 @@ public class Arc extends Common {
 
     public void setCenter(Point3d center) {
         this.center = center;
-        this.setCenterNative(this.ref, center.getX(), center.getY(), center.getZ());
+        if (this.ref > 0) {
+            this.setCenterNative(this.ref, center.getX(), center.getY(), center.getZ());
+        }
     }
 
     public void setRadius(double radius) {
         this.radius =radius;
-        this.setRadiusNative(this.ref, this.radius);
+        if (this.ref > 0) {
+            this.setRadiusNative(this.ref, this.radius);
+        }
     }
 
     public void setThickness(double thickness) {
         this.thickness = thickness;
-        this.setThicknessNative(this.ref, this.thickness);
+        if(this.ref > 0) {
+            this.setThicknessNative(this.ref, this.thickness);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -48,17 +54,23 @@ public class Arc extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public void setStartAngle(double angle) {
         this.startAngle = angle;
-        this.setStartAngleNative(this.ref, this.startAngle);
+        if (this.ref > 0) {
+            this.setStartAngleNative(this.ref, this.startAngle);
+        }
     }
 
     public void setEndAngle(double angle) {
         this.endAngle = angle;
-        this.setEndAngleNative(this.ref, this.endAngle);
+        if (this.ref > 0) {
+            this.setEndAngleNative(this.ref, this.endAngle);
+        }
     }
 
     public Parent getParent() {
@@ -78,10 +90,10 @@ public class Arc extends Common {
 
     private native long getParentNative(long ref);
 
-    public native Point3d getCenterNative(long ref);
-    public native double getRadiusNative(long ref);
-    public native double getThicknessNative(long ref);
-    public native Vector3d getExtrusionNative(long ref);
-    public native double getStartAngleNative(long ref);
-    public native double getEndAngleNative(long ref);
+    protected native Point3d getCenterNative(long ref);
+    protected native double getRadiusNative(long ref);
+    protected native double getThicknessNative(long ref);
+    protected native Vector3d getExtrusionNative(long ref);
+    protected native double getStartAngleNative(long ref);
+    protected native double getEndAngleNative(long ref);
 }

@@ -26,22 +26,30 @@ public class Point extends Common {
 
     public void setX(double x) {
         this.x = x;
-        setXNative(this.ref, this.x);
+        if (this.ref > 0) {
+            setXNative(this.ref, this.x);
+        }
     }
 
     public void setY(double y) {
         this.y = y;
-        setYNative(this.ref, this.y);
+        if (this.ref > 0) {
+            setYNative(this.ref, this.y);
+        }
     }
 
     public void setZ(double z) {
         this.z = z;
-        setZNative(this.ref, this.z);
+        if (this.ref > 0) {
+            setZNative(this.ref, this.z);
+        }
     }
 
     public void setThickness(double thickness) {
         this.thickness = thickness;
-        setThicknessNative(this.ref, this.thickness);
+        if (this.ref > 0) {
+            setThicknessNative(this.ref, this.thickness);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -49,7 +57,9 @@ public class Point extends Common {
             return;
         }
         this.extrusion = extrusion;
-        setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public Parent getParent() {
@@ -67,4 +77,14 @@ public class Point extends Common {
     public native void setExtrusionNative(long ref, double x, double y, double z);
 
     private native long getParentNative(long ref);
+
+    protected native double getXNative(long ref);
+
+    protected native double getYNative(long ref);
+
+    protected native double getZNative(long ref);
+
+    protected native Vector3d getExtrusionNative(long ref);
+
+    protected native double getThicknessNative(long ref);
 }

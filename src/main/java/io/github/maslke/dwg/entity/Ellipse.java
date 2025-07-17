@@ -34,12 +34,16 @@ public class Ellipse extends Common {
             return;
         }
         this.center = center;
-        this.setCenterNative(this.ref, this.center.getX(), this.center.getY(), this.center.getZ());
+        if (this.ref > 0) {
+            this.setCenterNative(this.ref, this.center.getX(), this.center.getY(), this.center.getZ());
+        }
     }
 
     public void setMajorAxis(double majorAxis) {
         this.majorAxis = majorAxis;
-        this.setMajorAxisNative(this.ref, this.majorAxis);
+        if (this.ref > 0) {
+            this.setMajorAxisNative(this.ref, this.majorAxis);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -47,22 +51,30 @@ public class Ellipse extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public void setAxisRatio(double axisRatio) {
         this.axisRatio = axisRatio;
-        this.setAxisRatioNative(this.ref, this.axisRatio);
+        if (this.ref > 0) {
+            this.setAxisRatioNative(this.ref, this.axisRatio);
+        }
     }
 
     public void setStartAngle(double angle) {
         this.startAngle = angle;
-        this.setStartAngleNative(this.ref, this.startAngle);
+        if (this.ref > 0) {
+            this.setStartAngleNative(this.ref, this.startAngle);
+        }
     }
 
     public void setEndAngle(double angle) {
         this.endAngle = angle;
-        this.setEndAngleNative(this.ref, this.endAngle);
+        if (this.ref > 0) {
+            this.setEndAngleNative(this.ref, this.endAngle);
+        }
     }
 
     public Parent getParent() {
@@ -77,4 +89,16 @@ public class Ellipse extends Common {
     private native void setAxisRatioNative(long ref, double ratio);
     private native void setStartAngleNative(long ref, double angle);
     private native void setEndAngleNative(long ref, double angle);
+
+    protected native double getStartAngleNative(long ref);
+
+    protected native double getEndAngleNative(long ref);
+
+    protected native Point3d getCenterNative(long ref);
+
+    protected native double getMajorAxisNative(long ref);
+
+    protected native Vector3d getExtrusionNative(long ref);
+
+    protected native double getAxisRatioNative(long ref);
 }

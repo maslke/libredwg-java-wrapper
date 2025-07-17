@@ -37,12 +37,16 @@ public class Insert extends Common {
             return;
         }
         this.insPt = insPt;
-        this.setInsPtNative(this.ref, this.insPt.getX(), this.insPt.getY(), this.insPt.getZ());
+        if (this.ref > 0) {
+            this.setInsPtNative(this.ref, this.insPt.getX(), this.insPt.getY(), this.insPt.getZ());
+        }
     }
 
     public void setScaleFlag(int scaleFlag) {
         this.scaleFlag = scaleFlag;
-        this.setScaleFlagNative(this.ref, this.scaleFlag);
+        if (this.ref > 0) {
+            this.setScaleFlagNative(this.ref, this.scaleFlag);
+        }
     }
 
     public void setScale(Point3d scale) {
@@ -50,12 +54,16 @@ public class Insert extends Common {
             return;
         }
         this.scale = scale;
-        this.setScaleNative(this.ref, this.scale.getX(), this.scale.getY(), this.scale.getZ());
+        if (this.ref > 0) {
+            this.setScaleNative(this.ref, this.scale.getX(), this.scale.getY(), this.scale.getZ());
+        }
     }
 
     public void setRotation(double rotation) {
         this.rotation = rotation;
-        this.setRotationNative(this.ref, this.rotation);
+        if (this.ref > 0) {
+            this.setRotationNative(this.ref, this.rotation);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -63,12 +71,16 @@ public class Insert extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public void setHasAttribs(short hasAttribs) {
         this.hasAttribs = hasAttribs;
-        this.setHasAttribsNative(this.ref, this.hasAttribs);
+        if (this.ref > 0) {
+            this.setHasAttribsNative(this.ref, this.hasAttribs);
+        }
     }
 
     public Parent getParent() {

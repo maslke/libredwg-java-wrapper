@@ -14,11 +14,29 @@ public class DwgObjectRef {
     private short r11Idx;
 
 
-    public void setRef(long ref) {
-        this.ref = ref;
-        this.absoluteRef = this.getAbsoluteRefNative(ref);
+    public void initAbsoluteRef() {
+        this.absoluteRef = this.getAbsoluteRefNative(this.ref);
     }
 
-    private native long getAbsoluteRefNative(long ref);
+    public void initR11Idx() {
+        this.r11Idx = this.getR11IdxNative(this.ref);
+    }
 
+    public void setAbsoluteRef(long absoluteRef) {
+        this.absoluteRef = absoluteRef;
+        this.setAbsoluteRefNative(this.ref, this.absoluteRef);
+    }
+
+    public void setR11Idx(short r11Idx) {
+        this.r11Idx = r11Idx;
+        this.setR11IdxNative(this.ref, this.r11Idx);
+    }
+
+
+    private native void setAbsoluteRefNative(long ref, long absoluteRef);
+
+    private native void setR11IdxNative(long ref, short r11Idx);
+
+    private native long getAbsoluteRefNative(long ref);
+    private native short getR11IdxNative(long ref);
 }

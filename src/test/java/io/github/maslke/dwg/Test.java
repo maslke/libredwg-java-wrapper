@@ -24,7 +24,7 @@ public class Test {
         Dwg dwg = Dwg.open("/home/maslke/Documents/seed_0704.dwg");
         System.out.println(dwg.getVersion());
         dwg.setCodePage("ANSI_936");
-        String path2 = "/mnt/c/Users/maslke/Desktop/seed_2.dwg";
+        String path2 = "/mnt/c/Users/maslke/Desktop/seed_2025.dwg";
         deleteFile(path2);
 
         DwgObjectRef style = dwg.findTableHandle("1", TableType.STYLE);

@@ -22,22 +22,28 @@ public class Circle extends Common {
 
     public Circle(long ref, Point3d center, double radius) {
         this(center, radius);
-        this.header =ref;
+        this.header = ref;
     }
 
     public void setCenter(Point3d center) {
         this.center = center;
-        this.setCenterNative(this.ref, center.getX(), center.getY(), center.getZ());
+        if (this.ref > 0) {
+            this.setCenterNative(this.ref, center.getX(), center.getY(), center.getZ());
+        }
     }
 
     public void setRadius(double radius) {
         this.radius =radius;
-        this.setRadiusNative(this.ref, this.radius);
+        if (this.ref > 0) {
+            this.setRadiusNative(this.ref, this.radius);
+        }
     }
 
     public void setThickness(double thickness) {
         this.thickness = thickness;
-        this.setThicknessNative(this.ref, this.thickness);
+        if (this.ref > 0) {
+            this.setThicknessNative(this.ref, this.thickness);
+        }
     }
 
     public void setExtrusion(Vector3d extrusion) {
@@ -45,7 +51,9 @@ public class Circle extends Common {
             return;
         }
         this.extrusion = extrusion;
-        this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        if (this.ref > 0) {
+            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
+        }
     }
 
     public Parent getParent() {
@@ -60,14 +68,14 @@ public class Circle extends Common {
 
     private native void setExtrusionNative(long ref, double x, double y, double z);
 
-    private native long getParentNative(long ref);
+    protected native long getParentNative(long ref);
 
-    public native Point3d getCenterNative(long ref);
+    protected native Point3d getCenterNative(long ref);
 
-    public native double getRadiusNative(long ref);
+    protected native double getRadiusNative(long ref);
 
-    public native double getThicknessNative(long ref);
+    protected native double getThicknessNative(long ref);
 
-    public native Vector3d getExtrusionNative(long ref);
+    protected native Vector3d getExtrusionNative(long ref);
 
 }

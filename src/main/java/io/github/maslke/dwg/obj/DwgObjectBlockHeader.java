@@ -10,10 +10,13 @@ import io.github.maslke.dwg.entity.Ellipse;
 import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
+import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -104,6 +107,16 @@ public class DwgObjectBlockHeader {
         return endBlk;
     }
 
+    public Lwpolyline addLwpolyline(List<Point2d> points) {
+        if (points == null || points.isEmpty()) {
+            return null;
+        }
+        Lwpolyline lwpolyline = new Lwpolyline();
+        long reference = this.addLwpolylineNative(this.ref, points.size(), points);
+        lwpolyline.setRef(reference);
+        return lwpolyline;
+    }
+
     private native long addPointNative(long ref, double x, double y, double z);
     private native long addLineNative(long ref, Point3d start, Point3d end);
 
@@ -120,4 +133,6 @@ public class DwgObjectBlockHeader {
     private native long addBlockNative(long ref, String name);
 
     private native long addEndBlkNative(long ref);
+
+    private native long addLwpolylineNative(long ref, int num, List<Point2d> points);
 }

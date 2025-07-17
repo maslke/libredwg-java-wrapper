@@ -26,7 +26,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setThicknessNative(J
     arc_entity->thickness = thickness;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusion(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusionNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
     arc_entity->extrusion = extrusion;

@@ -21,6 +21,21 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setObliqueAngleNati
 JNIEXPORT long JNICALL Java_io_github_maslke_dwg_entity_Text_getParentNative(JNIEnv *, jobject, jlong);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setStyleNative(JNIEnv *, jobject, jlong, jlong);
 
+
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_entity_Text_getTextValueNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getRotationNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getElevationNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getThicknessNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getExtrusionNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getHeightNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getWidthFactorNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Text_getHorizAlignmentNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Text_getVertAlignmentNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getInsPtNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Text_getObliqueAngleNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getAlignmentPtNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getStyleNative(JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

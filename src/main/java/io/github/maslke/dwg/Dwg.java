@@ -41,6 +41,10 @@ public final class Dwg {
         return ret == 0;
     }
 
+    public boolean release() {
+        return releaseNative(this.ref) == 0;
+    }
+
     public DwgObjectBlockHeader getObjectBlockHeader() {
         DwgObjectBlockHeader header = new DwgObjectBlockHeader();
         header.setRef(this.getObjectBlockHeaderNative(this.ref));
@@ -68,6 +72,7 @@ public final class Dwg {
         long handle = this.findTableHandleNative(this.ref, name, table);
         DwgObjectRef ref = new DwgObjectRef();
         ref.setRef(handle);
+        ref.initAbsoluteRef();
         return ref;
     }
 
@@ -75,6 +80,7 @@ public final class Dwg {
         long handle = this.addHandleRefNative(this.ref, code, value, obj);
         DwgObjectRef ref = new DwgObjectRef();
         ref.setRef(handle);
+        ref.initAbsoluteRef();
         return ref;
     }
 
@@ -104,4 +110,6 @@ public final class Dwg {
     private native long addHandleRefNative(long ref, int code, long value, long obj);
 
     private native long getVportNative(long ref, String name);
+
+    private native int releaseNative(long ref);
 }

@@ -13,4 +13,8 @@ public abstract class Common {
 
     public abstract Parent getParent();
 
+    public boolean isEmpty() {
+        return this.ref == 0;
+    }
+
 }

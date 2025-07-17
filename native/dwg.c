@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include <math.h>
 #include "cjson/cJSON.h"
-#include "entity/helper.h"
+#include "helper.h"
 
 
 JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersionNative(JNIEnv *env, jobject obj) {
@@ -114,6 +114,15 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getVportNative(JNIEnv *env
     return (jlong)(intptr_t)vp;
 }
 
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_releaseNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data != NULL) {
+        dwg_free(dwg_data);
+    }
+    return 0;
+}
+
+// end dwg
 
 // parent entity
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *env, jobject job, jlong ref, jint color) {
@@ -127,145 +136,60 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(J
     entity->linewt = dxf_find_lweight(linewt);
 }
 
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtypeNative(JNIEnv *env, jobject job, jlong ref, jlong ltype) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    Dwg_Object_Ref *ltype_ref = (Dwg_Object_Ref*)(intptr_t)ltype;
+    entity->ltype = ltype_ref;
+}
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayerNative(JNIEnv *env, jobject job, jlong ref, jlong layer) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    Dwg_Object_Ref *layer_ref = (Dwg_Object_Ref*)(intptr_t)layer;
+    entity->layer = layer_ref;
+}
+
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwgNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     return (jlong)(intptr_t)entity->dwg;
 }
 
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getColorNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    return (jint)entity->color.index;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewtNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    int type = entity->linewt;
+    return find_linewt_by_index(type);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLayerNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    Dwg_Object_Ref *layer = entity->layer;
+    return createDwgObjectRef(env, layer);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLtypeNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    Dwg_Object_Ref *ltype = entity -> ltype;
+    return createDwgObjectRef(env, ltype);
+}
+
 // end parent
 
-// Dwg block header
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPointNative(JNIEnv *env, jobject obj, jlong ref,
-jdouble x, jdouble y, jdouble z
-) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    dwg_point_3d pt1 = { .x = x, .y = y, .z = y };
-    Dwg_Entity_POINT *point_entity =  dwg_add_POINT(hdr, &pt1);
-    return (jlong)(intptr_t)point_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLineNative(JNIEnv *env, jobject obj, jlong ref,
-jobject start, jobject end) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    jclass clazz = (*env)->GetObjectClass(env, start);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble start_x = (*env)->GetDoubleField(env, start, fidX);
-    jdouble start_y = (*env)->GetDoubleField(env, start, fidY);
-    jdouble start_z = (*env)->GetDoubleField(env, start, fidZ);
-
-    dwg_point_3d start_point = {.x = start_x, .y = start_y, .z = start_z};
-
-    jdouble end_x = (*env)->GetDoubleField(env, end, fidX);
-    jdouble end_y = (*env)->GetDoubleField(env, end, fidY);
-    jdouble end_z = (*env)->GetDoubleField(env, end, fidZ);
-    dwg_point_3d end_point = {.x = end_x, .y = end_y, .z = end_z};
-    Dwg_Entity_LINE *line_entity = dwg_add_LINE(hdr, &start_point, &end_point);
-    return (jlong)(intptr_t)line_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addTextNative(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    const char *chars = (*env)->GetStringUTFChars(env, text_value, NULL);
-    char gbk_text[200];
-    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    jclass clazz = (*env)->GetObjectClass(env, ins_pt);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble ins_x = (*env)->GetDoubleField(env, ins_pt, fidX);
-    jdouble ins_y = (*env)->GetDoubleField(env, ins_pt, fidY);
-    jdouble ins_z = (*env)->GetDoubleField(env, ins_pt, fidZ);
-
-    dwg_point_3d insert_pt = { .x = ins_x, .y = ins_y, .z = ins_z };
-    Dwg_Entity_TEXT *text_entity = dwg_add_TEXT(hdr, strdup(gbk_text), &insert_pt, height);
-    return (jlong)(intptr_t)text_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCircleNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    jclass clazz = (*env)->GetObjectClass(env, center);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble center_x = (*env)->GetDoubleField(env, center, fidX);
-    jdouble center_y = (*env)->GetDoubleField(env, center, fidY);
-    jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
-    dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
-    Dwg_Entity_CIRCLE *circle_entity = dwg_add_CIRCLE(hdr, &center_pt, radius);
-    return (jlong)(intptr_t)circle_entity;
-
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addArcNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius, jdouble start_angle, jdouble end_angle) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    jclass clazz = (*env)->GetObjectClass(env, center);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble center_x = (*env)->GetDoubleField(env, center, fidX);
-    jdouble center_y = (*env)->GetDoubleField(env, center, fidY);
-    jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
-    dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
-    Dwg_Entity_ARC *arc_entity = dwg_add_ARC(hdr, &center_pt, radius, start_angle, end_angle);
-    return (jlong)(intptr_t)arc_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEllipseNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble majorAxis, jdouble axisRatio) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    jclass clazz = (*env)->GetObjectClass(env, center);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble center_x = (*env)->GetDoubleField(env, center, fidX);
-    jdouble center_y = (*env)->GetDoubleField(env, center, fidY);
-    jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
-    dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
-    Dwg_Entity_ELLIPSE *ellipse_entity = dwg_add_ELLIPSE(hdr, &center_pt, majorAxis, axisRatio);
-    return (jlong)(intptr_t)ellipse_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addInsertNative(JNIEnv *env, jobject job, jlong ref, jobject insert_pt, jstring block_name, jdouble scale_x, jdouble scale_y, jdouble scale_z, jdouble rotation) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    jclass clazz = (*env)->GetObjectClass(env, insert_pt);
-    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
-    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
-    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
-    jdouble x = (*env)->GetDoubleField(env, insert_pt, fidX);
-    jdouble y = (*env)->GetDoubleField(env, insert_pt, fidY);
-    jdouble z = (*env)->GetDoubleField(env, insert_pt, fidZ);
-    dwg_point_3d ins_pt = {.x = x, .y = y, .z = z};
-    const char* chars = (*env)->GetStringUTFChars(env, block_name, NULL);
-    char gbk_text[200];
-    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    Dwg_Entity_INSERT *insert_entity = dwg_add_INSERT(hdr, &ins_pt, chars, scale_x, scale_y, scale_z, rotation);
-    (*env)->ReleaseStringUTFChars(env, block_name, chars);
-    return (jlong)(intptr_t)insert_entity;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addBlockNative(JNIEnv *env, jobject obj, jlong ref, jstring name) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
-    char gbk_text[200];
-    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    Dwg_Entity_BLOCK *block = dwg_add_BLOCK(hdr, chars);
-    (*env)->ReleaseStringUTFChars(env, name, chars);
-    return (jlong)(intptr_t)block;
-}
-
-JNIEXPORT jlong JNICALL Java_io_github_maslke_Dwg_obj_DwgObjectBlockHeader_addEndBlk(JNIEnv *env, jobject job, jlong ref) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    Dwg_Entity_ENDBLK *endblk_entity = dwg_add_ENDBLK(hdr);
-    return (jlong)(intptr_t)endblk_entity;
-}
-
-// end block header
-
+// dwg object ref
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *env, jobject obj, jlong ref) {
     Dwg_Object_Ref *ref_entity = (Dwg_Object_Ref *)(intptr_t)ref;
-    return (jlong)(intptr_t)ref_entity->absolute_ref;
+    return (jlong)ref_entity->absolute_ref;
 }
+
+JNIEXPORT jshort JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getR11IdxNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Ref *ref_entity = (Dwg_Object_Ref *)(intptr_t)ref;
+    return (jshort)ref_entity->r11_idx;
+}
+
+// end dwg object ref
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectVport_setViewCtrNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y) {
     Dwg_Object_VPORT *vport = (Dwg_Object_VPORT *)(intptr_t)ref;

@@ -51,3 +51,59 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getParentNative
     return (jlong)(intptr_t)ellipse->parent;
 }
 
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getStartAngleNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    return ellipse->start_angle;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getEndAngleNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    return ellipse->end_angle;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getMajorAxisNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    return ellipse->sm_axis.x;
+}
+
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getAxisRatioNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    return ellipse->axis_ratio;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenterNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
+    if (pointCls == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, pointCls, "<init>", "()V");
+    jobject pointObj = (*env)->NewObject(env, pointCls, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
+    (*env)->SetDoubleField(env, pointObj, xField, ellipse->center.x);
+    (*env)->SetDoubleField(env, pointObj, yField, ellipse->center.y);
+    (*env)->SetDoubleField(env, pointObj, zField, ellipse->center.z);
+    return pointObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
+    if (vectorClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, vectorClass, "<init>", "()V");
+    jobject vectorObj = (*env)->NewObject(env, vectorClass, constructor);
+
+    jfieldID xField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    (*env)->SetDoubleField(env, vectorObj, xField, ellipse->extrusion.x);
+    (*env)->SetDoubleField(env, vectorObj, yField, ellipse->extrusion.y);
+    (*env)->SetDoubleField(env, vectorObj, zField, ellipse->extrusion.z);
+    return vectorObj;
+}
+

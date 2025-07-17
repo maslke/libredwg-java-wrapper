@@ -4,13 +4,16 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-public class CircleTest {
+public class CircleTest extends AbstractEntityTest {
 
-    private static final double TOLERANCE = 1e-3;
+
+    private Circle circle;
 
     private Circle createCircle() {
         Dwg dwg = Dwg.create();
@@ -20,8 +23,8 @@ public class CircleTest {
     }
 
     @Test
-    public void testGetCenter() {
-        Circle circle = createCircle();
+    public void testCenter() {
+        circle = createCircle();
         assertNotNull(circle);
         Point3d center = circle.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
@@ -37,8 +40,8 @@ public class CircleTest {
     }
 
     @Test
-    public void testGetRadius() {
-        Circle circle = createCircle();
+    public void testRadius() {
+        circle = createCircle();
         assertNotNull(circle);
         assertEquals(10, circle.getRadius(), TOLERANCE);
         circle.setRadius(20);
@@ -48,8 +51,8 @@ public class CircleTest {
     }
 
     @Test
-    public void testGetThickness() {
-        Circle circle = createCircle();
+    public void testThickness() {
+        circle = createCircle();
         assertNotNull(circle);
         circle.setThickness(1.2);
         double thickness = circle.getThicknessNative(circle.ref);
@@ -58,9 +61,14 @@ public class CircleTest {
 
 
     @Test
-    public void testGetExtrusion() {
-        Circle circle = createCircle();
+    public void testExtrusion() {
+        circle = createCircle();
         assertNotNull(circle);
+        Vector3d defaultExtrusion = circle.getExtrusionNative(circle.getRef());
+        assertNotNull(defaultExtrusion);
+        assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
+        assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
+        assertEquals(1, defaultExtrusion.getZ(), TOLERANCE);
         circle.setExtrusion(new Vector3d(0, 1, 0));
         Vector3d extrusion = circle.getExtrusion();
         assertNotNull(extrusion);
@@ -74,5 +82,19 @@ public class CircleTest {
         assertEquals(0, extrusion2.getZ(), TOLERANCE);
     }
 
+    @Test
+    public void testParent() {
+        circle = createCircle();
+        assertNotNull(circle);
+        Parent parent = circle.getParent();
+        assertNotNull(parent);
+        assertNotEquals(0, parent.getRef());
+    }
 
+    @After
+    public void release() {
+        if (circle != null) {
+            releaseDwg(circle);
+        }
+    }
 }

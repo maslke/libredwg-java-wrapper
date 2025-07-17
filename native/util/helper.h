@@ -8,7 +8,10 @@ extern "C" {
 #endif
 
 BITCODE_RC dxf_find_lweight(const int);
+int find_linewt_by_index(const int);
 int utf8_to_gbk(const char *, char *, size_t);
+int gbk_to_utf8(const char *, char *, size_t);
+jobject createDwgObjectRef(JNIEnv *, Dwg_Object_Ref *);
 #ifdef __cplusplus
 }
 #endif
