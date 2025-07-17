@@ -3,6 +3,7 @@ package io.github.maslke.dwg.obj;
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Text;
 import org.junit.After;
@@ -11,8 +12,10 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class DwgObjectBlockHeaderTest {
 
@@ -28,6 +31,20 @@ public class DwgObjectBlockHeaderTest {
             dwg.release();
         }
     }
+
+    @Test
+    public void testAddLine() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Line line = hdr.addLine(new Point3d(0, 0, 0), new Point3d(1, 1, 0));
+        assertNotNull(line);
+        assertFalse(line.isEmpty());
+    }
+
 
     @Test
     public void testAddText() {
