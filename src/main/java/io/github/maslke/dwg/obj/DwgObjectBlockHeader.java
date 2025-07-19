@@ -114,6 +114,10 @@ public class DwgObjectBlockHeader {
         Lwpolyline lwpolyline = new Lwpolyline();
         long reference = this.addLwpolylineNative(this.ref, points.size(), points);
         lwpolyline.setRef(reference);
+        lwpolyline.setPoints(points);
+        lwpolyline.setNumPoints(points.size());
+        lwpolyline.setFlag(0);
+        lwpolyline.setNumVertexids(points.size());
         return lwpolyline;
     }
 

@@ -5,10 +5,10 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -31,14 +31,16 @@ public class LineTest extends AbstractEntityTest {
             releaseDwg(line);
         }
     }
+
     @Test
     public void testStart() {
-        line = createLine();
+        Line line = createLine();
+        assertNotNull(line);
+        assertFalse(line.isEmpty());
         Point3d start = line.getStart();
         assertNotNull(start);
         assertEquals(0, start.getX(), TOLERANCE);
         assertEquals(0, start.getY(), TOLERANCE);
-
         start = line.getStartNative(line.getRef());
         assertNotNull(start);
         assertEquals(0, start.getX(), TOLERANCE);
@@ -60,7 +62,8 @@ public class LineTest extends AbstractEntityTest {
     @Test
     public void testEnd() {
         line = createLine();
-
+        assertNotNull(line);
+        assertFalse(line.isEmpty());
         Point3d end = line.getEnd();
         assertNotNull(end);
         assertEquals(10, end.getX(), TOLERANCE);

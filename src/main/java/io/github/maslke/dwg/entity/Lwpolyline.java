@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Lwpolyline extends Common {
@@ -20,7 +19,7 @@ public class Lwpolyline extends Common {
     private double constWidth;
     private double elevation;
     private double thickness;
-    private Vector3d extrusion;
+    private Vector3d extrusion = new Vector3d(0, 0, 1);
     private int numPoints;
     private List<Point2d> points;
     private int numBulges;
@@ -79,12 +78,16 @@ public class Lwpolyline extends Common {
 
     public void setPoints(List<Point2d> points) {
         this.points = points;
+        if (this.points != null) {
+            this.numPoints = this.points.size();
+            this.numVertexids = this.points.size();
+        }
         if (this.ref > 0) {
             this.setPointsNative(this.ref, this.points);
         }
     }
 
-    public void setNumbulges(int numBulges) {
+    public void setNumBulges(int numBulges) {
         this.numBulges = numBulges;
         if (this.ref > 0) {
             this.setNumBulgesNative(this.ref, this.numBulges);
@@ -105,17 +108,11 @@ public class Lwpolyline extends Common {
         }
     }
 
+
     public void setVertexids(List<Integer> vertexids) {
         this.vertexids = vertexids;
         if (this.ref > 0) {
             this.setVertexidsNative(this.ref, this.vertexids);
-        }
-    }
-
-    public void setNumWidths(int numWidths) {
-        this.numWidths = numWidths;
-        if (this.ref > 0) {
-            this.setNumWidthsNative(this.ref, this.numWidths);
         }
     }
 

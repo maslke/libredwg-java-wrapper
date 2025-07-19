@@ -3,8 +3,15 @@ package io.github.maslke.dwg.obj;
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.entity.Arc;
+import io.github.maslke.dwg.entity.Block;
+import io.github.maslke.dwg.entity.Circle;
+import io.github.maslke.dwg.entity.Ellipse;
+import io.github.maslke.dwg.entity.EndBlk;
+import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
+import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
 import org.junit.After;
 import org.junit.Test;
@@ -15,7 +22,6 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class DwgObjectBlockHeaderTest {
 
@@ -77,4 +83,84 @@ public class DwgObjectBlockHeaderTest {
         assertNotNull(lwpolyline);
         assertNotEquals(0, lwpolyline.getRef());
     }
+
+    @Test
+    public void testAddCircle() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Circle circle = hdr.addCircle(new Point3d(0, 0, 0), 14);
+        assertNotNull(circle);
+        assertFalse(circle.isEmpty());
+    }
+
+    @Test
+    public void testAddArc() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Arc arc = hdr.addArc(new Point3d(0, 0, 0), 1.5, 0, 1.5);
+        assertNotNull(arc);
+        assertFalse(arc.isEmpty());
+    }
+
+    @Test
+    public void testAddEllipse() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Ellipse ellipse = hdr.addEllipse(new Point3d(0, 0, 0), 1, 0.8);
+        assertNotNull(ellipse);
+        assertFalse(ellipse.isEmpty());
+    }
+
+    @Test
+    public void testAddPoint() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Point point = hdr.addPoint(new Point3d(1, 1, 1));
+        assertNotNull(point);
+        assertFalse(point.isEmpty());
+    }
+
+    @Test
+    public void testAddBlock() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader objectBlockHeader = dwg.getObjectBlockHeader();
+        assertNotNull(objectBlockHeader);
+        assertNotEquals(0, objectBlockHeader.getRef());
+        DwgObjectBlockHeader hdr = dwg.createObjectBlockHeader("blk0");
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        Block block = hdr.addBlock("blk0");
+        assertNotNull(block);
+        assertFalse(block.isEmpty());
+        hdr.addLine(new Point3d(0, 0, 0), new Point3d(1, 1, 0));
+        EndBlk endBlk = hdr.addEndBlk();
+        assertNotNull(endBlk);
+        assertFalse(endBlk.isEmpty());
+        Insert insert = objectBlockHeader.addInsert(new Point3d(10, 10 ,0), "blk0", 1.0 ,1.0, 1.0, 0);
+        assertNotNull(insert);
+        assertFalse(insert.isEmpty());
+    }
+
+
+
+
+
 }

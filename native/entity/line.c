@@ -55,7 +55,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JN
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStartNative(JNIEnv *env, jobject job, jlong ref) {
    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
-   jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
+   jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
    if (pointCls == NULL) {
        return NULL;
    }
@@ -64,15 +64,17 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStartNative(J
 
    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+   jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
 
    (*env)->SetDoubleField(env, pointObj, xField, line_entity->start.x);
    (*env)->SetDoubleField(env, pointObj, yField, line_entity->start.y);
+   (*env)->SetDoubleField(env, pointObj, zField, line_entity->start.z);
    return pointObj;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEndNative(JNIEnv *env, jobject job, jlong ref) {
    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
-   jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
+   jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
    if (pointCls == NULL) {
        return NULL;
    }
@@ -81,9 +83,11 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEndNative(JNI
 
    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+   jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
 
    (*env)->SetDoubleField(env, pointObj, xField, line_entity->end.x);
    (*env)->SetDoubleField(env, pointObj, yField, line_entity->end.y);
+   (*env)->SetDoubleField(env, pointObj, zField, line_entity->end.z);
    return pointObj;
 }
 
