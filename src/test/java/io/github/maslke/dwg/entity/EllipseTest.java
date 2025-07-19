@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class EllipseTest extends AbstractEntityTest {
     private Ellipse ellipse;
@@ -37,6 +38,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         Point3d center = ellipse.getCenter();
         assertNotNull(center);
@@ -66,6 +68,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         double majorAxis = ellipse.getMajorAxis();
         assertEquals(1.0, majorAxis, TOLERANCE);
@@ -83,6 +86,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         double ratio = ellipse.getAxisRatio();
         assertEquals(0.8, ratio, TOLERANCE);
@@ -100,6 +104,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         ellipse.setStartAngle(0.2);
         double startAngle = ellipse.getStartAngle();
@@ -113,6 +118,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         ellipse.setEndAngle(1.5);
         double endAngle = ellipse.getEndAngle();
@@ -126,6 +132,7 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse = createEllipse();
         assertNotNull(ellipse);
         assertFalse(ellipse.isEmpty());
+        assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
         Vector3d defaultExtrusion = ellipse.getExtrusionNative(ellipse.getRef());
         assertNotNull(defaultExtrusion);

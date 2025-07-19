@@ -10,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class ArcTest extends AbstractEntityTest {
@@ -25,9 +26,11 @@ public class ArcTest extends AbstractEntityTest {
     }
 
     @Test
-    public void testGetCenter() {
+    public void testCenter() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         Point3d center = arc.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
         assertEquals(10, center.getY(), TOLERANCE);
@@ -53,6 +56,7 @@ public class ArcTest extends AbstractEntityTest {
         arc = createArc();
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         assertEquals(10, arc.getRadius(), TOLERANCE);
         arc.setRadius(20);
         assertEquals(20, arc.getRadius(), TOLERANCE);
@@ -65,6 +69,7 @@ public class ArcTest extends AbstractEntityTest {
         arc = createArc();
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         double defaultThickness = arc.getThickness();
         assertEquals(0, defaultThickness, TOLERANCE);
         arc.setThickness(1.2);
@@ -80,6 +85,7 @@ public class ArcTest extends AbstractEntityTest {
         arc = createArc();
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         Vector3d defaultExtrusion = arc.getExtrusionNative(arc.getRef());
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
@@ -103,6 +109,7 @@ public class ArcTest extends AbstractEntityTest {
         arc = createArc();
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         double start = arc.getStartAngle();
         assertEquals(0, start, TOLERANCE);
         arc.setStartAngle(1.0);
@@ -117,6 +124,7 @@ public class ArcTest extends AbstractEntityTest {
         arc = createArc();
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
+        assertTrue(arc.getHeader() > 0);
         double end = arc.getEndAngle();
         assertEquals(1.2, end, TOLERANCE);
         arc.setEndAngle(1.5);

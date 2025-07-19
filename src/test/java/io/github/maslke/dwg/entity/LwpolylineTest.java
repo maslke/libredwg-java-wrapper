@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class LwpolylineTest extends AbstractEntityTest {
     private Lwpolyline lwpolyline;
@@ -38,6 +39,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         int flag = lwpolyline.getFlag();
         assertEquals(0, flag);
         flag = lwpolyline.getFlagNative(lwpolyline.getRef());
@@ -54,6 +56,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         double elevation = lwpolyline.getElevation();
         assertEquals(0, elevation, TOLERANCE);
         elevation = lwpolyline.getElevationNative(lwpolyline.getRef());
@@ -70,6 +73,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         double constWidth = lwpolyline.getConstWidth();
         assertEquals(0, constWidth, TOLERANCE);
         constWidth = lwpolyline.getConstWidthNative(lwpolyline.getRef());
@@ -86,6 +90,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         double thickness = lwpolyline.getThickness();
         assertEquals(0, thickness, TOLERANCE);
         thickness = lwpolyline.getThicknessNative(lwpolyline.getRef());
@@ -102,6 +107,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         Vector3d extrusion = lwpolyline.getExtrusionNative(lwpolyline.getRef());
         assertNotNull(extrusion);
         assertEquals(0, extrusion.getX(), TOLERANCE);
@@ -130,6 +136,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         int numPoints = lwpolyline.getNumPointsNative(lwpolyline.getRef());
         assertEquals(2, numPoints);
         numPoints = lwpolyline.getNumPointsNative(lwpolyline.getRef());
@@ -174,6 +181,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         int vertexids = lwpolyline.getNumVertexids();
         assertEquals(2, vertexids);
         vertexids = lwpolyline.getNumVertexidsNative(lwpolyline.getRef());
@@ -190,6 +198,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         int numBulges = lwpolyline.getNumBulgesNative(lwpolyline.getRef());
         assertEquals(0, numBulges);
         lwpolyline.setNumBulges(1);
@@ -209,6 +218,7 @@ public class LwpolylineTest extends AbstractEntityTest {
         lwpolyline = createLwpolyline();
         assertNotNull(lwpolyline);
         assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
         int numWidths = lwpolyline.getNumWidthsNative(lwpolyline.getRef());
         assertEquals(0, numWidths);
         lwpolyline.setWidths(Arrays.asList(new LwpolylineWidth(1, 2), new LwpolylineWidth(1, 1)));

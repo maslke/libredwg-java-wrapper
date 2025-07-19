@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class LineTest extends AbstractEntityTest {
 
@@ -37,6 +38,7 @@ public class LineTest extends AbstractEntityTest {
         Line line = createLine();
         assertNotNull(line);
         assertFalse(line.isEmpty());
+        assertTrue(line.getHeader() > 0);
         Point3d start = line.getStart();
         assertNotNull(start);
         assertEquals(0, start.getX(), TOLERANCE);
@@ -64,6 +66,7 @@ public class LineTest extends AbstractEntityTest {
         line = createLine();
         assertNotNull(line);
         assertFalse(line.isEmpty());
+        assertTrue(line.getHeader() > 0);
         Point3d end = line.getEnd();
         assertNotNull(end);
         assertEquals(10, end.getX(), TOLERANCE);
@@ -89,6 +92,8 @@ public class LineTest extends AbstractEntityTest {
     public void testExtrusion() {
         line = createLine();
         assertNotNull(line);
+        assertFalse(line.isEmpty());
+        assertTrue(line.getHeader() > 0);
         assertNotEquals(0, line.getRef());
         Vector3d defaultExtrusion = line.getExtrusionNative(line.getRef());
         assertNotNull(defaultExtrusion);
@@ -112,6 +117,9 @@ public class LineTest extends AbstractEntityTest {
     @Test
     public void testThickness() {
         line = createLine();
+        assertNotNull(line);
+        assertFalse(line.isEmpty());
+        assertTrue(line.getHeader() > 0);
         line.setThickness(2.5);
         double thickness = line.getThicknessNative(line.ref);
         assertEquals(2.5, thickness, TOLERANCE);
@@ -121,6 +129,8 @@ public class LineTest extends AbstractEntityTest {
     public void testParent() {
         line = createLine();
         assertNotNull(line);
+        assertFalse(line.isEmpty());
+        assertTrue(line.getHeader() > 0);
         assertNotEquals(0, line.getRef());
         Parent parent = line.getParent();
         assertNotNull(parent);

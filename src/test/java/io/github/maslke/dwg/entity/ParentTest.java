@@ -10,6 +10,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class ParentTest extends AbstractEntityTest {
 
     private Parent parent;
@@ -27,6 +29,7 @@ public class ParentTest extends AbstractEntityTest {
     public void testColor() {
         parent = getParent();
         assertNotNull(parent);
+        assertTrue(parent.getRef() > 0);
         parent.setColor(3);
         assertNotEquals(0, parent.getRef());
         int color = parent.getColor();
@@ -39,7 +42,7 @@ public class ParentTest extends AbstractEntityTest {
     public void testLinewt() {
         parent = getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.getRef() > 0);
         parent.setLinewt(50);
         int linewt = parent.getLinewt();
         assertEquals(50, linewt);
@@ -51,7 +54,7 @@ public class ParentTest extends AbstractEntityTest {
     public void testLtype() {
         parent = getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.getRef() > 0);
         Dwg dwg = parent.getDwg();
         DwgObjectRef ltypeRef = dwg.findTableHandle("CONTINUOUS", TableType.LTYPE);
         assertNotNull(ltypeRef);
@@ -72,7 +75,7 @@ public class ParentTest extends AbstractEntityTest {
     public void testLayer() {
         parent = getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.getRef() > 0);
         Dwg dwg = parent.getDwg();
         DwgObjectRef layerRef = dwg.findTableHandle("0", TableType.LAYER);
         assertNotNull(layerRef);

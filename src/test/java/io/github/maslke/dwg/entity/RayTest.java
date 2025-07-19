@@ -11,6 +11,7 @@ import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class RayTest extends AbstractEntityTest {
 
@@ -34,6 +35,7 @@ public class RayTest extends AbstractEntityTest {
         ray = createRay();
         assertNotNull(ray);
         assertFalse(ray.isEmpty());
+        assertTrue(ray.getHeader() > 0);
         Point3d point = ray.getPoint();
         assertEquals(0, point.getX(), TOLERANCE);
         assertEquals(0, point.getY(), TOLERANCE);
@@ -58,6 +60,7 @@ public class RayTest extends AbstractEntityTest {
         ray = createRay();
         assertNotNull(ray);
         assertFalse(ray.isEmpty());
+        assertTrue(ray.getHeader() > 0);
         Vector3d vector = ray.getVector();
         assertEquals(1, vector.getX(), TOLERANCE);
         assertEquals(0, vector.getY(), TOLERANCE);

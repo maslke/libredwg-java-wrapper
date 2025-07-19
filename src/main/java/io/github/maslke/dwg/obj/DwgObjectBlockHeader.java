@@ -120,6 +120,7 @@ public class DwgObjectBlockHeader {
         lwpolyline.setNumPoints(points.size());
         lwpolyline.setFlag(0);
         lwpolyline.setNumVertexids(points.size());
+        lwpolyline.setHeader(this.ref);
         return lwpolyline;
     }
 

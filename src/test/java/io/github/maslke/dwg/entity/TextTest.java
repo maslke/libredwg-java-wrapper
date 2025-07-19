@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TextTest extends AbstractEntityTest {
 
@@ -43,6 +44,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText("English Text", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         String textValue = text.getTextValue();
         assertEquals("English Text", textValue);
         textValue = text.getTextValueNative(text.ref);
@@ -60,6 +62,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setRotation(1.50);
         double rotation = text.getRotation();
         assertEquals(1.5, rotation, TOLERANCE);
@@ -72,6 +75,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText("Text", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         double height = text.getHeight();
         assertEquals(2.5, height, TOLERANCE);
         height = text.getHeightNative(text.getRef());
@@ -88,6 +92,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText("Text", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setElevation(1.0);
         double elevation = text.getElevation();
         assertEquals(1.0, elevation, TOLERANCE);
@@ -100,6 +105,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setWidthFactor(0.8);
         double factor = text.getWidthFactor();
         assertEquals(0.8, factor, TOLERANCE);
@@ -112,6 +118,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText("Text", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         Point2d insPt = text.getInsPt();
         assertNotNull(insPt);
         assertEquals(10, insPt.getX(), TOLERANCE);
@@ -137,6 +144,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText("Text", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setAlignmentPt(new Point2d(10, 10));
         Point2d alignmentPt = text.getAlignmentPt();
         assertNotNull(alignmentPt);
@@ -163,6 +171,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setVertAlignment(VertAlignment.TOP);
         int vertAlign = text.getVertAlignment();
         assertEquals(VertAlignment.TOP, vertAlign);
@@ -175,6 +184,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setHorizAlignment(HorizAlignment.CENTER);
         int horizAlign = text.getHorizAlignment();
         assertEquals(HorizAlignment.CENTER, horizAlign);
@@ -187,6 +197,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         Vector3d defaultExtrusion = text.getExtrusionNative(text.getRef());
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
@@ -209,6 +220,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setThickness(1.0);
         double thickness = text.getThickness();
         assertEquals(1.0, thickness, TOLERANCE);
@@ -221,6 +233,7 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
+        assertTrue(text.getHeader() > 0);
         text.setObliqueAngle(0.5);
         double obliqueAngle = text.getObliqueAngle();
         assertEquals(0.5, obliqueAngle, TOLERANCE);
@@ -235,7 +248,7 @@ public class TextTest extends AbstractEntityTest {
         text = hdr.addText("Text", new Point3d(10, 10, 0), 1.2);
         assertNotNull(text);
         assertFalse(text.isEmpty());
-
+        assertTrue(text.getHeader() > 0);
         DwgObjectRef objectRef = dwg.findTableHandle("CONTINUOUS", TableType.LTYPE);
         assertNotNull(objectRef);
         text.setStyle(objectRef);
@@ -261,6 +274,7 @@ public class TextTest extends AbstractEntityTest {
         assertFalse(text.isEmpty());
         Parent parent = text.getParent();
         assertNotNull(parent);
+        assertTrue(parent.getRef() > 0);
         assertNotEquals(0, parent.getRef());
     }
 }

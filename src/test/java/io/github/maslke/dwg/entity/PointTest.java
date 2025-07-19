@@ -10,6 +10,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class PointTest extends AbstractEntityTest {
 
@@ -32,6 +34,8 @@ public class PointTest extends AbstractEntityTest {
     public void testX() {
         point = createPoint(10, 10, 0);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         double x = point.getX();
         assertEquals(10, x, TOLERANCE);
 
@@ -47,6 +51,8 @@ public class PointTest extends AbstractEntityTest {
     public void testY() {
         point = createPoint(10, 10, 10);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         double y = point.getY();
         assertEquals(10, y, TOLERANCE);
         y = point.getYNative(point.ref);
@@ -60,6 +66,8 @@ public class PointTest extends AbstractEntityTest {
     public void testZ() {
         point = createPoint(0, 0, 12);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         double z = point.getZ();
         assertEquals(12, z, TOLERANCE);
         z = point.getZNative(point.ref);
@@ -73,6 +81,8 @@ public class PointTest extends AbstractEntityTest {
     public void testThickness() {
         point = createPoint(0, 0, 0);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         point.setThickness(2.5);
         double thickness = point.getThickness();
         assertEquals(2.5, thickness, TOLERANCE);
@@ -84,6 +94,8 @@ public class PointTest extends AbstractEntityTest {
     public void testExtrusion() {
         point = createPoint(0, 0, 0);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         assertNotEquals(0, point.getRef());
         Vector3d defaultExtrusion = point.getExtrusionNative(point.getRef());
         assertNotNull(defaultExtrusion);
@@ -108,6 +120,8 @@ public class PointTest extends AbstractEntityTest {
     public void testParent() {
         point = createPoint(0, 0, 0);
         assertNotNull(point);
+        assertFalse(point.isEmpty());
+        assertTrue(point.getHeader() > 0);
         assertNotEquals(0, point.getRef());
         Parent parent = point.getParent();
         assertNotNull(parent);

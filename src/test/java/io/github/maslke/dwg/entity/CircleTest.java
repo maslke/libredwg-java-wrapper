@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CircleTest extends AbstractEntityTest {
 
@@ -29,6 +30,7 @@ public class CircleTest extends AbstractEntityTest {
         circle = createCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+        assertTrue(circle.getHeader() > 0);
         Point3d center = circle.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
         assertEquals(10, center.getY(), TOLERANCE);
@@ -47,6 +49,7 @@ public class CircleTest extends AbstractEntityTest {
         circle = createCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+        assertTrue(circle.getHeader() > 0);
         assertEquals(10, circle.getRadius(), TOLERANCE);
         circle.setRadius(20);
         assertEquals(20, circle.getRadius(), TOLERANCE);
@@ -59,6 +62,7 @@ public class CircleTest extends AbstractEntityTest {
         circle = createCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+        assertTrue(circle.getHeader() > 0);
         assertNotEquals(0, circle.getRef());
         double defaultThickness = circle.getThickness();
         assertEquals(0, defaultThickness, TOLERANCE);
@@ -75,6 +79,7 @@ public class CircleTest extends AbstractEntityTest {
         circle = createCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+        assertTrue(circle.getHeader() > 0);
         assertNotEquals(0, circle.getRef());
         Vector3d defaultExtrusion = circle.getExtrusionNative(circle.getRef());
         assertNotNull(defaultExtrusion);
@@ -99,6 +104,7 @@ public class CircleTest extends AbstractEntityTest {
         circle = createCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+        assertTrue(circle.getHeader() > 0);
         Parent parent = circle.getParent();
         assertNotNull(parent);
         assertNotEquals(0, parent.getRef());
