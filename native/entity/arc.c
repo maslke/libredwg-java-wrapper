@@ -14,6 +14,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setCenter(JNIEnv *en
     if (arc_entity == NULL) {
         return;
     }
+    if (center == NULL) {
+        return;
+    }
     jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
     if (pointCls == NULL) {
         return;
@@ -45,6 +48,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setThickness(JNIEnv 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusion(JNIEnv *env, jobject job, jlong ref, jobject extrusion) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
+        return;
+    }
+    if (extrusion == NULL) {
         return;
     }
     jclass vectorCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");

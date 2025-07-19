@@ -59,7 +59,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addTe
     return (jlong)(intptr_t)text_entity;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCircleNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCircle(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass clazz = (*env)->GetObjectClass(env, center);
     jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
@@ -70,8 +70,14 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCi
     jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
     dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
     Dwg_Entity_CIRCLE *circle_entity = dwg_add_CIRCLE(hdr, &center_pt, radius);
-    return (jlong)(intptr_t)circle_entity;
-
+    jlong reference = (jlong)(intptr_t)circle_entity;
+    jclass circleClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Circle");
+    if (circleClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, circleClass, "<init>", "(J)V");
+    jobject circleObj = (*env)->NewObject(env, circleClass, constructor, reference);
+    return circleObj;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addArc(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius, jdouble start_angle, jdouble end_angle) {

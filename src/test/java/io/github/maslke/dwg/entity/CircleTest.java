@@ -34,12 +34,8 @@ public class CircleTest extends AbstractEntityTest {
         Point3d center = circle.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
         assertEquals(10, center.getY(), TOLERANCE);
-        center = circle.getCenterNative(circle.ref);
-        assertNotNull(center);
-        assertEquals(10, center.getX(), TOLERANCE);
-        assertEquals(10, center.getY(), TOLERANCE);
         circle.setCenter(new Point3d(20, 20, 0));
-        center = circle.getCenterNative(circle.ref);
+        center = circle.getCenter();
         assertEquals(20, center.getX(), TOLERANCE);
         assertEquals(20, center.getY(), TOLERANCE);
     }
@@ -53,8 +49,6 @@ public class CircleTest extends AbstractEntityTest {
         assertEquals(10, circle.getRadius(), TOLERANCE);
         circle.setRadius(20);
         assertEquals(20, circle.getRadius(), TOLERANCE);
-        double r = circle.getRadiusNative(circle.ref);
-        assertEquals(20, r, TOLERANCE);
     }
 
     @Test
@@ -69,8 +63,6 @@ public class CircleTest extends AbstractEntityTest {
         circle.setThickness(1.2);
         double thickness = circle.getThickness();
         assertEquals(1.2, thickness, TOLERANCE);
-        thickness = circle.getThicknessNative(circle.ref);
-        assertEquals(1.2, thickness, TOLERANCE);
     }
 
 
@@ -81,7 +73,7 @@ public class CircleTest extends AbstractEntityTest {
         assertFalse(circle.isEmpty());
         assertTrue(circle.getHeader() > 0);
         assertNotEquals(0, circle.getRef());
-        Vector3d defaultExtrusion = circle.getExtrusionNative(circle.getRef());
+        Vector3d defaultExtrusion = circle.getExtrusion();
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
         assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
@@ -92,11 +84,6 @@ public class CircleTest extends AbstractEntityTest {
         assertEquals(0, extrusion.getX(), TOLERANCE);
         assertEquals(1, extrusion.getY(), TOLERANCE);
         assertEquals(0, extrusion.getZ(), TOLERANCE);
-        Vector3d extrusion2 = circle.getExtrusionNative(circle.ref);
-        assertNotNull(extrusion2);
-        assertEquals(0, extrusion2.getX(), TOLERANCE);
-        assertEquals(1, extrusion2.getY(), TOLERANCE);
-        assertEquals(0, extrusion2.getZ(), TOLERANCE);
     }
 
     @Test

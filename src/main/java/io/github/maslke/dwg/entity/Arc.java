@@ -15,9 +15,7 @@ public class Arc extends Common {
     }
 
     public void setCenter(Point3d center) {
-        if (this.ref > 0) {
-            this.setCenter(this.ref, center);
-        }
+        this.setCenter(this.ref, center);
     }
 
     public Point3d getCenter() {
@@ -30,9 +28,7 @@ public class Arc extends Common {
 
 
     public void setRadius(double radius) {
-        if (this.ref > 0) {
-            this.setRadius(this.ref, radius);
-        }
+        this.setRadius(this.ref, radius);
     }
 
     public double getThickness() {
@@ -40,9 +36,7 @@ public class Arc extends Common {
     }
 
     public void setThickness(double thickness) {
-        if (this.ref > 0) {
-            this.setThickness(this.ref, thickness);
-        }
+        this.setThickness(this.ref, thickness);
     }
 
     public Vector3d getExtrusion() {
@@ -50,9 +44,7 @@ public class Arc extends Common {
     }
 
     public void setExtrusion(Vector3d extrusion) {
-        if (this.ref > 0) {
-            this.setExtrusion(this.ref, extrusion);
-        }
+        this.setExtrusion(this.ref, extrusion);
     }
 
     public double getStartAngle() {
@@ -70,9 +62,7 @@ public class Arc extends Common {
     }
 
     public void setEndAngle(double endAngle) {
-        if (this.ref > 0) {
-            this.setEndAngle(this.ref, endAngle);
-        }
+        this.setEndAngle(this.ref, endAngle);
     }
 
     public Parent getParent() {
@@ -82,16 +72,11 @@ public class Arc extends Common {
 
     private native void setCenter(long ref, Point3d center);
     private native void setRadius(long ref, double radius);
-
     private native void setThickness(long ref, double thickness);
-
     private native void setExtrusion(long ref, Vector3d extrusion);
     private native void setStartAngle(long ref, double angle);
-
     private native void setEndAngle(long ref, double angle);
-
     private native long getParent(long ref);
-
     private native Point3d getCenter(long ref);
     private native double getRadius(long ref);
     private native double getThickness(long ref);

@@ -6,16 +6,15 @@
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setCenterNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setRadiusNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setThicknessNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Circle_getParentNative(JNIEnv *, jobject, jlong);
-
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getCenterNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getRadiusNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getThicknessNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getExtrusionNative(JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setCenter(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setRadius(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setThickness(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusion(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Circle_getParent(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getCenter(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getRadius(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Circle_getThickness(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getExtrusion(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

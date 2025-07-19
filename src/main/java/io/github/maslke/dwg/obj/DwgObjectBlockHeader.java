@@ -60,9 +60,8 @@ public class DwgObjectBlockHeader {
     }
 
     public Circle addCircle(Point3d center, double radius) {
-        Circle circle = new Circle(this.ref, center, radius);
-        long reference = this.addCircleNative(this.ref, center, radius);
-        circle.setRef(reference);
+        Circle circle = this.addCircle(this.ref, center, radius);
+        circle.setHeader(this.ref);
         return circle;
     }
 
@@ -137,7 +136,7 @@ public class DwgObjectBlockHeader {
 
     private native long addTextNative(long ref, String textValue, Point3d insPt, double height);
 
-    private native long addCircleNative(long ref, Point3d center, double radius);
+    private native Circle addCircle(long ref, Point3d center, double radius);
 
     private native Arc addArc(long ref, Point3d center, double radius, double startAngle, double endAngle);
 
