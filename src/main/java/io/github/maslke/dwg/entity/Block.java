@@ -1,46 +1,36 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point2d;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class Block extends Common {
-    private String name;
-    private String xrefPname;
-    private Point2d basePt;
+    
+    public Block() {
 
+    }
+
+    public Block(long ref) {
+        this();
+        this.ref = ref;
+    }
 
     public Parent getParent() {
-        long reference = this.getParentNative(this.ref);
-        return new Parent(reference);
+        return new Parent(this.getParent(this.ref));
     }
 
     public void setName(String name) {
-        this.name = name;
-        this.setNameNative(this.ref, this.name);
+        this.setName(this.ref, name);
     }
 
     public void setXrefPname(String xrefPname) {
-        this.xrefPname = xrefPname;
-        this.setXrefPnameNative(this.ref, this.xrefPname);
+        this.setXrefPname(this.ref, xrefPname);
     }
 
     public void setBasePt(Point2d basePt) {
-        if (basePt == null) {
-            return;
-        }
-        this.basePt = basePt;
-        this.setBasePtNative(this.ref, this.basePt.getX(), this.basePt.getY());
+        this.setBasePt(this.ref, basePt);
     }
 
-    private native long getParentNative(long ref);
-
-    private native void setNameNative(long ref, String name);
-    private native void setXrefPnameNative(long ref, String xrefPname);
-
-    private native void setBasePtNative(long ref, double x, double y);
+    private native long getParent(long ref);
+    private native void setName(long ref, String name);
+    private native void setXrefPname(long ref, String xrefPname);
+    private native void setBasePt(long ref, Point2d basePt);
 }

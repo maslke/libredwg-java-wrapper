@@ -79,8 +79,10 @@ public class DwgObjectBlockHeader {
     }
 
     public Block addBlock(String name) {
-        Block block = new Block();
-        block.setRef(this.addBlockNative(this.ref, name));
+        Block block = this.addBlock(this.ref, name);
+        if (block != null) {
+            block.setHeader(this.ref);
+        }
         return block;
     }
 
@@ -93,9 +95,10 @@ public class DwgObjectBlockHeader {
     }
 
     public EndBlk addEndBlk() {
-        EndBlk endBlk = new EndBlk();
-        endBlk.setHeader(this.ref);
-        endBlk.setRef(this.addEndBlkNative(this.ref));
+        EndBlk endBlk = this.addEndBlk(this.ref);
+        if (endBlk != null) {
+            endBlk.setHeader(this.ref);
+        }
         return endBlk;
     }
 
@@ -137,9 +140,9 @@ public class DwgObjectBlockHeader {
 
     private native long addInsertNative(long ref, Point3d insPt, String blockName, double scaleX, double scaleY, double scaleZ, double rotation);
 
-    private native long addBlockNative(long ref, String name);
+    private native Block addBlock(long ref, String name);
 
-    private native long addEndBlkNative(long ref);
+    private native EndBlk addEndBlk(long ref);
 
     private native Lwpolyline addLwpolyline(long ref, List<Point2d> points);
 

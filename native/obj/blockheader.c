@@ -173,20 +173,40 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addIn
     return (jlong)(intptr_t)insert_entity;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addBlockNative(JNIEnv *env, jobject obj, jlong ref, jstring name) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addBlock(JNIEnv *env, jobject obj, jlong ref, jstring name) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
     Dwg_Entity_BLOCK *block = dwg_add_BLOCK(hdr, chars);
+    if (block == NULL) {
+        return NULL;
+    }
     (*env)->ReleaseStringUTFChars(env, name, chars);
-    return (jlong)(intptr_t)block;
+    jclass blockClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Block");
+    if (blockClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, blockClass, "<init>", "(J)V");
+    jobject blockObj = (*env)->NewObject(env, blockClass, constructor, (jlong)(intptr_t)block);
+    (*env)->DeleteLocalRef(env, blockClass);
+    return blockObj;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEndBlkNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEndBlk(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     Dwg_Entity_ENDBLK *endblk_entity = dwg_add_ENDBLK(hdr);
-    return (jlong)(intptr_t)endblk_entity;
+    if (endblk_entity == NULL) {
+        return NULL;
+    }
+    jclass blkClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/EndBlk");
+    if (blkClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, blkClass, "<init>", "(J)V");
+    jobject blkObj = (*env)->NewObject(env, blkClass, constructor, (jlong)(intptr_t)endblk_entity);
+    (*env)->DeleteLocalRef(env, blkClass);
+    return blkObj;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLwpolyline(JNIEnv *env, jobject job, jlong ref, jobject pointList) {

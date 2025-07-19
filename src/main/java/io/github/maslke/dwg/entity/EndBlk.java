@@ -1,18 +1,19 @@
 package io.github.maslke.dwg.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
 public class EndBlk extends Common {
 
-    public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+    public EndBlk() {
+
     }
 
-    private native long getParentNative(long ref);
-}
+    public EndBlk(long ref) {
+        this();
+        this.ref = ref;
+    }
 
+    public Parent getParent() {
+        return new Parent(this.getParent(this.ref));
+    }
+
+    private native long getParent(long ref);
+}
