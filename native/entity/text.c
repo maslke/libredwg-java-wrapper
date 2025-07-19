@@ -50,6 +50,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setInsPt(JNIEnv *en
     jdouble y = (*env)->GetDoubleField(env, insPt, yField);
     BITCODE_2DPOINT ins_pt = {.x = x, .y = y};
     text_entity->ins_pt = ins_pt;
+    (*env)->DeleteLocalRef(env, pointCls);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setAlignmentPt(JNIEnv *env, jobject job, jlong ref, jobject alignmentPt) {
@@ -64,6 +65,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setAlignmentPt(JNIE
     jdouble y = (*env)->GetDoubleField(env, alignmentPt, yField);
     BITCODE_2DPOINT alignment_pt = {.x = x, .y = y};
     text_entity->alignment_pt = alignment_pt;
+    (*env)->DeleteLocalRef(env, pointCls);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setHorizAlignment(JNIEnv *env, jobject job, jlong ref, jint alignment) {
@@ -128,6 +130,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setExtrusion(JNIEnv
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
     Dwg_Bitcode_3BD extrusion2 = {.x = x, .y = y, .z = z};
     text_entity->extrusion = extrusion2;
+    (*env)->DeleteLocalRef(env, vectorCls);
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Text_getParent(JNIEnv *env, jobject job, jlong ref) {
@@ -210,6 +213,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getExtrusion(JNI
     (*env)->SetDoubleField(env, pointObj, xField, text_entity->extrusion.x);
     (*env)->SetDoubleField(env, pointObj, yField, text_entity->extrusion.y);
     (*env)->SetDoubleField(env, pointObj, zField, text_entity->extrusion.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 
@@ -261,6 +265,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getInsPt(JNIEnv 
     jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
     (*env)->SetDoubleField(env, pointObj, xField, text_entity->ins_pt.x);
     (*env)->SetDoubleField(env, pointObj, yField, text_entity->ins_pt.y);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 
@@ -288,6 +293,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Text_getAlignmentPt(J
     jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
     (*env)->SetDoubleField(env, pointObj, xField, text_entity->alignment_pt.x);
     (*env)->SetDoubleField(env, pointObj, yField, text_entity->alignment_pt.y);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 

@@ -30,6 +30,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenter(JNIEnv
     jdouble z = (*env)->GetDoubleField(env, point, zField);
     BITCODE_3BD center = {.x = x, .y = y, .z = z};
     ellipse->center = center;
+    (*env)->DeleteLocalRef(env, pointClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxis(JNIEnv *env, jobject job, jlong ref, jdouble major_axis) {
@@ -70,6 +71,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setExtrusion(JNI
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
     BITCODE_3BD extrusion2 = {.x = x, .y = y, .z = z};
     ellipse->extrusion = extrusion2;
+    (*env)->DeleteLocalRef(env, vectorClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setStartAngle(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
@@ -147,6 +149,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenter(JNI
     (*env)->SetDoubleField(env, pointObj, xField, ellipse->center.x);
     (*env)->SetDoubleField(env, pointObj, yField, ellipse->center.y);
     (*env)->SetDoubleField(env, pointObj, zField, ellipse->center.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 
@@ -168,6 +171,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getExtrusion(
     (*env)->SetDoubleField(env, vectorObj, xField, ellipse->extrusion.x);
     (*env)->SetDoubleField(env, vectorObj, yField, ellipse->extrusion.y);
     (*env)->SetDoubleField(env, vectorObj, zField, ellipse->extrusion.z);
+    (*env)->DeleteLocalRef(env, vectorClass);
     return vectorObj;
 }
 

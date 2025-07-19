@@ -28,6 +28,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStart(JNIEnv *en
     jdouble z = (*env)->GetDoubleField(env, start, fidZ);
     BITCODE_3BD s = {.x = x, .y = y, .z = z};
     line_entity->start = s;
+    (*env)->DeleteLocalRef(env, start_class);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env, jobject obj, jlong ref, jobject end) {
@@ -47,6 +48,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env,
     jdouble z = (*env)->GetDoubleField(env, end, fidZ);
     BITCODE_3BD e = {.x = x, .y = y, .z = z};
     line_entity->end = e;
+    (*env)->DeleteLocalRef(env, end_class);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThickness(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
@@ -74,6 +76,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusion(JNIEnv
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
     BITCODE_BE extrusion2 = {.x = x, .y = y, .z = z};
     line_entity->extrusion = extrusion2;
+    (*env)->DeleteLocalRef(env, vectorClass);
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParent(JNIEnv *env, jobject job, jlong ref) {
@@ -103,6 +106,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStart(JNIEnv 
    (*env)->SetDoubleField(env, pointObj, xField, line_entity->start.x);
    (*env)->SetDoubleField(env, pointObj, yField, line_entity->start.y);
    (*env)->SetDoubleField(env, pointObj, zField, line_entity->start.z);
+   (*env)->DeleteLocalRef(env, pointCls);
    return pointObj;
 }
 
@@ -125,6 +129,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEnd(JNIEnv *e
    (*env)->SetDoubleField(env, pointObj, xField, line_entity->end.x);
    (*env)->SetDoubleField(env, pointObj, yField, line_entity->end.y);
    (*env)->SetDoubleField(env, pointObj, zField, line_entity->end.z);
+   (*env)->DeleteLocalRef(env, pointCls);
    return pointObj;
 }
 
@@ -146,6 +151,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusion(JNI
    (*env)->SetDoubleField(env, pointObj, xField, line_entity->extrusion.x);
    (*env)->SetDoubleField(env, pointObj, yField, line_entity->extrusion.y);
    (*env)->SetDoubleField(env, pointObj, zField, line_entity->extrusion.z);
+   (*env)->DeleteLocalRef(env, pointCls);
    return pointObj;
 }
 

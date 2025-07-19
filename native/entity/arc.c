@@ -27,6 +27,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setCenter(JNIEnv *en
     arc_entity->center.x = (*env)->GetDoubleField(env, center, xField);
     arc_entity->center.y = (*env)->GetDoubleField(env, center, yField);
     arc_entity->center.z = (*env)->GetDoubleField(env, center, zField);
+    (*env)->DeleteLocalRef(env, pointCls);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setRadius(JNIEnv *env, jobject job, jlong ref, jdouble radius) {
@@ -63,6 +64,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusion(JNIEnv 
     arc_entity->extrusion.x = (*env)->GetDoubleField(env, extrusion, xField);
     arc_entity->extrusion.y = (*env)->GetDoubleField(env, extrusion, yField);
     arc_entity->extrusion.z = (*env)->GetDoubleField(env, extrusion, zField);
+    (*env)->DeleteLocalRef(env, vectorCls);
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Arc_getParent(JNIEnv *env, jobject job, jlong ref) {
@@ -108,6 +110,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getCenter(JNIEnv 
     (*env)->SetDoubleField(env, pointObj, xField, arc_entity->center.x);
     (*env)->SetDoubleField(env, pointObj, yField, arc_entity->center.y);
     (*env)->SetDoubleField(env, pointObj, zField, arc_entity->center.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 
@@ -145,6 +148,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getExtrusion(JNIE
     (*env)->SetDoubleField(env, pointObj, xField, arc_entity->extrusion.x);
     (*env)->SetDoubleField(env, pointObj, yField, arc_entity->extrusion.y);
     (*env)->SetDoubleField(env, pointObj, zField, arc_entity->extrusion.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 

@@ -54,6 +54,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setExtrusion(
     lwpolyline_entity->extrusion.x = (*env)->GetDoubleField(env, vector, xField);
     lwpolyline_entity->extrusion.y = (*env)->GetDoubleField(env, vector, yField);
     lwpolyline_entity->extrusion.z = (*env)->GetDoubleField(env, vector, zField);
+    (*env)->DeleteLocalRef(env, vectorClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumPoints(JNIEnv *env, jobject obj, jlong ref, jint num_points) {
@@ -90,6 +91,8 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setBulges(JNI
     }
 
     lwpolyline_entity->bulges = bulges;
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, doubleClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidths(JNIEnv *env, jobject job, jlong ref, jobject widthsList) {
@@ -127,6 +130,8 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidths(JNI
 
     lwpolyline_entity->widths = widths;
     lwpolyline_entity->num_widths = size;
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, widthClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPoints(JNIEnv *env, jobject obj, jlong ref, jobject pointList) {
@@ -160,6 +165,8 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPoints(JNI
     lwpolyline_entity->points = pnts;
     lwpolyline_entity->num_points = size;
     lwpolyline_entity->num_vertexids = size;
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, pointClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumBulges(JNIEnv *env, jobject job, jlong ref, jint num_bulges) {
@@ -241,6 +248,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getExtrusi
     (*env)->SetDoubleField(env, vectorObj, xField, lwpolyline->extrusion.x);
     (*env)->SetDoubleField(env, vectorObj, yField, lwpolyline->extrusion.y);
     (*env)->SetDoubleField(env, vectorObj, zField, lwpolyline->extrusion.z);
+    (*env)->DeleteLocalRef(env, vectorClass);
     return vectorObj;
 }
 
@@ -318,6 +326,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getPoints(
         (*env)->CallBooleanMethod(env, listObj, addMethod, pointObj);
     }
 
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, pointClass);
+
     return listObj;
 }
 
@@ -364,6 +375,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getWidths(
         (*env)->SetDoubleField(env, widthObj, endField, widths[i].end);
         (*env)->CallBooleanMethod(env, listObj, addMethod, widthObj);
     }
+
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, widthClass);
 
     return listObj;
 }

@@ -60,6 +60,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Point_setExtrusion(JNIEn
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
     BITCODE_BE extrusion2 = {.x = x, .y = y, .z = z};
     point_entity->extrusion = extrusion2;
+    (*env)->DeleteLocalRef(env, vectorCls);
 }
 
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Point_getX(JNIEnv *env, jobject job, jlong ref) {
@@ -112,6 +113,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Point_getExtrusion(JN
     (*env)->SetDoubleField(env, pointObj, xField, point_entity->extrusion.x);
     (*env)->SetDoubleField(env, pointObj, yField, point_entity->extrusion.y);
     (*env)->SetDoubleField(env, pointObj, zField, point_entity->extrusion.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 

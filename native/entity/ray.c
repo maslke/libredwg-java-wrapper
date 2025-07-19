@@ -24,6 +24,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setPoint(JNIEnv *env
     jdouble z = (*env)->GetDoubleField(env, point, fidZ);
     BITCODE_3BD p = {.x = x, .y = y, .z = z};
     ray_entity->point = p;
+    (*env)->DeleteLocalRef(env, point_class);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVector(JNIEnv *env, jobject obj, jlong ref, jobject vector) {
@@ -40,6 +41,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVector(JNIEnv *en
     jdouble z = (*env)->GetDoubleField(env, vector, fidZ);
     BITCODE_3BD v = {.x = x, .y = y, .z = z};
     ray_entity->vector = v;
+    (*env)->DeleteLocalRef(env, vector_class);
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ray_getParent(JNIEnv *env, jobject obj, jlong ref) {
@@ -64,6 +66,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getPoint(JNIEnv *
     jdouble y = ray_entity->point.y;
     jdouble z = ray_entity->point.z;
     jobject point = (*env)->NewObject(env, point_class, constructor, x, y, z);
+    (*env)->DeleteLocalRef(env, point_class);
     return point;
 }
 
@@ -81,5 +84,6 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getVector(JNIEnv 
     jdouble y = ray_entity->vector.y;
     jdouble z = ray_entity->vector.z;
     jobject vector = (*env)->NewObject(env, vector_class, constructor, x, y, z);
+    (*env)->DeleteLocalRef(env, vector_class);
     return vector;
 }

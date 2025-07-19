@@ -28,6 +28,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setCenter(JNIEnv 
     circle_entity->center.x = (*env)->GetDoubleField(env, center, xField);
     circle_entity->center.y = (*env)->GetDoubleField(env, center, yField);
     circle_entity->center.z = (*env)->GetDoubleField(env, center, zField);
+    (*env)->DeleteLocalRef(env, pointCls);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setRadius(JNIEnv *env, jobject job, jlong ref, jdouble radius) {
@@ -65,6 +66,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setExtrusion(JNIE
     circle_entity->extrusion.x = (*env)->GetDoubleField(env, extrusion, xField);
     circle_entity->extrusion.y = (*env)->GetDoubleField(env, extrusion, yField);
     circle_entity->extrusion.z = (*env)->GetDoubleField(env, extrusion, zField);
+    (*env)->DeleteLocalRef(env, vectorCls);
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Circle_getParent(JNIEnv *env, jobject job, jlong ref) {
@@ -93,6 +95,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getCenter(JNIE
     (*env)->SetDoubleField(env, pointObj, xField, circle_entity->center.x);
     (*env)->SetDoubleField(env, pointObj, yField, circle_entity->center.y);
     (*env)->SetDoubleField(env, pointObj, zField, circle_entity->center.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
 
@@ -130,5 +133,6 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Circle_getExtrusion(J
     (*env)->SetDoubleField(env, pointObj, xField, circle_entity->extrusion.x);
     (*env)->SetDoubleField(env, pointObj, yField, circle_entity->extrusion.y);
     (*env)->SetDoubleField(env, pointObj, zField, circle_entity->extrusion.z);
+    (*env)->DeleteLocalRef(env, pointCls);
     return pointObj;
 }
