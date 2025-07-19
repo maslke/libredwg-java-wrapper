@@ -118,9 +118,8 @@ public class DwgObjectBlockHeader {
     }
 
     public Ray addRay(Point3d point, Vector3d vector) {
-        Ray ray = new Ray(this.ref, point, vector);
-        long reference = this.addRayNative(this.ref, point, vector);
-        ray.setRef(reference);
+        Ray ray = this.addRay(this.ref, point, vector);
+        ray.setHeader(this.ref);
         return ray;
     }
 
@@ -150,5 +149,5 @@ public class DwgObjectBlockHeader {
 
     private native long addLwpolylineNative(long ref, int num, List<Point2d> points);
 
-    private native long addRayNative(long ref, Point3d point, Vector3d vector);
+    private native Ray addRay(long ref, Point3d point, Vector3d vector);
 }

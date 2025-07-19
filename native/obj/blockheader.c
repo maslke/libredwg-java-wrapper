@@ -170,11 +170,16 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLw
     return (jlong)(intptr_t)lwpolyline;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRayNative(JNIEnv *env, jobject job, jlong ref, jobject point, jobject vector) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRay(JNIEnv *env, jobject job, jlong ref, jobject point, jobject vector) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     if (hdr == NULL) {
-        return 0;
+        return NULL;
     }
+
+    if (vector == NULL) {
+        return NULL;
+    }
+
     jclass clazz = (*env)->GetObjectClass(env, point);
     jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
     jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
@@ -192,5 +197,12 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRa
     jdouble vectorZ = (*env)->GetDoubleField(env, vector, vectorZField);
     dwg_point_3d vec = {.x = vectorX, .y = vectorY, .z = vectorZ};
     Dwg_Entity_RAY *ray = dwg_add_RAY(hdr, &pt, &vec);
-    return (jlong)(intptr_t)ray;
+    jlong reference = (jlong)(intptr_t)ray;
+    jclass rayClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Ray");
+    if (rayClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, rayClass, "<init>", "(J)V");
+    jobject rayObj = (*env)->NewObject(env, rayClass, constructor, reference);
+    return rayObj;
 }

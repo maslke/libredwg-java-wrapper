@@ -10,7 +10,7 @@
 #include <math.h>
 #include "helper.h"
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setPointNative(JNIEnv *env, jobject obj, jlong ref, jobject point) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setPoint(JNIEnv *env, jobject obj, jlong ref, jobject point) {
     Dwg_Entity_RAY *ray_entity = (Dwg_Entity_RAY*)(intptr_t)ref;
     if (ray_entity == NULL) {
         return;
@@ -26,7 +26,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setPointNative(JNIEn
     ray_entity->point = p;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVectorNative(JNIEnv *env, jobject obj, jlong ref, jobject vector) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVector(JNIEnv *env, jobject obj, jlong ref, jobject vector) {
     Dwg_Entity_RAY *ray_entity = (Dwg_Entity_RAY*)(intptr_t)ref;
     if (ray_entity == NULL) {
         return;
@@ -42,7 +42,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVectorNative(JNIE
     ray_entity->vector = v;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ray_getParentNative(JNIEnv *env, jobject obj, jlong ref) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ray_getParent(JNIEnv *env, jobject obj, jlong ref) {
     Dwg_Entity_RAY *ray_entity = (Dwg_Entity_RAY*)(intptr_t)ref;
     if (ray_entity == NULL) {
         return 0;
@@ -50,7 +50,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ray_getParentNative(JNI
     return (jlong)(intptr_t)ray_entity->parent;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getPointNative(JNIEnv *env, jobject obj, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getPoint(JNIEnv *env, jobject obj, jlong ref) {
     Dwg_Entity_RAY *ray_entity = (Dwg_Entity_RAY*)(intptr_t)ref;
     if (ray_entity == NULL) {
         return NULL;
@@ -67,7 +67,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getPointNative(JN
     return point;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getVectorNative(JNIEnv *env, jobject obj, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ray_getVector(JNIEnv *env, jobject obj, jlong ref) {
     Dwg_Entity_RAY *ray_entity = (Dwg_Entity_RAY*)(intptr_t)ref;
     if (ray_entity == NULL) {
         return NULL;
