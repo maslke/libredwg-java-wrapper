@@ -29,38 +29,44 @@ public class DwgObjectBlockHeader {
 
 
     public Point addPoint(Point3d point) {
-        if (point == null) {
-            return null;
-        }
         Point pnt = this.addPoint(this.ref, point);
-        pnt.setHeader(this.ref);
+        if (pnt != null) {
+            pnt.setHeader(this.ref);
+        }
         return pnt;
     }
 
     public Text addText(String textValue, Point3d point, double height)
     {
         Text text = this.addText(this.ref, textValue, point, height);
-        text.setHeader(this.ref);
+        if (text != null) {
+            text.setHeader(this.ref);
+        }
         return text;
     }
 
     public Line addLine(Point3d start, Point3d end) {
         Line line = this.addLine(this.ref, start, end);
-        line.setHeader(this.ref);
+        if (line != null) {
+            line.setHeader(this.ref);
+        }
         return line;
     }
 
     public Circle addCircle(Point3d center, double radius) {
         Circle circle = this.addCircle(this.ref, center, radius);
-        circle.setHeader(this.ref);
+        if (circle != null) {
+            circle.setHeader(this.ref);
+        }
         return circle;
     }
 
 
     public Ellipse addEllipse(Point3d center, double majorAxis, double axisRatio) {
-        Ellipse ellipse = new Ellipse(this.ref, center, majorAxis, axisRatio);
-        long reference = this.addEllipseNative(this.ref, center, majorAxis, axisRatio);
-        ellipse.setRef(reference);
+        Ellipse ellipse = this.addEllipse(this.ref, center, majorAxis, axisRatio);
+        if (ellipse != null) {
+            ellipse.setHeader(this.ref);
+        }
         return ellipse;
     }
 
@@ -110,13 +116,17 @@ public class DwgObjectBlockHeader {
 
     public Ray addRay(Point3d point, Vector3d vector) {
         Ray ray = this.addRay(this.ref, point, vector);
-        ray.setHeader(this.ref);
+        if (ray != null) {
+            ray.setHeader(this.ref);
+        }
         return ray;
     }
 
     public Arc addArc(Point3d center, double radius, double startAngle, double endAngle) {
         Arc arc = this.addArc(this.ref, center, radius, startAngle, endAngle);
-        arc.setHeader(this.ref);
+        if (arc != null) {
+            arc.setHeader(this.ref);
+        }
         return arc;
     }
 
@@ -130,7 +140,7 @@ public class DwgObjectBlockHeader {
 
     private native Arc addArc(long ref, Point3d center, double radius, double startAngle, double endAngle);
 
-    private native long addEllipseNative(long ref, Point3d center, double majorAxis, double axisRatio);
+    private native Ellipse addEllipse(long ref, Point3d center, double majorAxis, double axisRatio);
 
     private native long addInsertNative(long ref, Point3d insPt, String blockName, double scaleX, double scaleY, double scaleZ, double rotation);
 

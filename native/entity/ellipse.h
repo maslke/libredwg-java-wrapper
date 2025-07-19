@@ -6,20 +6,19 @@
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenterNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxisNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maskle_dwg_entity_Ellipse_setAxisRatioNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setStartAngleNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setEndAngleNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getParentNative(JNIEnv *, jobject, jlong);
-
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getStartAngleNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getEndAngleNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getMajorAxisNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getAxisRatioNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenterNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getExtrusionNative(JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenter(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxis(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maskle_dwg_entity_Ellipse_setAxisRatio(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setExtrusion(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setStartAngle(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setEndAngle(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getParent(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getStartAngle(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getEndAngle(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getMajorAxis(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getAxisRatio(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenter(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getExtrusion(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

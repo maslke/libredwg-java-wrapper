@@ -134,7 +134,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return arcObj;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEllipseNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble majorAxis, jdouble axisRatio) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEllipse(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble majorAxis, jdouble axisRatio) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass clazz = (*env)->GetObjectClass(env, center);
     jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
@@ -145,7 +145,14 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEl
     jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
     dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
     Dwg_Entity_ELLIPSE *ellipse_entity = dwg_add_ELLIPSE(hdr, &center_pt, majorAxis, axisRatio);
-    return (jlong)(intptr_t)ellipse_entity;
+    jlong reference = (jlong)(intptr_t)ellipse_entity;
+    jclass ellipseClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Ellipse");
+    if (ellipseClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, ellipseClass, "<init>", "(J)V");
+    jobject ellipseObj = (*env)->NewObject(env, ellipseClass, constructor, reference);
+    return ellipseObj;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addInsertNative(JNIEnv *env, jobject job, jlong ref, jobject insert_pt, jstring block_name, jdouble scale_x, jdouble scale_y, jdouble scale_z, jdouble rotation) {

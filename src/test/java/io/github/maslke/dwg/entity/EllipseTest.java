@@ -45,18 +45,8 @@ public class EllipseTest extends AbstractEntityTest {
         assertEquals(0, center.getX(), TOLERANCE);
         assertEquals(0, center.getY(), TOLERANCE);
         assertEquals(0, center.getZ(), TOLERANCE);
-        center = ellipse.getCenterNative(ellipse.getRef());
-        assertNotNull(center);
-        assertEquals(0, center.getX(), TOLERANCE);
-        assertEquals(0, center.getY(), TOLERANCE);
-        assertEquals(0, center.getZ(), TOLERANCE);
         ellipse.setCenter(new Point3d(1, 1, 1));
         center = ellipse.getCenter();
-        assertNotNull(center);
-        assertEquals(1, center.getX(), TOLERANCE);
-        assertEquals(1, center.getY(), TOLERANCE);
-        assertEquals(1, center.getZ(), TOLERANCE);
-        center = ellipse.getCenterNative(ellipse.getRef());
         assertNotNull(center);
         assertEquals(1, center.getX(), TOLERANCE);
         assertEquals(1, center.getY(), TOLERANCE);
@@ -72,10 +62,8 @@ public class EllipseTest extends AbstractEntityTest {
         assertNotEquals(0, ellipse.getRef());
         double majorAxis = ellipse.getMajorAxis();
         assertEquals(1.0, majorAxis, TOLERANCE);
-        majorAxis = ellipse.getMajorAxisNative(ellipse.getRef());
-        assertEquals(1.0, majorAxis, TOLERANCE);
         ellipse.setMajorAxis(1.2);
-        majorAxis = ellipse.getMajorAxisNative(ellipse.getRef());
+        majorAxis = ellipse.getMajorAxis();
         assertEquals(1.2, majorAxis, TOLERANCE);
         majorAxis = ellipse.getMajorAxis();
         assertEquals(1.2, majorAxis, TOLERANCE);
@@ -90,12 +78,8 @@ public class EllipseTest extends AbstractEntityTest {
         assertNotEquals(0, ellipse.getRef());
         double ratio = ellipse.getAxisRatio();
         assertEquals(0.8, ratio, TOLERANCE);
-        ratio = ellipse.getAxisRatioNative(ellipse.getRef());
-        assertEquals(0.8, ratio, TOLERANCE);
         ellipse.setAxisRatio(0.5);
         ratio = ellipse.getAxisRatio();
-        assertEquals(0.5, ratio, TOLERANCE);
-        ratio = ellipse.getAxisRatioNative(ellipse.getRef());
         assertEquals(0.5, ratio, TOLERANCE);
     }
 
@@ -109,8 +93,6 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse.setStartAngle(0.2);
         double startAngle = ellipse.getStartAngle();
         assertEquals(0.2, startAngle, TOLERANCE);
-        startAngle = ellipse.getStartAngleNative(ellipse.getRef());
-        assertEquals(0.2, startAngle, TOLERANCE);
     }
 
     @Test
@@ -123,8 +105,6 @@ public class EllipseTest extends AbstractEntityTest {
         ellipse.setEndAngle(1.5);
         double endAngle = ellipse.getEndAngle();
         assertEquals(1.5, endAngle, TOLERANCE);
-        endAngle = ellipse.getEndAngleNative(ellipse.getRef());
-        assertEquals(1.5, endAngle, TOLERANCE);
     }
 
     @Test
@@ -134,7 +114,7 @@ public class EllipseTest extends AbstractEntityTest {
         assertFalse(ellipse.isEmpty());
         assertTrue(ellipse.getHeader() > 0);
         assertNotEquals(0, ellipse.getRef());
-        Vector3d defaultExtrusion = ellipse.getExtrusionNative(ellipse.getRef());
+        Vector3d defaultExtrusion = ellipse.getExtrusion();
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
         assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
@@ -142,11 +122,6 @@ public class EllipseTest extends AbstractEntityTest {
         Vector3d extrusion = new Vector3d(1, 0, 0);
         ellipse.setExtrusion(extrusion);
         extrusion = ellipse.getExtrusion();
-        assertNotNull(extrusion);
-        assertEquals(1, extrusion.getX(), TOLERANCE);
-        assertEquals(0, extrusion.getY(), TOLERANCE);
-        assertEquals(0, extrusion.getZ(), TOLERANCE);
-        extrusion = ellipse.getExtrusionNative(ellipse.getRef());
         assertNotNull(extrusion);
         assertEquals(1, extrusion.getX(), TOLERANCE);
         assertEquals(0, extrusion.getY(), TOLERANCE);
