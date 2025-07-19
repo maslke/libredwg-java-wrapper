@@ -39,12 +39,8 @@ public class DwgObjectBlockHeader {
 
     public Text addText(String textValue, Point3d point, double height)
     {
-        if (point == null || textValue == null) {
-            return null;
-        }
-        Text text = new Text(this.ref, textValue, point, height);
-        long reference = this.addTextNative(this.ref, textValue, point, height);
-        text.setRef(reference);
+        Text text = this.addText(this.ref, textValue, point, height);
+        text.setHeader(this.ref);
         return text;
     }
 
@@ -128,7 +124,7 @@ public class DwgObjectBlockHeader {
     private native Point addPoint(long ref, Point3d point);
     private native Line addLine(long ref, Point3d start, Point3d end);
 
-    private native long addTextNative(long ref, String textValue, Point3d insPt, double height);
+    private native Text addText(long ref, String textValue, Point3d insPt, double height);
 
     private native Circle addCircle(long ref, Point3d center, double radius);
 

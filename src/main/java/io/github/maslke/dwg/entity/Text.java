@@ -4,195 +4,151 @@ import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 public class Text extends Common {
-    private String textValue;
-    private double height;
-    private double rotation;
-    private double elevation;
-    private Point2d insPt;
-    private Point2d alignmentPt;
-    private Vector3d extrusion;
-    private double thickness;
-    private double obliqueAngle;
-    private double widthFactor;
-    private int horizAlignment;
-    private int vertAlignment;
-    private DwgObjectRef style;
-    private Parent parent;
 
-    public Text(long header, String textValue, Point3d insertPoint, double height) {
-        this.header = header;
-        this.textValue = textValue;
-        this.insPt = new Point2d(insertPoint.getX(), insertPoint.getY());
-        this.elevation = insertPoint.getZ();
-        this.height = height;
+    public Text() {
+
     }
 
+    public Text(long ref) {
+        this();
+        this.ref = ref;
+    }
 
     public void setTextValue(String textValue) {
-        this.textValue = textValue;
-        this.setTextValueNative(this.ref, this.textValue);
+        this.setTextValue(this.ref, textValue);
+    }
+
+    public String getTextValue() {
+        return this.getTextValue(this.ref);
     }
 
     public void setRotation(double rotation) {
-        this.rotation = rotation;
-        if (this.ref > 0) {
-            this.setRotationNative(this.ref, this.rotation);
-        }
+        this.setRotation(this.ref, rotation);
+    }
+
+    public double getRotation() {
+        return this.getRotation(this.ref);
     }
 
     public void setHeight(double height) {
-        this.height = height;
-        if (this.ref > 0) {
-            this.setHeightNative(this.ref, this.height);
-        }
+        this.setHeight(this.ref, height);
+    }
+
+    public double getHeight() {
+        return this.getHeight(this.ref);
     }
 
     public void setInsPt(Point2d insPt) {
-        if (insPt == null) {
-            return;
-        }
-        this.insPt = insPt;
-        if (this.ref > 0) {
-            this.setInsPtNative(this.ref, this.insPt.getX(), this.insPt.getY());
-        }
+        this.setInsPt(this.ref, insPt);
+    }
+
+    public Point2d getInsPt() {
+        return this.getInsPt(this.ref);
     }
 
     public void setAlignmentPt(Point2d alignmentPt) {
-        if (alignmentPt == null) {
-            return;
-        }
-        this.alignmentPt = alignmentPt;
-        if (this.ref > 0) {
-            this.setAlignmentPtNative(this.ref, this.alignmentPt.getX(), this.alignmentPt.getY());
-        }
+        this.setAlignmentPt(this.ref, alignmentPt);
+    }
+
+    public Point2d getAlignmentPt() {
+        return this.getAlignmentPt(this.ref);
     }
 
     public void setExtrusion(Vector3d extrusion) {
-        if (extrusion == null) {
-            return;
-        }
-        this.extrusion = extrusion;
-        if (this.ref > 0) {
-            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
-        }
+        this.setExtrusion(this.ref, extrusion);
+    }
+
+    public Vector3d getExtrusion() {
+        return this.getExtrusion(this.ref);
     }
 
     public void setThickness(double thickness) {
-        this.thickness = thickness;
-        if (this.ref > 0) {
-            this.setThicknessNative(this.ref, this.thickness);
-        }
+        this.setThickness(this.ref, thickness);
+    }
+
+    public double getThickness() {
+        return this.getThickness(this.ref);
     }
 
     public void setWidthFactor(double widthFactor) {
-        this.widthFactor = widthFactor;
-        if (this.ref > 0) {
-            this.setWidthFactorNative(this.ref, this.widthFactor);
-        }
+        this.setWidthFactor(this.ref, widthFactor);
+    }
+
+    public double getWidthFactor() {
+        return this.getWidthFactor(this.ref);
     }
 
     public void setElevation(double elevation) {
-        this.elevation = elevation;
-        if (this.ref > 0) {
-            this.setElevationNative(this.ref, this.elevation);
-        }
+        this.setElevation(this.ref, elevation);
+    }
+
+    public double getElevation() {
+        return this.getElevation(this.ref);
     }
 
     public void setHorizAlignment(int horizAlignment) {
-        this.horizAlignment = horizAlignment;
-        if (this.ref > 0) {
-            this.setHorizAlignmentNative(this.ref, this.horizAlignment);
-        }
+        this.setHorizAlignment(this.ref, horizAlignment);
+    }
+
+    public int getHorizAlignment() {
+        return this.getHorizAlignment(this.ref);
     }
 
     public void setVertAlignment(int vertAlignment) {
-        this.vertAlignment = vertAlignment;
-        if (this.ref > 0) {
-            this.setVertAlignmentNative(this.ref, this.vertAlignment);
-        }
+        this.setVertAlignment(this.ref, vertAlignment);
+    }
+
+    public int getVertAlignment() {
+        return this.getVertAlignment(this.ref);
     }
 
     public void setObliqueAngle(double obliqueAngle) {
-        this.obliqueAngle = obliqueAngle;
-        if (this.ref > 0) {
-            this.setObliqueAngleNative(this.ref, this.obliqueAngle);
-        }
+        this.setObliqueAngle(this.ref, obliqueAngle);
+    }
+
+    public double getObliqueAngle() {
+        return this.getObliqueAngle(this.ref);
     }
 
     public void setStyle(DwgObjectRef style) {
-        if (style == null || style.getRef() == 0) {
-            return;
-        }
-        this.style = style;
-        if (this.ref > 0) {
-            this.setStyleNative(this.ref, this.style.getRef());
-        }
+        this.setStyle(this.ref, style);
+    }
+
+    public DwgObjectRef getStyle() {
+        return this.getStyle(this.ref);
     }
 
     public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+        return new Parent(this.getParent(this.ref));
     }
 
-    private native void setHeightNative(long ref, double height);
-
-    private native void setRotationNative(long ref, double rotation);
-
-    private native void setTextValueNative(long ref, String text);
-
-    private native void setAlignmentPtNative(long ref, double x, double y);
-
-    private native void setInsPtNative(long ref, double x, double y);
-
-    private native void setExtrusionNative(long ref, double x, double y, double z);
-
-    private native void setThicknessNative(long ref, double thickness);
-
-    private native void setWidthFactorNative(long ref, double widthFactor);
-
-    private native void setElevationNative(long ref, double elevation);
-
-    private native void setHorizAlignmentNative(long ref, int horizAlignment);
-
-    private native void setVertAlignmentNative(long ref, int vertAlignment);
-
-    private native void setObliqueAngleNative(long ref, double obliqueAngle);
-
-    private native long getParentNative(long ref);
-
-    private native void setStyleNative(long ref, long style);
-
-    protected native String getTextValueNative(long ref);
-
-    protected native double getRotationNative(long ref);
-
-    protected native double getHeightNative(long ref);
-
-    protected native double getElevationNative(long ref);
-
-    protected native Point2d getInsPtNative(long ref);
-
-    protected native Point2d getAlignmentPtNative(long ref);
-
-    protected native Vector3d getExtrusionNative(long ref);
-
-    protected native double getObliqueAngleNative(long ref);
-
-    protected native double getThicknessNative(long ref);
-
-    protected native double getWidthFactorNative(long ref);
-
-    protected native int getHorizAlignmentNative(long ref);
-
-    protected native int getVertAlignmentNative(long ref);
-
-    protected native DwgObjectRef getStyleNative(long ref);
-
+    private native void setTextValue(long ref, String textValue);
+    private native void setRotation(long ref, double rotation);
+    private native void setHeight(long ref, double height);
+    private native void setInsPt(long ref, Point2d insPt);
+    private native void setAlignmentPt(long ref, Point2d alignmentPt);
+    private native void setExtrusion(long ref, Vector3d extrusion);
+    private native void setThickness(long ref, double thickness);
+    private native void setWidthFactor(long ref, double widthFactor);
+    private native void setElevation(long ref, double elevation);
+    private native void setHorizAlignment(long ref, int horizAlignment);
+    private native void setVertAlignment(long ref, int vertAlignment);
+    private native void setObliqueAngle(long ref, double obliqueAngle);
+    private native void setStyle(long ref, DwgObjectRef style);
+    private native long getParent(long ref);
+    private native String getTextValue(long ref);
+    private native double getRotation(long ref);
+    private native double getHeight(long ref);
+    private native double getElevation(long ref);
+    private native Point2d getInsPt(long ref);
+    private native Point2d getAlignmentPt(long ref);
+    private native Vector3d getExtrusion(long ref);
+    private native double getObliqueAngle(long ref);
+    private native double getThickness(long ref);
+    private native double getWidthFactor(long ref);
+    private native int getHorizAlignment(long ref);
+    private native int getVertAlignment(long ref);
+    private native DwgObjectRef getStyle(long ref);
 }

@@ -66,7 +66,7 @@ jobject start, jobject end) {
     return lineObj;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addTextNative(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addText(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     const char *chars = (*env)->GetStringUTFChars(env, text_value, NULL);
     char gbk_text[200];
@@ -81,7 +81,14 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addTe
 
     dwg_point_3d insert_pt = { .x = ins_x, .y = ins_y, .z = ins_z };
     Dwg_Entity_TEXT *text_entity = dwg_add_TEXT(hdr, strdup(gbk_text), &insert_pt, height);
-    return (jlong)(intptr_t)text_entity;
+    jlong reference = (jlong)(intptr_t)text_entity;
+    jclass textClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Text");
+    if (textClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, textClass, "<init>", "(J)V");
+    jobject textObj = (*env)->NewObject(env, textClass, constructor, reference);
+    return textObj;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCircle(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius) {

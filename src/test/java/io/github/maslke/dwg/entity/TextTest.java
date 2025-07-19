@@ -47,13 +47,9 @@ public class TextTest extends AbstractEntityTest {
         assertTrue(text.getHeader() > 0);
         String textValue = text.getTextValue();
         assertEquals("English Text", textValue);
-        textValue = text.getTextValueNative(text.ref);
-        assertEquals("English Text", textValue);
 
         text.setTextValue("中文文本");
         textValue = text.getTextValue();
-        assertEquals("中文文本", textValue);
-        textValue = text.getTextValueNative(text.getRef());
         assertEquals("中文文本", textValue);
     }
 
@@ -66,8 +62,6 @@ public class TextTest extends AbstractEntityTest {
         text.setRotation(1.50);
         double rotation = text.getRotation();
         assertEquals(1.5, rotation, TOLERANCE);
-        rotation = text.getRotationNative(text.getRef());
-        assertEquals(1.5, rotation, TOLERANCE);
     }
 
     @Test
@@ -78,12 +72,8 @@ public class TextTest extends AbstractEntityTest {
         assertTrue(text.getHeader() > 0);
         double height = text.getHeight();
         assertEquals(2.5, height, TOLERANCE);
-        height = text.getHeightNative(text.getRef());
-        assertEquals(2.5, height, TOLERANCE);
         text.setHeight(3.0);
         height = text.getHeight();
-        assertEquals(3.0, height, TOLERANCE);
-        height = text.getHeightNative(text.getRef());
         assertEquals(3.0, height, TOLERANCE);
     }
 
@@ -96,8 +86,6 @@ public class TextTest extends AbstractEntityTest {
         text.setElevation(1.0);
         double elevation = text.getElevation();
         assertEquals(1.0, elevation, TOLERANCE);
-        elevation = text.getElevationNative(text.getRef());
-        assertEquals(1.0, elevation, TOLERANCE);
     }
 
     @Test
@@ -108,8 +96,6 @@ public class TextTest extends AbstractEntityTest {
         assertTrue(text.getHeader() > 0);
         text.setWidthFactor(0.8);
         double factor = text.getWidthFactor();
-        assertEquals(0.8, factor, TOLERANCE);
-        factor = text.getWidthFactorNative(text.getRef());
         assertEquals(0.8, factor, TOLERANCE);
     }
 
@@ -123,17 +109,9 @@ public class TextTest extends AbstractEntityTest {
         assertNotNull(insPt);
         assertEquals(10, insPt.getX(), TOLERANCE);
         assertEquals(10, insPt.getY(), TOLERANCE);
-        insPt = text.getInsPtNative(text.getRef());
-        assertNotNull(insPt);
-        assertEquals(10, insPt.getX(), TOLERANCE);
-        assertEquals(10, insPt.getY(), TOLERANCE);
 
         text.setInsPt(new Point2d(15, 12));
         insPt = text.getInsPt();
-        assertNotNull(insPt);
-        assertEquals(15, insPt.getX(), TOLERANCE);
-        assertEquals(12, insPt.getY(), TOLERANCE);
-        insPt = text.getInsPtNative(text.getRef());
         assertNotNull(insPt);
         assertEquals(15, insPt.getX(), TOLERANCE);
         assertEquals(12, insPt.getY(), TOLERANCE);
@@ -150,17 +128,9 @@ public class TextTest extends AbstractEntityTest {
         assertNotNull(alignmentPt);
         assertEquals(10, alignmentPt.getX(), TOLERANCE);
         assertEquals(10, alignmentPt.getY(), TOLERANCE);
-        alignmentPt = text.getInsPtNative(text.getRef());
-        assertNotNull(alignmentPt);
-        assertEquals(10, alignmentPt.getX(), TOLERANCE);
-        assertEquals(10, alignmentPt.getY(), TOLERANCE);
 
         text.setAlignmentPt(new Point2d(15, 12));
         alignmentPt = text.getAlignmentPt();
-        assertNotNull(alignmentPt);
-        assertEquals(15, alignmentPt.getX(), TOLERANCE);
-        assertEquals(12, alignmentPt.getY(), TOLERANCE);
-        alignmentPt = text.getAlignmentPtNative(text.getRef());
         assertNotNull(alignmentPt);
         assertEquals(15, alignmentPt.getX(), TOLERANCE);
         assertEquals(12, alignmentPt.getY(), TOLERANCE);
@@ -175,8 +145,6 @@ public class TextTest extends AbstractEntityTest {
         text.setVertAlignment(VertAlignment.TOP);
         int vertAlign = text.getVertAlignment();
         assertEquals(VertAlignment.TOP, vertAlign);
-        vertAlign = text.getVertAlignmentNative(text.getRef());
-        assertEquals(VertAlignment.TOP, vertAlign);
     }
 
     @Test
@@ -188,8 +156,6 @@ public class TextTest extends AbstractEntityTest {
         text.setHorizAlignment(HorizAlignment.CENTER);
         int horizAlign = text.getHorizAlignment();
         assertEquals(HorizAlignment.CENTER, horizAlign);
-        horizAlign = text.getHorizAlignmentNative(text.getRef());
-        assertEquals(HorizAlignment.CENTER, horizAlign);
     }
 
     @Test
@@ -198,7 +164,7 @@ public class TextTest extends AbstractEntityTest {
         assertNotNull(text);
         assertFalse(text.isEmpty());
         assertTrue(text.getHeader() > 0);
-        Vector3d defaultExtrusion = text.getExtrusionNative(text.getRef());
+        Vector3d defaultExtrusion = text.getExtrusion();
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
         assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
@@ -206,10 +172,6 @@ public class TextTest extends AbstractEntityTest {
         text.setExtrusion(new Vector3d(0, 0, 1));
         Vector3d extrusion = text.getExtrusion();
         assertNotNull(extrusion);
-        assertEquals(0, extrusion.getX(), TOLERANCE);
-        assertEquals(0, extrusion.getY(), TOLERANCE);
-        assertEquals(1, extrusion.getZ(), TOLERANCE);
-        extrusion = text.getExtrusionNative(text.getRef());
         assertEquals(0, extrusion.getX(), TOLERANCE);
         assertEquals(0, extrusion.getY(), TOLERANCE);
         assertEquals(1, extrusion.getZ(), TOLERANCE);
@@ -224,8 +186,6 @@ public class TextTest extends AbstractEntityTest {
         text.setThickness(1.0);
         double thickness = text.getThickness();
         assertEquals(1.0, thickness, TOLERANCE);
-        thickness = text.getThicknessNative(text.getRef());
-        assertEquals(1.0, thickness, TOLERANCE);
     }
 
     @Test
@@ -236,8 +196,6 @@ public class TextTest extends AbstractEntityTest {
         assertTrue(text.getHeader() > 0);
         text.setObliqueAngle(0.5);
         double obliqueAngle = text.getObliqueAngle();
-        assertEquals(0.5, obliqueAngle, TOLERANCE);
-        obliqueAngle = text.getObliqueAngleNative(text.getRef());
         assertEquals(0.5, obliqueAngle, TOLERANCE);
     }
 
@@ -259,12 +217,6 @@ public class TextTest extends AbstractEntityTest {
         assertEquals(objectRef.getAbsoluteRef(), style.getAbsoluteRef());
         assertEquals(objectRef.getR11Idx(), style.getR11Idx());
 
-        style = text.getStyleNative(text.getRef());
-        assertNotNull(style);
-        assertNotNull(style);
-        assertEquals(objectRef.getRef(), style.getRef());
-        assertEquals(objectRef.getAbsoluteRef(), style.getAbsoluteRef());
-        assertEquals(objectRef.getR11Idx(), style.getR11Idx());
     }
 
     @Test
