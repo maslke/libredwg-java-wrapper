@@ -34,8 +34,6 @@ public class ParentTest extends AbstractEntityTest {
         assertNotEquals(0, parent.getRef());
         int color = parent.getColor();
         assertEquals(3, color);
-        color = parent.getColorNative(parent.getRef());
-        assertEquals(3, color);
     }
 
     @Test
@@ -45,8 +43,6 @@ public class ParentTest extends AbstractEntityTest {
         assertTrue(parent.getRef() > 0);
         parent.setLinewt(50);
         int linewt = parent.getLinewt();
-        assertEquals(50, linewt);
-        linewt = parent.getLinewtNative(parent.getRef());
         assertEquals(50, linewt);
     }
 
@@ -64,11 +60,6 @@ public class ParentTest extends AbstractEntityTest {
         assertEquals(ltypeRef.getAbsoluteRef(), ltype.getAbsoluteRef());
         assertEquals(ltypeRef.getR11Idx(), ltype.getR11Idx());
         assertEquals(ltypeRef.getRef(), ltype.getRef());
-        ltype = parent.getLtypeNative(parent.getRef());
-        assertNotNull(ltype);
-        assertEquals(ltypeRef.getAbsoluteRef(), ltype.getAbsoluteRef());
-        assertEquals(ltypeRef.getR11Idx(), ltype.getR11Idx());
-        assertEquals(ltypeRef.getRef(), ltype.getRef());
     }
 
     @Test
@@ -81,11 +72,6 @@ public class ParentTest extends AbstractEntityTest {
         assertNotNull(layerRef);
         parent.setLayer(layerRef);
         DwgObjectRef layer = parent.getLayer();
-        assertNotNull(layer);
-        assertEquals(layer.getRef(), layerRef.getRef());
-        assertEquals(layer.getAbsoluteRef(), layerRef.getAbsoluteRef());
-        assertEquals(layer.getR11Idx(), layerRef.getR11Idx());
-        layer = parent.getLayerNative(parent.getRef());
         assertNotNull(layer);
         assertEquals(layer.getRef(), layerRef.getRef());
         assertEquals(layer.getAbsoluteRef(), layerRef.getAbsoluteRef());

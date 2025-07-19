@@ -5,16 +5,17 @@
 extern "C" {
 #endif
 
-JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setColorNative(JNIEnv *, jobject, jlong, jint);
-JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewtNative(JNIEnv *, jobject, jlong, jint);
-JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtypeNative(JNIEnv *, jobject, jlong, jlong);
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_parent_getDwgNative(JNIEnv *, jobject, jlong);
-JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayerNative(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setColor(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewt(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtype(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void  JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayer(JNIEnv *, jobject, jlong, jobject);
 
-JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Parent_getColorNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewtNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLayerNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLtypeNative(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwg(JNIEnv *, jobject, jlong);
+
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Parent_getColor(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewt(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLayer(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLtype(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
