@@ -51,6 +51,9 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <propertyName>jacoco.agent.argLine</propertyName>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -120,7 +123,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
-                    <argLine>-Djava.library.path=./build</argLine>
+                    <argLine>${jacoco.agent.argLine} -Djava.library.path=./build</argLine>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,0 +1,51 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install OpenJDK 11 manually
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk
+          echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> $GITHUB_ENV
+          echo "/usr/lib/jvm/java-11-openjdk-amd64/bin" >> $GITHUB_PATH
+
+      - name: Confirm Java installation
+        run: |
+          echo "Java home: $JAVA_HOME"
+          java -version
+          javac -version
+
+      - name: Install CMake and build tools
+        run: |
+          sudo apt-get install -y build-essential cmake
+
+      - name: Create build directory and compile C code
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
+
+      - name: Build and test Java project with Maven
+        run: mvn clean compile test
+      - name: Generate JaCoCo report
+        run: mvn jacoco:report
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./target/site/jacoco/jacoco.xml
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
