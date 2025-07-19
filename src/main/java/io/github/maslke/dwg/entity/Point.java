@@ -1,90 +1,72 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Vector3d;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Point extends Common {
-    private double x;
-    private double y;
-    private double z;
-    private Vector3d extrusion;
-    private double thickness;
+    
+    public Point() {
 
-    public Point(long header, double x, double y, double z) {
-        this.header = header;
-        this.x = x;
-        this.y = y;
-        this.z = z;
     }
 
+    public Point(long ref) {
+        this();
+        this.ref = ref;
+    }
+
+
     public void setX(double x) {
-        this.x = x;
-        if (this.ref > 0) {
-            setXNative(this.ref, this.x);
-        }
+        this.setX(this.ref, x);
+    }
+
+    public double getX() {
+        return this.getX(this.ref);
     }
 
     public void setY(double y) {
-        this.y = y;
-        if (this.ref > 0) {
-            setYNative(this.ref, this.y);
-        }
+        this.setY(this.ref, y);
+    }
+
+    public double getY() {
+        return this.getY(this.ref);
     }
 
     public void setZ(double z) {
-        this.z = z;
-        if (this.ref > 0) {
-            setZNative(this.ref, this.z);
-        }
+        this.setZ(this.ref, z);
+    }
+
+    public double getZ() {
+        return this.getZ(this.ref);
     }
 
     public void setThickness(double thickness) {
-        this.thickness = thickness;
-        if (this.ref > 0) {
-            setThicknessNative(this.ref, this.thickness);
-        }
+        this.setThickness(this.ref, thickness);
+    }
+
+    public double getThickness() {
+        return this.getThickness(this.ref);
     }
 
     public void setExtrusion(Vector3d extrusion) {
-        if (extrusion == null) {
-            return;
-        }
-        this.extrusion = extrusion;
-        if (this.ref > 0) {
-            setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
-        }
+        this.setExtrusion(this.ref, extrusion);
+    }
+
+    public Vector3d getExtrusion() {
+        return this.getExtrusion(this.ref);
     }
 
     public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+        return new Parent(this.getParent(this.ref));
     }
 
-    public native void setXNative(long ref, double x);
-
-    public native void setYNative(long ref, double y);
-
-    public native void setZNative(long ref, double z);
-
-    public native void setThicknessNative(long ref, double thickness);
-
-    public native void setExtrusionNative(long ref, double x, double y, double z);
-
-    private native long getParentNative(long ref);
-
-    protected native double getXNative(long ref);
-
-    protected native double getYNative(long ref);
-
-    protected native double getZNative(long ref);
-
-    protected native Vector3d getExtrusionNative(long ref);
-
-    protected native double getThicknessNative(long ref);
+    public native void setX(long ref, double x);
+    public native void setY(long ref, double y);
+    public native void setZ(long ref, double z);
+    public native void setThickness(long ref, double thickness);
+    public native void setExtrusion(long ref, Vector3d extrusion);
+    private native long getParent(long ref);
+    protected native double getX(long ref);
+    protected native double getY(long ref);
+    protected native double getZ(long ref);
+    protected native Vector3d getExtrusion(long ref);
+    protected native double getThickness(long ref);
 }

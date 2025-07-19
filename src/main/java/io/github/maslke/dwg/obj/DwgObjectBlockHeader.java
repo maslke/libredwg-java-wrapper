@@ -32,10 +32,9 @@ public class DwgObjectBlockHeader {
         if (point == null) {
             return null;
         }
-        Point pointEntity = new Point(this.ref, point.getX(), point.getY(), point.getZ());
-        long reference = this.addPointNative(this.ref, point.getX(), point.getY(), point.getZ());
-        pointEntity.setRef(reference);
-        return pointEntity;
+        Point pnt = this.addPoint(this.ref, point);
+        pnt.setHeader(this.ref);
+        return pnt;
     }
 
     public Text addText(String textValue, Point3d point, double height)
@@ -130,7 +129,7 @@ public class DwgObjectBlockHeader {
     }
 
 
-    private native long addPointNative(long ref, double x, double y, double z);
+    private native Point addPoint(long ref, Point3d point);
     private native long addLineNative(long ref, Point3d start, Point3d end);
 
     private native long addTextNative(long ref, String textValue, Point3d insPt, double height);
