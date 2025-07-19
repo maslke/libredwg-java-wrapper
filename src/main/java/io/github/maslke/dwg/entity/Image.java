@@ -19,7 +19,7 @@ public class Image extends Common {
     private Point3d pt0;
     private Vector3d uVec;
     private Vector3d vVec;
-    private Vector2d imageSize;
+    private Vector2d size;
     private int displayProps;
     private int clipping;
     private int brightness;
@@ -31,7 +31,130 @@ public class Image extends Common {
     private List<Vector2d> clipVerts;
     private DwgObjectRef imageDef;
     private DwgObjectRef imageDefReactor;
-    
+
+    public Image(long header) {
+        this.header = header;
+    }
+
+    public void setClassVersion(long classVersion) {
+        this.classVersion = classVersion;
+        if (this.ref > 0) {
+            this.setClassVersionNative(this.ref, this.classVersion);
+        }
+    }
+
+    public void setPt0(Point3d pt0) {
+        if (pt0 == null) {
+            return;
+        }
+        this.pt0 = pt0;
+        if (this.ref > 0) {
+            this.setPt0Native(this.ref, this.pt0.getX(), this.pt0.getY(), this.pt0.getZ());
+        }
+    }
+
+    public void setVVec(Vector3d vVec) {
+        if (vVec == null) {
+            return;
+        }
+        this.vVec = vVec;
+        if (this.ref > 0) {
+            this.setVVecNative(this.ref, this.vVec.getX(), this.vVec.getY(), this.vVec.getZ());
+        }
+    }
+
+    public void setSize(Vector2d size) {
+        if (size == null) {
+            return;
+        }
+        this.size = size;
+        if (this.ref > 0) {
+            this.setSizeNative(this.ref, this.size.getX(), this.size.getY());
+        }
+    }
+
+    public void setDisplayProps(int displayProps) {
+        this.displayProps = displayProps;
+        if (this.ref > 0) {
+            this.setDisplayPropsNative(this.ref, this.displayProps);
+        }
+    }
+
+    public void setClipping(int clipping) {
+        this.clipping = clipping;
+        if (this.ref > 0) {
+            this.setClippingNative(this.ref, this.clipping);
+        }
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+        if (this.ref > 0) {
+            this.setBrightnessNative(this.ref, this.brightness);
+        }
+    }
+
+    public void setContrast(int contrast) {
+        this.contrast = contrast;
+        if (this.ref > 0) {
+            this.setContrastNative(this.ref, this.contrast);
+        }
+    }
+
+    public void setFade(int fade) {
+        this.fade = fade;
+        if (this.ref > 0) {
+            this.setFadeNative(this.ref, this.fade);
+        }
+    }
+
+    public void setClipMode(int clipMode) {
+        this.clipMode = clipMode;
+        if (this.ref > 0) {
+            this.setClipModeNative(this.ref, this.clipMode);
+        }
+    }
+
+    public void setClipBoundaryType(int clipBoundaryType) {
+        this.clipBoundaryType = clipBoundaryType;
+        if (this.ref > 0) {
+            this.setClipBoundaryTypeNative(this.ref, this.clipBoundaryType);
+        }
+    }
+
+    public void setNumClipVerts(long numClipVerts) {
+        this.numClipVerts = numClipVerts;
+        if (this.ref > 0) {
+            this.setNumClipVertsNative(this.ref, this.numClipVerts);
+        }
+    }
+
+    public void setClipVerts(List<Vector2d> clipVerts) {
+        this.clipVerts = clipVerts;
+        if (this.ref > 0) {
+            this.setClipVertsNative(this.ref, this.clipVerts);
+        }
+    }
+
+    public void setImageDef(DwgObjectRef imageDef) {
+        if (imageDef == null) {
+            return;
+        }
+        this.imageDef = imageDef;
+        if (this.ref > 0) {
+            this.setImageDefNative(this.ref, this.imageDef);
+        }
+    }
+
+    public void setImageDefReactor(DwgObjectRef imageDefReactor) {
+        if (imageDefReactor == null) {
+            return;
+        }
+        this.imageDefReactor = imageDefReactor;
+        if (this.ref > 0) {
+            this.setImageDefReactorNative(this.ref, this.imageDefReactor);
+        }
+    }
 
     public Parent getParent() {
         return new Parent(this.getParentNative(this.ref));
@@ -42,7 +165,7 @@ public class Image extends Common {
     private native void setPt0Native(long ref, double x, double y, double z);
     private native void setUVecNative(long ref, double x, double y, double z);
     private native void setVVecNative(long ref, double x, double y, double z);
-    private native void setImageSizeNative(long ref, double width, double height);
+    private native void setSizeNative(long ref, double width, double height);
     private native void setDisplayPropsNative(long ref, int displayProps);
     private native void setClippingNative(long ref, int clipping);
     private native void setBrightnessNative(long ref, int brightness);
@@ -59,7 +182,7 @@ public class Image extends Common {
     private native Point3d getPt0Native(long ref);
     private native Vector3d getUVecNative(long ref);
     private native Vector3d getVVecNative(long ref);
-    private native Vector2d getImageSizeNative(long ref);
+    private native Vector2d getSizeNative(long ref);
     private native int getDisplayPropsNative(long ref);
     private native int getClippingNative(long ref);
     private native int getBrightnessNative(long ref);
