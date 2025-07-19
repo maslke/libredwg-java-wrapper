@@ -1,80 +1,62 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point3d;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
 import io.github.maslke.dwg.common.Vector3d;
 
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Line extends Common {
-    private Point3d start;
-    private Point3d end;
-    private Vector3d extrusion;
-    private double thickness;
 
-    public Line(Long header, Point3d start, Point3d end) {
-        super();
-        this.header = header;
-        this.start = start;
-        this.end = end;
+    public Line() {
+
     }
 
+    public Line(long ref) {
+        this();
+        this.ref = ref;
+    }
 
     public void setStart(Point3d start) {
-        this.start = start;
-        if (this.ref > 0) {
-            this.setStartNative(this.ref, start);
-        }
+        this.setStart(this.ref, start);
+    }
+
+    public Point3d getStart() {
+        return this.getStart(this.ref);
     }
 
     public void setEnd(Point3d end) {
-        this.end = end;
-        if (this.ref > 0) {
-            this.setEndNative(this.ref, end);
-        }
+        this.setEnd(this.ref, end);
+    }
+
+    public Point3d getEnd() {
+        return this.getEnd(this.ref);
     }
 
     public void setExtrusion(Vector3d extrusion) {
-        if (extrusion == null) {
-            return;
-        }
-        this.extrusion = extrusion;
-        if (this.ref > 0) {
-            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
-        }
+        this.setExtrusion(this.ref, extrusion);
+    }
+
+    public Vector3d getExtrusion() {
+        return this.getExtrusion(this.ref);
     }
 
     public void setThickness(double thickness) {
-        this.thickness = thickness;
-        if (this.ref > 0) {
-            this.setThicknessNative(this.ref, this.thickness);
-        }
+        this.setThickness(this.ref, thickness);
+    }
+
+    public double getThickness() {
+        return this.getThickness(this.ref);
     }
 
     public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+        return new Parent(this.getParent(this.ref));
     }
 
-
-
-    public native void setStartNative(long ref, Point3d start);
-    public native void setEndNative(long ref, Point3d end);
-    public native void setExtrusionNative(long ref, double x, double y, double z);
-    public native void setThicknessNative(long ref, double thickness);
-
-    public native long getParentNative(long ref);
-
-    protected native Point3d getStartNative(long ref);
-
-    protected native Point3d getEndNative(long ref);
-
-    protected native Vector3d getExtrusionNative(long ref);
-
-    protected native double getThicknessNative(long ref);
+    private native void setStart(long ref, Point3d start);
+    private native void setEnd(long ref, Point3d end);
+    private native void setExtrusion(long ref, Vector3d extrusion);
+    private native void setThickness(long ref, double thickness);
+    private native long getParent(long ref);
+    private native Point3d getStart(long ref);
+    private native Point3d getEnd(long ref);
+    private native Vector3d getExtrusion(long ref);
+    private native double getThickness(long ref);
 }

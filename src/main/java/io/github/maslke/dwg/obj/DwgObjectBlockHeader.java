@@ -49,13 +49,9 @@ public class DwgObjectBlockHeader {
     }
 
     public Line addLine(Point3d start, Point3d end) {
-        if (start == null || end == null) {
-            return null;
-        }
-        Line lineEntity = new Line(this.ref, start, end);
-        long reference = this.addLineNative(this.ref, start, end);
-        lineEntity.setRef(reference);
-        return lineEntity;
+        Line line = this.addLine(this.ref, start, end);
+        line.setHeader(this.ref);
+        return line;
     }
 
     public Circle addCircle(Point3d center, double radius) {
@@ -130,7 +126,7 @@ public class DwgObjectBlockHeader {
 
 
     private native Point addPoint(long ref, Point3d point);
-    private native long addLineNative(long ref, Point3d start, Point3d end);
+    private native Line addLine(long ref, Point3d start, Point3d end);
 
     private native long addTextNative(long ref, String textValue, Point3d insPt, double height);
 

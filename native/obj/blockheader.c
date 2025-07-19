@@ -35,7 +35,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return pointObj;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLineNative(JNIEnv *env, jobject obj, jlong ref,
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLine(JNIEnv *env, jobject obj, jlong ref,
 jobject start, jobject end) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass clazz = (*env)->GetObjectClass(env, start);
@@ -53,7 +53,17 @@ jobject start, jobject end) {
     jdouble end_z = (*env)->GetDoubleField(env, end, fidZ);
     dwg_point_3d end_point = {.x = end_x, .y = end_y, .z = end_z};
     Dwg_Entity_LINE *line_entity = dwg_add_LINE(hdr, &start_point, &end_point);
-    return (jlong)(intptr_t)line_entity;
+    if (line_entity == NULL) {
+        return NULL;
+    }
+    jlong reference = (jlong)(intptr_t)line_entity;
+    jclass lineClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Line");
+    if (lineClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, lineClass, "<init>", "(J)V");
+    jobject lineObj = (*env)->NewObject(env, lineClass, constructor, reference);
+    return lineObj;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addTextNative(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {

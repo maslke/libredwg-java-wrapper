@@ -6,16 +6,15 @@
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStartNative(JNIEnv *, jobject, jlong, jobject);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv *, jobject, jlong, jobject);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThicknessNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *, jobject, jlong);
-
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStartNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEndNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Line_getThicknessNative(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusionNative(JNIEnv *, jobject, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStart(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThickness(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusion(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParent(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStart(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEnd(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Line_getThickness(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusion(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

@@ -11,9 +11,12 @@
 #include "helper.h"
 
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStartNative(JNIEnv *env, jobject obj, jlong ref, jobject start) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStart(JNIEnv *env, jobject obj, jlong ref, jobject start) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
+        return;
+    }
+    if (start == NULL) {
         return;
     }
     jclass start_class = (*env)->GetObjectClass(env, start);
@@ -27,9 +30,12 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStartNative(JNIE
     line_entity->start = s;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv *env, jobject obj, jlong ref, jobject end) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env, jobject obj, jlong ref, jobject end) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
+        return;
+    }
+    if (end == NULL) {
         return;
     }
     jclass end_class = (*env)->GetObjectClass(env, end);
@@ -43,7 +49,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEndNative(JNIEnv
     line_entity->end = e;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThicknessNative(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThickness(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
         return;
@@ -51,16 +57,26 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setThicknessNative(
     line_entity->thickness = thickness;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusionNative(JNIEnv *env, jobject, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusion(JNIEnv *env, jobject job, jlong ref, jobject extrusion) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
         return;
     }
-    BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
-    line_entity->extrusion = extrusion;
+    jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
+    if (vectorClass == NULL) {
+        return;
+    }
+    jfieldID xField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, extrusion, xField);
+    jdouble y = (*env)->GetDoubleField(env, extrusion, yField);
+    jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
+    BITCODE_BE extrusion2 = {.x = x, .y = y, .z = z};
+    line_entity->extrusion = extrusion2;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParent(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
         return 0;
@@ -68,7 +84,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Line_getParentNative(JN
     return (intptr_t)line_entity->parent;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStartNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStart(JNIEnv *env, jobject job, jlong ref) {
    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
    if (line_entity == NULL) {
        return NULL;
@@ -90,7 +106,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getStartNative(J
    return pointObj;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEndNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEnd(JNIEnv *env, jobject job, jlong ref) {
    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
    if (line_entity == NULL) {
        return NULL;
@@ -112,7 +128,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getEndNative(JNI
    return pointObj;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusion(JNIEnv *env, jobject job, jlong ref) {
    Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
    if (line_entity == NULL) {
        return NULL;
@@ -133,7 +149,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Line_getExtrusionNati
    return pointObj;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Line_getThicknessNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Line_getThickness(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LINE *line_entity = (Dwg_Entity_LINE*)(intptr_t)ref;
     if (line_entity == NULL) {
         return 0;

@@ -43,21 +43,12 @@ public class LineTest extends AbstractEntityTest {
         assertNotNull(start);
         assertEquals(0, start.getX(), TOLERANCE);
         assertEquals(0, start.getY(), TOLERANCE);
-        start = line.getStartNative(line.getRef());
-        assertNotNull(start);
-        assertEquals(0, start.getX(), TOLERANCE);
-        assertEquals(0, start.getY(), TOLERANCE);
-
         line.setStart(new Point3d(2, 2, 0));
         start = line.getStart();
         assertNotNull(start);
         assertEquals(2, start.getX(), TOLERANCE);
         assertEquals(2, start.getY(), TOLERANCE);
 
-        start = line.getStartNative(line.ref);
-        assertNotNull(start);
-        assertEquals(2, start.getX(), TOLERANCE);
-        assertEquals(2, start.getY(), TOLERANCE);
     }
 
 
@@ -71,18 +62,8 @@ public class LineTest extends AbstractEntityTest {
         assertNotNull(end);
         assertEquals(10, end.getX(), TOLERANCE);
         assertEquals(10, end.getY(), TOLERANCE);
-
-        end = line.getEndNative(line.getRef());
-        assertEquals(10, end.getX(), TOLERANCE);
-        assertEquals(10, end.getY(), TOLERANCE);
-
         line.setEnd(new Point3d(12, 12, 0));
         end = line.getEnd();
-        assertNotNull(end);
-        assertEquals(12, end.getX(), TOLERANCE);
-        assertEquals(12, end.getY(), TOLERANCE);
-
-        end = line.getEndNative(line.getRef());
         assertNotNull(end);
         assertEquals(12, end.getX(), TOLERANCE);
         assertEquals(12, end.getY(), TOLERANCE);
@@ -95,19 +76,14 @@ public class LineTest extends AbstractEntityTest {
         assertFalse(line.isEmpty());
         assertTrue(line.getHeader() > 0);
         assertNotEquals(0, line.getRef());
-        Vector3d defaultExtrusion = line.getExtrusionNative(line.getRef());
+        Vector3d defaultExtrusion = line.getExtrusion();
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
         assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
         assertEquals(1, defaultExtrusion.getZ(), TOLERANCE);
         Vector3d extrusion = new Vector3d(1, 0, 0);
         line.setExtrusion(extrusion);
-        Vector3d extrusion2 = line.getExtrusionNative(line.ref);
-        assertNotNull(extrusion2);
-        assertEquals(1, extrusion2.getX(), TOLERANCE);
-        assertEquals(0, extrusion2.getY(), TOLERANCE);
-        assertEquals(0, extrusion2.getZ(), TOLERANCE);
-        extrusion2 = line.getExtrusion();
+        Vector3d extrusion2 = line.getExtrusion();
         assertNotNull(extrusion2);
         assertEquals(1, extrusion2.getX(), TOLERANCE);
         assertEquals(0, extrusion2.getY(), TOLERANCE);
@@ -121,7 +97,7 @@ public class LineTest extends AbstractEntityTest {
         assertFalse(line.isEmpty());
         assertTrue(line.getHeader() > 0);
         line.setThickness(2.5);
-        double thickness = line.getThicknessNative(line.ref);
+        double thickness = line.getThickness();
         assertEquals(2.5, thickness, TOLERANCE);
     }
 
