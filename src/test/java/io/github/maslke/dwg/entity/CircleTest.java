@@ -10,6 +10,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+
 public class CircleTest extends AbstractEntityTest {
 
 
@@ -26,6 +28,7 @@ public class CircleTest extends AbstractEntityTest {
     public void testCenter() {
         circle = createCircle();
         assertNotNull(circle);
+        assertFalse(circle.isEmpty());
         Point3d center = circle.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
         assertEquals(10, center.getY(), TOLERANCE);
@@ -43,6 +46,7 @@ public class CircleTest extends AbstractEntityTest {
     public void testRadius() {
         circle = createCircle();
         assertNotNull(circle);
+        assertFalse(circle.isEmpty());
         assertEquals(10, circle.getRadius(), TOLERANCE);
         circle.setRadius(20);
         assertEquals(20, circle.getRadius(), TOLERANCE);
@@ -54,8 +58,14 @@ public class CircleTest extends AbstractEntityTest {
     public void testThickness() {
         circle = createCircle();
         assertNotNull(circle);
+        assertFalse(circle.isEmpty());
+        assertNotEquals(0, circle.getRef());
+        double defaultThickness = circle.getThickness();
+        assertEquals(0, defaultThickness, TOLERANCE);
         circle.setThickness(1.2);
-        double thickness = circle.getThicknessNative(circle.ref);
+        double thickness = circle.getThickness();
+        assertEquals(1.2, thickness, TOLERANCE);
+        thickness = circle.getThicknessNative(circle.ref);
         assertEquals(1.2, thickness, TOLERANCE);
     }
 
@@ -64,6 +74,8 @@ public class CircleTest extends AbstractEntityTest {
     public void testExtrusion() {
         circle = createCircle();
         assertNotNull(circle);
+        assertFalse(circle.isEmpty());
+        assertNotEquals(0, circle.getRef());
         Vector3d defaultExtrusion = circle.getExtrusionNative(circle.getRef());
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
@@ -86,6 +98,7 @@ public class CircleTest extends AbstractEntityTest {
     public void testParent() {
         circle = createCircle();
         assertNotNull(circle);
+        assertFalse(circle.isEmpty());
         Parent parent = circle.getParent();
         assertNotNull(parent);
         assertNotEquals(0, parent.getRef());

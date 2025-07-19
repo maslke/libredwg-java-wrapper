@@ -10,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
 public class ArcTest extends AbstractEntityTest {
 
@@ -51,6 +52,7 @@ public class ArcTest extends AbstractEntityTest {
     public void testRadius() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
         assertEquals(10, arc.getRadius(), TOLERANCE);
         arc.setRadius(20);
         assertEquals(20, arc.getRadius(), TOLERANCE);
@@ -62,8 +64,13 @@ public class ArcTest extends AbstractEntityTest {
     public void testThickness() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
+        double defaultThickness = arc.getThickness();
+        assertEquals(0, defaultThickness, TOLERANCE);
         arc.setThickness(1.2);
         double thickness = arc.getThicknessNative(arc.ref);
+        assertEquals(1.2, thickness, TOLERANCE);
+        thickness = arc.getThickness();
         assertEquals(1.2, thickness, TOLERANCE);
     }
 
@@ -72,6 +79,7 @@ public class ArcTest extends AbstractEntityTest {
     public void testExtrusion() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
         Vector3d defaultExtrusion = arc.getExtrusionNative(arc.getRef());
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
@@ -94,6 +102,7 @@ public class ArcTest extends AbstractEntityTest {
     public void testStartAngle() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
         double start = arc.getStartAngle();
         assertEquals(0, start, TOLERANCE);
         arc.setStartAngle(1.0);
@@ -107,6 +116,7 @@ public class ArcTest extends AbstractEntityTest {
     public void testEndAngle() {
         arc = createArc();
         assertNotNull(arc);
+        assertFalse(arc.isEmpty());
         double end = arc.getEndAngle();
         assertEquals(1.2, end, TOLERANCE);
         arc.setEndAngle(1.5);
