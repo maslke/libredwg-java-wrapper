@@ -12,12 +12,18 @@
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenterNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     BITCODE_3BD center = {.x = x, .y = y, .z = z};
     ellipse->center = center;
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxisNative(JNIEnv *env, jobject job, jlong ref, jdouble major_axis) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     BITCODE_3BD sm_axis = {.x = major_axis, .y = major_axis, .z = 0};
     sm_axis.z = ellipse->center.z;
     ellipse->sm_axis = sm_axis;
@@ -25,53 +31,83 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxisNati
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setAxisRatioNative(JNIEnv *env, jobject job, jlong ref, jdouble ratio) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     ellipse->axis_ratio = ratio;
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setExtrusionNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
     ellipse->extrusion = extrusion;
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setStartAngleNative(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     ellipse->start_angle = angle;
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setEndAngleNative(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return;
+    }
     ellipse->end_angle = angle;
 }
 
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getParentNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return 0;
+    }
     return (jlong)(intptr_t)ellipse->parent;
 }
 
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getStartAngleNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return 0;
+    }
     return ellipse->start_angle;
 }
 
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getEndAngleNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return 0;
+    }
     return ellipse->end_angle;
 }
 
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getMajorAxisNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return 0;
+    }
     return ellipse->sm_axis.x;
 }
 
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getAxisRatioNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return 0;
+    }
     return ellipse->axis_ratio;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenterNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return NULL;
+    }
     jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
     if (pointCls == NULL) {
         return NULL;
@@ -90,6 +126,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getCenterNati
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Ellipse_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ELLIPSE *ellipse = (Dwg_Entity_ELLIPSE*)(intptr_t)ref;
+    if (ellipse == NULL) {
+        return NULL;
+    }
     jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
     if (vectorClass == NULL) {
         return NULL;
