@@ -74,7 +74,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCi
 
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addArcNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius, jdouble start_angle, jdouble end_angle) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addArc(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius, jdouble start_angle, jdouble end_angle) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass clazz = (*env)->GetObjectClass(env, center);
     jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
@@ -85,7 +85,15 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addAr
     jdouble center_z = (*env)->GetDoubleField(env, center, fidZ);
     dwg_point_3d center_pt = {.x = center_x, .y = center_y, .z = center_z};
     Dwg_Entity_ARC *arc_entity = dwg_add_ARC(hdr, &center_pt, radius, start_angle, end_angle);
-    return (jlong)(intptr_t)arc_entity;
+    jlong reference = (jlong)(intptr_t)arc_entity;
+
+    jclass arcClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Arc");
+    if (arcClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, arcClass, "<init>", "(J)V");
+    jobject arcObj = (*env)->NewObject(env, arcClass, constructor, reference);
+    return arcObj;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEllipseNative(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble majorAxis, jdouble axisRatio) {

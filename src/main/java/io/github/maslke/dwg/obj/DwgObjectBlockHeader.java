@@ -66,12 +66,6 @@ public class DwgObjectBlockHeader {
         return circle;
     }
 
-    public Arc addArc(Point3d center, double radius, double startAngle, double endAngle) {
-        Arc arc = new Arc(this.ref, center, radius, startAngle, endAngle);
-        long reference = this.addArcNative(this.ref, center, radius, startAngle, endAngle);
-        arc.setRef(reference);
-        return arc;
-    }
 
     public Ellipse addEllipse(Point3d center, double majorAxis, double axisRatio) {
         Ellipse ellipse = new Ellipse(this.ref, center, majorAxis, axisRatio);
@@ -131,6 +125,13 @@ public class DwgObjectBlockHeader {
         return ray;
     }
 
+    public Arc addArc(Point3d center, double radius, double startAngle, double endAngle) {
+        Arc arc = this.addArc(this.ref, center, radius, startAngle, endAngle);
+        arc.setHeader(this.ref);
+        return arc;
+    }
+
+
     private native long addPointNative(long ref, double x, double y, double z);
     private native long addLineNative(long ref, Point3d start, Point3d end);
 
@@ -138,7 +139,7 @@ public class DwgObjectBlockHeader {
 
     private native long addCircleNative(long ref, Point3d center, double radius);
 
-    private native long addArcNative(long ref, Point3d center, double radius, double startAngle, double endAngle);
+    private native Arc addArc(long ref, Point3d center, double radius, double startAngle, double endAngle);
 
     private native long addEllipseNative(long ref, Point3d center, double majorAxis, double axisRatio);
 

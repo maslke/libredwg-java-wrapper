@@ -17,7 +17,6 @@ public class ArcTest extends AbstractEntityTest {
 
     private Arc arc;
 
-
     private Arc createArc() {
         Dwg dwg = Dwg.create();
         DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
@@ -34,12 +33,8 @@ public class ArcTest extends AbstractEntityTest {
         Point3d center = arc.getCenter();
         assertEquals(10, center.getX(), TOLERANCE);
         assertEquals(10, center.getY(), TOLERANCE);
-        center = arc.getCenterNative(arc.ref);
-        assertNotNull(center);
-        assertEquals(10, center.getX(), TOLERANCE);
-        assertEquals(10, center.getY(), TOLERANCE);
         arc.setCenter(new Point3d(20, 20, 0));
-        center = arc.getCenterNative(arc.ref);
+        center = arc.getCenter();
         assertEquals(20, center.getX(), TOLERANCE);
         assertEquals(20, center.getY(), TOLERANCE);
     }
@@ -60,8 +55,6 @@ public class ArcTest extends AbstractEntityTest {
         assertEquals(10, arc.getRadius(), TOLERANCE);
         arc.setRadius(20);
         assertEquals(20, arc.getRadius(), TOLERANCE);
-        double r = arc.getRadiusNative(arc.ref);
-        assertEquals(20, r, TOLERANCE);
     }
 
     @Test
@@ -73,9 +66,7 @@ public class ArcTest extends AbstractEntityTest {
         double defaultThickness = arc.getThickness();
         assertEquals(0, defaultThickness, TOLERANCE);
         arc.setThickness(1.2);
-        double thickness = arc.getThicknessNative(arc.ref);
-        assertEquals(1.2, thickness, TOLERANCE);
-        thickness = arc.getThickness();
+        double thickness = arc.getThickness();
         assertEquals(1.2, thickness, TOLERANCE);
     }
 
@@ -86,7 +77,7 @@ public class ArcTest extends AbstractEntityTest {
         assertNotNull(arc);
         assertFalse(arc.isEmpty());
         assertTrue(arc.getHeader() > 0);
-        Vector3d defaultExtrusion = arc.getExtrusionNative(arc.getRef());
+        Vector3d defaultExtrusion = arc.getExtrusion();
         assertNotNull(defaultExtrusion);
         assertEquals(0, defaultExtrusion.getX(), TOLERANCE);
         assertEquals(0, defaultExtrusion.getY(), TOLERANCE);
@@ -97,11 +88,6 @@ public class ArcTest extends AbstractEntityTest {
         assertEquals(0, extrusion.getX(), TOLERANCE);
         assertEquals(1, extrusion.getY(), TOLERANCE);
         assertEquals(0, extrusion.getZ(), TOLERANCE);
-        Vector3d extrusion2 = arc.getExtrusionNative(arc.ref);
-        assertNotNull(extrusion2);
-        assertEquals(0, extrusion2.getX(), TOLERANCE);
-        assertEquals(1, extrusion2.getY(), TOLERANCE);
-        assertEquals(0, extrusion2.getZ(), TOLERANCE);
     }
 
     @Test
@@ -114,8 +100,6 @@ public class ArcTest extends AbstractEntityTest {
         assertEquals(0, start, TOLERANCE);
         arc.setStartAngle(1.0);
         start = arc.getStartAngle();
-        assertEquals(1.0, start, TOLERANCE);
-        start = arc.getStartAngleNative(arc.ref);
         assertEquals(1.0, start, TOLERANCE);
     }
 
@@ -130,8 +114,6 @@ public class ArcTest extends AbstractEntityTest {
         arc.setEndAngle(1.5);
         end = arc.getEndAngle();
         assertEquals(1.5, end, TOLERANCE);
-        end = arc.getEndAngleNative(arc.ref);
-        assertEquals(1.5, end, TOLERANCE);
     }
 
     @Test
@@ -140,6 +122,6 @@ public class ArcTest extends AbstractEntityTest {
         assertNotNull(arc);
         Parent parent = arc.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.getRef() > 0);
     }
 }

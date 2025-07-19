@@ -9,16 +9,24 @@
 #include <ctype.h>
 #include <math.h>
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setCenterNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setCenter(JNIEnv *env, jobject job, jlong ref, jobject center) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
     }
-    BITCODE_3BD center = {.x = x, .y = y, .z = z};
-    arc_entity->center = center;
+    jclass pointCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
+    if (pointCls == NULL) {
+        return;
+    }
+    jfieldID xField = (*env)->GetFieldID(env, pointCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointCls, "z", "D");
+    arc_entity->center.x = (*env)->GetDoubleField(env, center, xField);
+    arc_entity->center.y = (*env)->GetDoubleField(env, center, yField);
+    arc_entity->center.z = (*env)->GetDoubleField(env, center, zField);
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setRadiusNative(JNIEnv *env, jobject job, jlong ref, jdouble radius) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setRadius(JNIEnv *env, jobject job, jlong ref, jdouble radius) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
@@ -26,7 +34,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setRadiusNative(JNIE
     arc_entity->radius = radius;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setThicknessNative(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setThickness(JNIEnv *env, jobject job, jlong ref, jdouble thickness) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
@@ -34,16 +42,24 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setThicknessNative(J
     arc_entity->thickness = thickness;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusionNative(JNIEnv *env, jobject job, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setExtrusion(JNIEnv *env, jobject job, jlong ref, jobject extrusion) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
     }
-    BITCODE_BE extrusion = {.x = x, .y = y, .z = z};
-    arc_entity->extrusion = extrusion;
+    jclass vectorCls = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
+    if (vectorCls == NULL) {
+        return;
+    }
+    jfieldID xField = (*env)->GetFieldID(env, vectorCls, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, vectorCls, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, vectorCls, "z", "D");
+    arc_entity->extrusion.x = (*env)->GetDoubleField(env, extrusion, xField);
+    arc_entity->extrusion.y = (*env)->GetDoubleField(env, extrusion, yField);
+    arc_entity->extrusion.z = (*env)->GetDoubleField(env, extrusion, zField);
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Arc_getParentNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Arc_getParent(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return 0;
@@ -51,7 +67,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Arc_getParentNative(JNI
     return (intptr_t)arc_entity->parent;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setStartAngleNative(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setStartAngle(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
@@ -59,7 +75,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setStartAngleNative(
     arc_entity->start_angle = angle;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setEndAngleNative(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setEndAngle(JNIEnv *env, jobject job, jlong ref, jdouble angle) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return;
@@ -68,7 +84,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Arc_setEndAngleNative(JN
 }
 
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getCenterNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getCenter(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return NULL;
@@ -89,7 +105,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getCenterNative(J
     return pointObj;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getRadiusNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getRadius(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return 0;
@@ -97,7 +113,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getRadiusNative(J
     return arc_entity->radius;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getThicknessNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getThickness(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return 0;
@@ -105,7 +121,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getThicknessNativ
     return arc_entity->thickness;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getExtrusion(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return NULL;
@@ -126,7 +142,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Arc_getExtrusionNativ
     return pointObj;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getStartAngleNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getStartAngle(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return 0;
@@ -134,7 +150,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getStartAngleNati
     return arc_entity->start_angle;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getEndAngleNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Arc_getEndAngle(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_ARC *arc_entity = (Dwg_Entity_ARC*)(intptr_t)ref;
     if (arc_entity == NULL) {
         return 0;

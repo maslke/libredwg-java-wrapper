@@ -16,5 +16,4 @@ public abstract class Common {
     public boolean isEmpty() {
         return this.ref == 0;
     }
-
 }
