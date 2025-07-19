@@ -10,7 +10,7 @@
 #include <math.h>
 #include "helper.h"
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setFlagNative(JNIEnv *env, jobject obj, jlong ref, jint flag) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setFlag(JNIEnv *env, jobject obj, jlong ref, jint flag) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -18,7 +18,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setFlagNative
     lwpolyline_entity->flag = flag;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setConstWidthNative(JNIEnv *env, jobject obj, jlong ref, jdouble const_width) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setConstWidth(JNIEnv *env, jobject obj, jlong ref, jdouble const_width) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -26,7 +26,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setConstWidth
     lwpolyline_entity->const_width = const_width;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setElevationNative(JNIEnv *env, jobject obj, jlong ref, jdouble elevation) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setElevation(JNIEnv *env, jobject obj, jlong ref, jdouble elevation) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -34,7 +34,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setElevationN
     lwpolyline_entity->elevation = elevation;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setThicknessNative(JNIEnv *env, jobject obj, jlong ref, jdouble thickness) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setThickness(JNIEnv *env, jobject obj, jlong ref, jdouble thickness) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -42,17 +42,21 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setThicknessN
     lwpolyline_entity->thickness = thickness;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setExtrusionNative(JNIEnv *env, jobject obj, jlong ref, jdouble x, jdouble y, jdouble z) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setExtrusion(JNIEnv *env, jobject obj, jlong ref, jobject vector) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
     }
-    lwpolyline_entity->extrusion.x = x;
-    lwpolyline_entity->extrusion.y = y;
-    lwpolyline_entity->extrusion.z = z;
+    jclass vectorClass = (*env)->GetObjectClass(env, vector);
+    jfieldID xField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    lwpolyline_entity->extrusion.x = (*env)->GetDoubleField(env, vector, xField);
+    lwpolyline_entity->extrusion.y = (*env)->GetDoubleField(env, vector, yField);
+    lwpolyline_entity->extrusion.z = (*env)->GetDoubleField(env, vector, zField);
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumPointsNative(JNIEnv *env, jobject obj, jlong ref, jint num_points) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumPoints(JNIEnv *env, jobject obj, jlong ref, jint num_points) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -60,7 +64,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumPointsN
     lwpolyline_entity->num_points = num_points;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setBulgesNative(JNIEnv *env, jobject job, jlong ref, jobject bulgeList) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setBulges(JNIEnv *env, jobject job, jlong ref, jobject bulgeList) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -88,7 +92,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setBulgesNati
     lwpolyline_entity->bulges = bulges;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidthsNative(JNIEnv *env, jobject job, jlong ref, jobject widthsList) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidths(JNIEnv *env, jobject job, jlong ref, jobject widthsList) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -125,7 +129,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidthsNati
     lwpolyline_entity->num_widths = size;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPointsNative(JNIEnv *env, jobject obj, jlong ref, jobject pointList) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPoints(JNIEnv *env, jobject obj, jlong ref, jobject pointList) {
     Dwg_Entity_LWPOLYLINE *lwpolyline_entity = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline_entity == NULL) {
         return;
@@ -158,7 +162,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPointsNati
     lwpolyline_entity->num_vertexids = size;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumBulgesNative(JNIEnv *env, jobject job, jlong ref, jint num_bulges) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumBulges(JNIEnv *env, jobject job, jlong ref, jint num_bulges) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return;
@@ -166,7 +170,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumBulgesN
     lwpolyline->num_bulges = num_bulges;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getParentNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getParent(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -174,7 +178,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getParentNat
     return (jlong)(intptr_t)lwpolyline->parent;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getFlagNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getFlag(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -182,7 +186,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getFlagNative
     return lwpolyline->flag;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getThicknessNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getThickness(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -190,7 +194,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getThickne
     return lwpolyline->thickness;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getConstWidthNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getConstWidth(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -198,7 +202,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getConstWi
     return lwpolyline->const_width;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumPointsNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumPoints(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -206,7 +210,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumPointsN
     return lwpolyline->num_points;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumVertexidsNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumVertexids(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -214,7 +218,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumVertexi
     return lwpolyline->num_vertexids;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getElevationNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getElevation(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -222,7 +226,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getElevati
     return lwpolyline->elevation;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getExtrusionNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getExtrusion(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
     if (vectorClass == NULL) {
@@ -240,7 +244,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getExtrusi
     return vectorObj;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumBulgesNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumBulges(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -248,7 +252,46 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumBulgesN
     return lwpolyline->num_bulges;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getPointsNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getBulges(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
+    if (lwpolyline == NULL || lwpolyline->bulges == NULL) {
+        return NULL;
+    }
+
+    jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return NULL;
+    }
+    jmethodID listConstructor = (*env)->GetMethodID(env, listClass, "<init>", "()V");
+    jmethodID addMethod = (*env)->GetMethodID(env, listClass, "add", "(Ljava/lang/Object;)Z");
+
+    jclass doubleClass = (*env)->FindClass(env, "java/lang/Double");
+    if (doubleClass == NULL) {
+        return NULL;
+    }
+    jmethodID doubleConstructor = (*env)->GetMethodID(env, doubleClass, "<init>", "(D)V");
+
+    jobject listObj = (*env)->NewObject(env, listClass, listConstructor);
+    if (listObj == NULL) {
+        return NULL;
+    }
+
+    for (int i = 0; i < lwpolyline->num_bulges; i++) {
+        jobject doubleObj = (*env)->NewObject(env, doubleClass, doubleConstructor, lwpolyline->bulges[i]);
+        if (doubleObj == NULL) {
+            continue;
+        }
+        (*env)->CallBooleanMethod(env, listObj, addMethod, doubleObj);
+        (*env)->DeleteLocalRef(env, doubleObj);
+    }
+
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, doubleClass);
+
+    return listObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getPoints(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
 
     if (lwpolyline == NULL || lwpolyline->points == NULL || lwpolyline->num_points <= 0) {
@@ -278,7 +321,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getPointsN
     return listObj;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumVertexidsNative(JNIEnv *env, jobject job, jlong ref, jint num_vertexids) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumVertexids(JNIEnv *env, jobject job, jlong ref, jint num_vertexids) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return;
@@ -286,7 +329,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setNumVertexi
     lwpolyline->num_vertexids = num_vertexids;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumWidthsNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumWidths(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
     if (lwpolyline == NULL) {
         return 0;
@@ -294,7 +337,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getNumWidthsN
     return lwpolyline->num_widths;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getWidthsNative(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_getWidths(JNIEnv *env, jobject job, jlong ref) {
 
     Dwg_Entity_LWPOLYLINE *lwpolyline = (Dwg_Entity_LWPOLYLINE*)(intptr_t)ref;
 

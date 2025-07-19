@@ -3,183 +3,153 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.entity.component.LwpolylineWidth;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Lwpolyline extends Common {
 
-    private int flag;
-    private double constWidth;
-    private double elevation;
-    private double thickness;
-    private Vector3d extrusion = new Vector3d(0, 0, 1);
-    private int numPoints;
-    private List<Point2d> points;
-    private int numBulges;
-    private List<Integer> bulges;
-    private int numVertexids;
-    private List<Integer> vertexids;
-    private int numWidths;
-    private List<LwpolylineWidth> widths;
+    public Lwpolyline() {
 
+    }
+
+    public Lwpolyline(long ref) {
+        this();
+        this.ref = ref;
+    }
 
     public void setFlag(int flag) {
-        this.flag = flag;
-        if (this.ref > 0) {
-            this.setFlagNative(this.ref, this.flag);
-        }
+        this.setFlag(this.ref, flag);
+    }
+
+    public int getFlag() {
+        return this.getFlag(this.ref);
     }
 
     public void setConstWidth(double constWidth) {
-        this.constWidth = constWidth;
-        if (this.ref > 0) {
-            this.setConstWidthNative(this.ref, this.constWidth);
-        }
+        this.setConstWidth(this.ref, constWidth);
+    }
 
+    public double getConstWidth() {
+        return this.getConstWidth(this.ref);
     }
 
     public void setElevation(double elevation) {
-        this.elevation = elevation;
-        if (this.ref > 0) {
-            this.setElevationNative(this.ref, this.elevation);
-        }
+        this.setElevation(this.ref, elevation);
+    }
+
+    public double getElevation() {
+        return this.getElevation(this.ref);
     }
 
     public void setThickness(double thickness) {
-        this.thickness = thickness;
-        if (this.ref > 0) {
-            this.setThicknessNative(this.ref, this.thickness);
-        }
+        this.setThickness(this.ref, thickness);
+    }
+
+    public double getThickness() {
+        return this.getThickness(this.ref);
     }
 
     public void setExtrusion(Vector3d extrusion) {
-        if (extrusion == null) {
-            return;
-        }
-        this.extrusion = extrusion;
-        if (this.ref > 0) {
-            this.setExtrusionNative(this.ref, this.extrusion.getX(), this.extrusion.getY(), this.extrusion.getZ());
-        }
+        this.setExtrusion(this.ref, extrusion);
+    }
+
+    public Vector3d getExtrusion() {
+        return this.getExtrusion(this.ref);
     }
 
     public void setNumPoints(int numPoints) {
-        this.numPoints = numPoints;
-        if (this.ref > 0) {
-            this.setNumPointsNative(this.ref, this.numPoints);
-        }
+        this.setNumPoints(this.ref, numPoints);
+    }
+
+    public int getNumPoints() {
+        return this.getNumPoints(this.ref);
     }
 
     public void setPoints(List<Point2d> points) {
-        this.points = points;
-        if (this.points != null) {
-            this.numPoints = this.points.size();
-            this.numVertexids = this.points.size();
-        }
-        if (this.ref > 0) {
-            this.setPointsNative(this.ref, this.points);
-        }
+        this.setPoints(this.ref, points);
+    }
+
+    public List<Point2d> getPoints() {
+        return this.getPoints(this.ref);
     }
 
     public void setNumBulges(int numBulges) {
-        this.numBulges = numBulges;
-        if (this.ref > 0) {
-            this.setNumBulgesNative(this.ref, this.numBulges);
-        }
+        this.setNumBulges(this.ref, numBulges);
     }
 
-    public void setBulges(List<Integer> bulges) {
-        this.bulges = bulges;
-        if (this.ref > 0) {
-            this.setBulgesNative(this.ref, this.bulges);
-        }
+    public int getNumBulges() {
+        return this.getNumBulges(this.ref);
+    }
+
+    public void setBulges(List<Double> bulges) {
+        this.setBulges(this.ref, bulges);
+    }
+
+    public List<Double> getBulges() {
+        return this.getBulges(this.ref);
     }
 
     public void setNumVertexids(int numVertexids) {
-        this.numVertexids = numVertexids;
-        if (this.ref > 0) {
-            this.setNumVertexidsNative(this.ref, this.numVertexids);
-        }
+        this.setNumVertexids(this.ref, numVertexids);
     }
 
+    public int getNumVertexids() {
+        return this.getNumVertexids(this.ref);
+    }
 
     public void setVertexids(List<Integer> vertexids) {
-        this.vertexids = vertexids;
-        if (this.ref > 0) {
-            this.setVertexidsNative(this.ref, this.vertexids);
-        }
+        this.setVertexids(this.ref, vertexids);
+    }
+
+    public List<Integer> getVertexids() {
+        return this.getVertexids(this.ref);
+    }
+
+    public void setNumWidths(int numWidths) {
+        this.setNumWidths(this.ref, numWidths);
+    }
+
+    public int getNumWidths() {
+        return this.getNumWidths(this.ref);
     }
 
     public void setWidths(List<LwpolylineWidth> widths) {
-        this.widths = widths;
-        if (this.ref > 0) {
-            this.setWidthsNative(this.ref, this.widths);
-        }
+        this.setWidths(this.ref, widths);
     }
 
+    public List<LwpolylineWidth> getWidths() {
+        return this.getWidths(this.ref);
+    }
 
     public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+        return new Parent(this.getParent(this.ref));
     }
 
-
-    private native void setFlagNative(long ref, int flag);
-
-    protected native int getFlagNative(long ref);
-    private native void setConstWidthNative(long ref, double constWidth);
-
-    protected native double getConstWidthNative(long ref);
-
-    private native void setElevationNative(long ref, double elevation);
-
-    protected native double getElevationNative(long ref);
-
-    private native void setThicknessNative(long ref, double thickness);
-
-    protected native double getThicknessNative(long ref);
-
-    private native void setExtrusionNative(long ref, double x, double y, double z);
-
-    protected native Vector3d getExtrusionNative(long ref);
-
-    private native void setNumPointsNative(long ref, int numPoints);
-
-    protected native int getNumPointsNative(long ref);
-
-    private native void setPointsNative(long ref, List<Point2d> points);
-
-    protected native List<Point2d> getPointsNative(long ref);
-
-    private native void setNumBulgesNative(long ref, int numBulges);
-
-    protected native int getNumBulgesNative(long ref);
-
-    private native void setBulgesNative(long ref, List<Integer> bulges);
-
-    protected native List<Integer> getBulgesNative(long ref);
-
-    private native void setNumVertexidsNative(long ref, int numVertexids);
-
-
-    protected native int getNumVertexidsNative(long ref);
-
-    private native void setVertexidsNative(long ref, List<Integer> vertexids);
-
-    protected native List<Integer> getVertexidsNative(long ref);
-
-    private native void setNumWidthsNative(long ref, int numWidths);
-
-    protected native int getNumWidthsNative(long ref);
-
-    private native void setWidthsNative(long ref, List<LwpolylineWidth> widths);
-
-    protected native List<LwpolylineWidth> getWidthsNative(long ref);
-
-    private native long getParentNative(long ref);
+    private native void setFlag(long ref, int flag);
+    private native void setConstWidth(long ref, double constWidth);
+    private native void setElevation(long ref, double elevation);
+    private native void setThickness(long ref, double thickness);
+    private native void setExtrusion(long ref, Vector3d extrusion);
+    private native void setNumPoints(long ref, int numPoints);
+    private native void setPoints(long ref, List<Point2d> points);
+    private native void setNumBulges(long ref, int numBulges);
+    private native void setBulges(long ref, List<Double> bulges);
+    private native void setNumVertexids(long ref, int numVertexids);
+    private native void setVertexids(long ref, List<Integer> vertexids);
+    private native void setNumWidths(long ref, int numWidths);
+    private native void setWidths(long ref, List<LwpolylineWidth> widths);
+    private native long getParent(long ref);
+    private native int getFlag(long ref);
+    private native double getConstWidth(long ref);
+    private native double getElevation(long ref);
+    private native double getThickness(long ref);
+    private native Vector3d getExtrusion(long ref);
+    private native int getNumPoints(long ref);
+    private native List<Point2d> getPoints(long ref);
+    private native int getNumBulges(long ref);
+    private native List<Double> getBulges(long ref);
+    private native int getNumVertexids(long ref);
+    private native List<Integer> getVertexids(long ref);
+    private native int getNumWidths(long ref);
+    private native List<LwpolylineWidth> getWidths(long ref);
 }

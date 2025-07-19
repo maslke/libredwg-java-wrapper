@@ -100,17 +100,10 @@ public class DwgObjectBlockHeader {
     }
 
     public Lwpolyline addLwpolyline(List<Point2d> points) {
-        if (points == null || points.isEmpty()) {
-            return null;
+        Lwpolyline lwpolyline = this.addLwpolyline(this.ref, points);
+        if (lwpolyline != null) {
+            lwpolyline.setHeader(this.ref);
         }
-        Lwpolyline lwpolyline = new Lwpolyline();
-        long reference = this.addLwpolylineNative(this.ref, points.size(), points);
-        lwpolyline.setRef(reference);
-        lwpolyline.setPoints(points);
-        lwpolyline.setNumPoints(points.size());
-        lwpolyline.setFlag(0);
-        lwpolyline.setNumVertexids(points.size());
-        lwpolyline.setHeader(this.ref);
         return lwpolyline;
     }
 
@@ -148,7 +141,7 @@ public class DwgObjectBlockHeader {
 
     private native long addEndBlkNative(long ref);
 
-    private native long addLwpolylineNative(long ref, int num, List<Point2d> points);
+    private native Lwpolyline addLwpolyline(long ref, List<Point2d> points);
 
     private native Ray addRay(long ref, Point3d point, Vector3d vector);
 }

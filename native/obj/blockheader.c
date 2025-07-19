@@ -189,10 +189,12 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addEn
     return (jlong)(intptr_t)endblk_entity;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLwpolylineNative(JNIEnv *env, jobject job, jlong ref, jint num_points, jobject pointList) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLwpolyline(JNIEnv *env, jobject job, jlong ref, jobject pointList) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass listClass = (*env)->GetObjectClass(env, pointList);
     jmethodID getMethod = (*env)->GetMethodID(env, listClass, "get", "(I)Ljava/lang/Object;");
+    jmethodID sizeMethod = (*env)->GetMethodID(env, listClass, "size", "()I");
+    jint num_points = (*env)->CallIntMethod(env, pointList, sizeMethod);
     jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
     jfieldID xField = (*env)->GetFieldID(env, pointClass, "x", "D");
     jfieldID yField = (*env)->GetFieldID(env, pointClass, "y", "D");
@@ -205,7 +207,14 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLw
         pnts[i].y = y;
     }
     Dwg_Entity_LWPOLYLINE *lwpolyline = dwg_add_LWPOLYLINE(hdr, num_points, pnts);
-    return (jlong)(intptr_t)lwpolyline;
+    jlong reference = (jlong)(intptr_t)lwpolyline;
+    jclass lwpolylineClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Lwpolyline");
+    if (lwpolylineClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, lwpolylineClass, "<init>", "(J)V");
+    jobject lwpolylineObj = (*env)->NewObject(env, lwpolylineClass, constructor, reference);
+    return lwpolylineObj;
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRay(JNIEnv *env, jobject job, jlong ref, jobject point, jobject vector) {
