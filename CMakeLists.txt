@@ -9,8 +9,8 @@ include_directories(
     ${JAVA_HOME}/include/linux
 )
 
-include_directories("/usr/local/include")
-link_directories("/usr/local/lib")
+include_directories("${PROJECT_SOURCE_DIR}/libs/include")
+link_directories("${PROJECT_SOURCE_DIR}/libs")
 include_directories(${PROJECT_SOURCE_DIR}/native/util)
 
 
@@ -21,5 +21,3 @@ file(GLOB UTIL_SOURCES "${PROJECT_SOURCE_DIR}/native/util/*.c")
 add_library(dwg_java SHARED native/dwg.c ${OBJ_SOURCES} ${ENTITY_SOURCES} ${UTIL_SOURCES})
 
 target_link_libraries(dwg_java redwg m)
-
-
