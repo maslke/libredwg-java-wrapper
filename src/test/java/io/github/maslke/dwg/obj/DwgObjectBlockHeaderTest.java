@@ -13,6 +13,8 @@ import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.entity.Ray;
+import io.github.maslke.dwg.common.Vector3d;
 import org.junit.After;
 import org.junit.Test;
 
@@ -26,10 +28,6 @@ import static org.junit.Assert.assertNotNull;
 public class DwgObjectBlockHeaderTest {
 
     private Dwg dwg;
-
-    private Dwg createDwg() {
-        return Dwg.create();
-    }
 
     @After
     public void release() {
@@ -159,8 +157,16 @@ public class DwgObjectBlockHeaderTest {
         assertFalse(insert.isEmpty());
     }
 
-
-
-
+    @Test
+    public void testAddRay() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        Ray ray = hdr.addRay(new Point3d(0, 0, 0), new Vector3d(1, 1, 0));
+        assertNotNull(ray);
+        assertFalse(ray.isEmpty());
+    }
 
 }

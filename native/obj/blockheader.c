@@ -155,3 +155,28 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addLw
     Dwg_Entity_LWPOLYLINE *lwpolyline = dwg_add_LWPOLYLINE(hdr, num_points, pnts);
     return (jlong)(intptr_t)lwpolyline;
 }
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRayNative(JNIEnv *env, jobject job, jlong ref, jobject point, jobject vector) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return 0;
+    }
+    jclass clazz = (*env)->GetObjectClass(env, point);
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, point, fidX);
+    jdouble y = (*env)->GetDoubleField(env, point, fidY);
+    jdouble z = (*env)->GetDoubleField(env, point, fidZ);
+    dwg_point_3d pt = {.x = x, .y = y, .z = z};
+    jclass vectorClass = (*env)->GetObjectClass(env, vector);
+    jfieldID vectorXField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID vectorYField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID vectorZField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    jdouble vectorX = (*env)->GetDoubleField(env, vector, vectorXField);
+    jdouble vectorY = (*env)->GetDoubleField(env, vector, vectorYField);
+    jdouble vectorZ = (*env)->GetDoubleField(env, vector, vectorZField);
+    dwg_point_3d vec = {.x = vectorX, .y = vectorY, .z = vectorZ};
+    Dwg_Entity_RAY *ray = dwg_add_RAY(hdr, &pt, &vec);
+    return (jlong)(intptr_t)ray;
+}

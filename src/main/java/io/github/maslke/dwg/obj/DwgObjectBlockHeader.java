@@ -3,6 +3,7 @@ package io.github.maslke.dwg.obj;
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.entity.Arc;
 import io.github.maslke.dwg.entity.Block;
 import io.github.maslke.dwg.entity.Circle;
@@ -12,6 +13,7 @@ import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Point;
+import io.github.maslke.dwg.entity.Ray;
 import io.github.maslke.dwg.entity.Text;
 import lombok.Getter;
 import lombok.Setter;
@@ -121,6 +123,13 @@ public class DwgObjectBlockHeader {
         return lwpolyline;
     }
 
+    public Ray addRay(Point3d point, Vector3d vector) {
+        Ray ray = new Ray(this.ref, point, vector);
+        long reference = this.addRayNative(this.ref, point, vector);
+        ray.setRef(reference);
+        return ray;
+    }
+
     private native long addPointNative(long ref, double x, double y, double z);
     private native long addLineNative(long ref, Point3d start, Point3d end);
 
@@ -139,4 +148,6 @@ public class DwgObjectBlockHeader {
     private native long addEndBlkNative(long ref);
 
     private native long addLwpolylineNative(long ref, int num, List<Point2d> points);
+
+    private native long addRayNative(long ref, Point3d point, Vector3d vector);
 }
