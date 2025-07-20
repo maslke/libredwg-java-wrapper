@@ -15,6 +15,7 @@ import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Ray;
 import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.entity.MText;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,6 +44,14 @@ public class DwgObjectBlockHeader {
             text.setHeader(this.ref);
         }
         return text;
+    }
+
+    public MText addMText(String textValue, Point3d point, double height) {
+        MText mtext = this.addMText(this.ref, textValue, point, height);
+        if (mtext != null) {
+            mtext.setHeader(this.ref);
+        }
+        return mtext;
     }
 
     public Line addLine(Point3d start, Point3d end) {
@@ -131,6 +140,8 @@ public class DwgObjectBlockHeader {
     private native Line addLine(long ref, Point3d start, Point3d end);
 
     private native Text addText(long ref, String textValue, Point3d insPt, double height);
+
+    private native MText addMText(long ref, String textValue, Point3d insPt, double height);
 
     private native Circle addCircle(long ref, Point3d center, double radius);
 

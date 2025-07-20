@@ -14,6 +14,7 @@ import io.github.maslke.dwg.entity.Lwpolyline;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.Ray;
+import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.common.Vector3d;
 import org.junit.After;
 import org.junit.Test;
@@ -61,6 +62,19 @@ public class DwgObjectBlockHeaderTest {
         Text text = hdr.addText("TEXT", new Point3d(10, 10, 0), 2.5);
         assertNotNull(text);
         assertNotEquals(0, text.getRef());
+    }
+
+    @Test
+    public void testAddMText() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertNotEquals(0, hdr.getRef());
+        MText mtext = hdr.addMText("MTEXT", new Point3d(10, 10, 0), 2.5);
+        assertNotNull(mtext);
+        assertNotEquals(0, mtext.getRef());
     }
 
     @Test

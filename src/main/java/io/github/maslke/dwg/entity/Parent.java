@@ -4,6 +4,7 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 
 public class Parent {
+    // TODO MORE ATTRIBUTES
     private long ref;
 
     public Parent() {

@@ -91,6 +91,30 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return textObj;
 }
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addMText(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    const char *chars = (*env)->GetStringUTFChars(env, text_value, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    jclass clazz = (*env)->GetObjectClass(env, ins_pt);
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble ins_x = (*env)->GetDoubleField(env, ins_pt, fidX);
+    jdouble ins_y = (*env)->GetDoubleField(env, ins_pt, fidY);
+    jdouble ins_z = (*env)->GetDoubleField(env, ins_pt, fidZ);
+    dwg_point_3d insert_pt = { .x = ins_x, .y = ins_y, .z = ins_z };
+    Dwg_Entity_MTEXT *mtext_entity = dwg_add_MTEXT(hdr, &insert_pt, height, strdup(gbk_text));
+    jlong reference = (jlong)(intptr_t)mtext_entity;
+    jclass mtextClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/MText");
+    if (mtextClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, mtextClass, "<init>", "(J)V");
+    jobject mtextObj = (*env)->NewObject(env, mtextClass, constructor, reference);
+    return mtextObj;
+}
+
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addCircle(JNIEnv *env, jobject job, jlong ref, jobject center, jdouble radius) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     jclass clazz = (*env)->GetObjectClass(env, center);
