@@ -71,10 +71,10 @@ public class DwgObjectBlockHeader {
     }
 
     public Insert addInsert(Point3d point3d, String blockName, double scaleX, double scaleY, double scaleZ, double rotation) {
-        Insert insert = new Insert();
-        long reference = this.addInsertNative(this.ref, point3d, blockName, scaleX, scaleY, scaleZ, rotation);
-        insert.setRef(reference);
-        insert.setBlockName(blockName);
+        Insert insert = this.addInsert(this.ref, point3d, blockName, scaleX, scaleY, scaleZ, rotation);
+        if (insert != null) {
+            insert.setHeader(this.ref);
+        }
         return insert;
     }
 
@@ -138,7 +138,7 @@ public class DwgObjectBlockHeader {
 
     private native Ellipse addEllipse(long ref, Point3d center, double majorAxis, double axisRatio);
 
-    private native long addInsertNative(long ref, Point3d insPt, String blockName, double scaleX, double scaleY, double scaleZ, double rotation);
+    private native Insert addInsert(long ref, Point3d insPt, String blockName, double scaleX, double scaleY, double scaleZ, double rotation);
 
     private native Block addBlock(long ref, String name);
 

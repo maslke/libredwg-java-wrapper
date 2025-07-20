@@ -6,12 +6,31 @@
 extern "C" {
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setInsPtNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setScaleNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setScaleFlagNative(JNIEnv *, jobject, jlong, jint);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setRotationNative(JNIEnv *, jobject, jlong, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setExtrusionNative(JNIEnv *, jobject, jlong, jdouble, jdouble, jdouble);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setHasAttribsNative(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setInsPt(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setScale(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setScaleFlag(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setRotation(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setExtrusion(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setHasAttribs(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumOwned(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setBlockHeader(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setFirstAttrib(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setLastAttrib(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setSeqend(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setAttribs(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumCols(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumRows(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setColSpacing(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setRowSpacing(JNIEnv *, jobject, jlong, jdouble);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setBlockName(JNIEnv *, jobject, jlong, jstring);
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Insert_getParent(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getInsPt(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getScale(JNIEnv *, jobject, jlong);
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getScaleFlag(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Insert_getRotation(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getExtrusion(JNIEnv *, jobject, jlong);
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getHasAttribs(JNIEnv *, jobject, jlong);
+
 
 
 #ifdef __cplusplus
