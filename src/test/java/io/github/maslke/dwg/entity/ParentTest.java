@@ -6,6 +6,7 @@ import io.github.maslke.dwg.obj.DwgColor;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.support.TableType;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +23,13 @@ public class ParentTest extends AbstractEntityTest {
         DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
         Line line = hdr.addLine(new Point3d(0, 0, 0), new Point3d(10, 10, 0));
         return line.getParent();
+    }
+
+    @After
+    public void release() {
+        if (parent != null) {
+            parent.getDwg().release();
+        }
     }
 
 

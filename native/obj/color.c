@@ -193,6 +193,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgColor_getHandle(JNIEn
         return NULL;
     }
     Dwg_Object_Ref *handle = color->handle;
+    if (handle == NULL) {
+        return NULL;
+    }
     return createDwgObjectRef(env, handle);
 }
 
