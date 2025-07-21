@@ -62,7 +62,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgColor_setName(JNIEnv *en
     }
     char utf_chars[256];
     utf8_to_gbk(chars, utf_chars, sizeof(utf_chars));
-    color->name = utf_chars;
+    color->name = strdup(utf_chars);
     (*env)->ReleaseStringUTFChars(env, name, chars);
 }
 
@@ -77,7 +77,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgColor_setBookName(JNIEnv
     }
     char utf_chars[256];
     utf8_to_gbk(chars, utf_chars, sizeof(utf_chars));
-    color->book_name = utf_chars;
+    color->book_name = strdup(utf_chars);
     (*env)->ReleaseStringUTFChars(env, bookName, chars);
 }
 
@@ -179,6 +179,9 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_obj_DwgColor_getBookName(JNI
         return NULL;
     }
     char *chars = color->book_name;
+    if (chars == NULL) {
+        return NULL;
+    }
     char utf_chars[256];
     gbk_to_utf8(chars, utf_chars, sizeof(utf_chars));
     return (*env)->NewStringUTF(env, utf_chars);

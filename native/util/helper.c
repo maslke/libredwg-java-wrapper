@@ -10,6 +10,9 @@
 #include <math.h>
 
 void log_info(JNIEnv* env, const char* message) {
+    if (env == NULL || message == NULL) {
+        return;
+    }
     jclass systemClass = (*env)->FindClass(env, "java/lang/System");
     jfieldID outField = (*env)->GetStaticFieldID(env, systemClass, "out", "Ljava/io/PrintStream;");
     jobject out = (*env)->GetStaticObjectField(env, systemClass, outField);
@@ -204,17 +207,28 @@ jobject createDwgColor(JNIEnv *env, Dwg_Color *color) {
     (*env)->CallVoidMethod(env, refObj, flagMethod, color->flag);
     (*env)->CallVoidMethod(env, refObj, rawMethod, color->raw);
     (*env)->CallVoidMethod(env, refObj, rgbMethod, color->rgb);
-    (*env)->CallVoidMethod(env, refObj, methodMethod, color->method);
-    const char* name_chars = color->name;
-    char utf_chars[256];
-    gbk_to_utf8(name_chars, utf_chars, sizeof(utf_chars));
-    jstring nameStr = (*env)->NewStringUTF(env, utf_chars);
-    (*env)->CallVoidMethod(env, refObj, nameMethod, nameStr);
-    const char* book_name_chars = color->book_name;
-    gbk_to_utf8(book_name_chars, utf_chars, sizeof(utf_chars));
-    jstring bookNameStr = (*env)->NewStringUTF(env, utf_chars);
-    (*env)->CallVoidMethod(env, refObj, bookNameMethod, bookNameStr);
-    // (*env)->CallVoidMethod(env, refObj, handleMethod, createDwgObjectRef(env, color->handle));
+    
+    if (color->name != NULL) {
+        jstring nameStr = (*env)->NewStringUTF(env, color->name);
+        if (nameStr != NULL) {
+            (*env)->CallVoidMethod(env, refObj, 
+                nameMethod, 
+                nameStr);
+            (*env)->DeleteLocalRef(env, nameStr);
+        }
+    }
+
+    if (color->book_name != NULL) {
+        jstring bookNameStr = (*env)->NewStringUTF(env, color->book_name);
+        if (bookNameStr != NULL) {
+            (*env)->CallVoidMethod(env, refObj, 
+                bookNameMethod, 
+                bookNameStr);
+            (*env)->DeleteLocalRef(env, bookNameStr);
+        }
+    }
+
+    (*env)->CallVoidMethod(env, refObj, handleMethod, createDwgObjectRef(env, color->handle));
     (*env)->CallVoidMethod(env, refObj, alphaRawMethod, color->alpha_raw);
     (*env)->CallVoidMethod(env, refObj, alphaTypeMethod, color->alpha_type);
     (*env)->CallVoidMethod(env, refObj, alphaMethod, color->alpha);

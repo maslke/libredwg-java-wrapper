@@ -19,6 +19,6 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setText(JNIEnv *en
     char gbk_text[200];
     const char *chars = (*env)->GetStringUTFChars(env, value, NULL);
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    text_entity->    = strdup(gbk_text);
+    text_entity->text = strdup(gbk_text);
     (*env)->ReleaseStringUTFChars(env, value, chars);
 }
