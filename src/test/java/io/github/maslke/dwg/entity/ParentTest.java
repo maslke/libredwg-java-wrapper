@@ -2,6 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.obj.DwgColor;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.support.TableType;
@@ -30,10 +31,13 @@ public class ParentTest extends AbstractEntityTest {
         parent = getParent();
         assertNotNull(parent);
         assertTrue(parent.getRef() > 0);
-        parent.setColor(3);
-        assertNotEquals(0, parent.getRef());
-        int color = parent.getColor();
-        assertEquals(3, color);
+        DwgColor color = parent.getColor();
+        assertNotNull(color);
+        assertTrue(color.getRef() > 0);
+        color.setIndex(3);
+        parent.setColor(color);
+        color = parent.getColor();
+        assertEquals(3, color.getIndex());
     }
 
     @Test

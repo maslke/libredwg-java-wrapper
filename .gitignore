@@ -27,3 +27,5 @@ target/
 build/
 Debug/
 Release/
+
+.cache/

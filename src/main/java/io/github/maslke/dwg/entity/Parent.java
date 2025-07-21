@@ -2,6 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgColor;
 
 public class Parent {
     // TODO MORE ATTRIBUTES
@@ -25,12 +26,12 @@ public class Parent {
     }
 
 
-    public void setColor(int color) {
+    public void setColor(DwgColor color) {
         this.setColor(this.ref, color);
 
     }
 
-    public int getColor() { 
+    public DwgColor getColor() { 
         return this.getColor(this.ref);
     }
 
@@ -63,11 +64,11 @@ public class Parent {
     }
 
     private native Dwg getDwg(long ref);
-    private native void setColor(long ref, int color);
+    private native void setColor(long ref, DwgColor color);
     private native void setLinewt(long ref, int linewt);
     private native void setLtype(long ref, DwgObjectRef ltype);
     private native void setLayer(long ref, DwgObjectRef layer);
-    protected native int getColor(long ref);
+    protected native DwgColor getColor(long ref);
     protected native DwgObjectRef getLayer(long ref);
     protected native DwgObjectRef getLtype(long ref);
     protected native int getLinewt(long ref);

@@ -9,6 +9,19 @@
 #include <ctype.h>
 #include <math.h>
 
+void log_info(JNIEnv* env, const char* message) {
+    jclass systemClass = (*env)->FindClass(env, "java/lang/System");
+    jfieldID outField = (*env)->GetStaticFieldID(env, systemClass, "out", "Ljava/io/PrintStream;");
+    jobject out = (*env)->GetStaticObjectField(env, systemClass, outField);
+
+    jclass printStreamClass = (*env)->FindClass(env, "java/io/PrintStream");
+    jmethodID printlnMethod = (*env)->GetMethodID(env, printStreamClass, "println", "(Ljava/lang/String;)V");
+
+    jstring jMessage = (*env)->NewStringUTF(env, message);
+    (*env)->CallVoidMethod(env, out, printlnMethod, jMessage);
+    (*env)->DeleteLocalRef(env, jMessage);
+}
+
 
 // helper function
 BITCODE_RC dxf_find_lweight(const int lw) {
@@ -143,6 +156,9 @@ int gbk_to_utf8(const char *in_str, char *out_buf, size_t out_len) {
 }
 
 jobject createDwgObjectRef(JNIEnv *env, Dwg_Object_Ref *style) {
+    if (style == NULL) {
+        return NULL;
+    }
     jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObjectRef");
     if (refClass == NULL) {
         return NULL;
@@ -157,5 +173,51 @@ jobject createDwgObjectRef(JNIEnv *env, Dwg_Object_Ref *style) {
     (*env)->SetLongField(env, refObj, absoluteRefField, style->absolute_ref);
     (*env)->SetShortField(env, refObj, r11IdxField, style->r11_idx);
     // TODO set DwgHandle
+    (*env)->DeleteLocalRef(env, refClass);
     return refObj;
-   }
+}
+
+jobject createDwgColor(JNIEnv *env, Dwg_Color *color) {
+    jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgColor");
+    if (refClass == NULL) {
+        return NULL;
+    }
+    if (color == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, refClass, "<init>", "()V");
+    jobject refObj = (*env)->NewObject(env, refClass, constructor);
+    jfieldID refField = (*env)->GetFieldID(env, refClass, "ref", "J");
+    (*env)->SetLongField(env, refObj, refField, (jlong)(intptr_t)color);
+    jmethodID indexMethod = (*env)->GetMethodID(env, refClass, "setIndex", "(I)V");
+    jmethodID flagMethod = (*env)->GetMethodID(env, refClass, "setFlag", "(I)V");
+    jmethodID rawMethod = (*env)->GetMethodID(env, refClass, "setRaw", "(I)V");
+    jmethodID rgbMethod = (*env)->GetMethodID(env, refClass, "setRgb", "(I)V");
+    jmethodID methodMethod = (*env)->GetMethodID(env, refClass, "setMethod", "(I)V");
+    jmethodID nameMethod = (*env)->GetMethodID(env, refClass, "setName", "(Ljava/lang/String;)V");
+    jmethodID bookNameMethod = (*env)->GetMethodID(env, refClass, "setBookName", "(Ljava/lang/String;)V");
+    jmethodID handleMethod = (*env)->GetMethodID(env, refClass, "setHandle", "(Lio/github/maslke/dwg/obj/DwgObjectRef;)V");
+    jmethodID alphaRawMethod = (*env)->GetMethodID(env, refClass, "setAlphaRaw", "(I)V");
+    jmethodID alphaTypeMethod = (*env)->GetMethodID(env, refClass, "setAlphaType", "(S)V");
+    jmethodID alphaMethod = (*env)->GetMethodID(env, refClass, "setAlpha", "(I)V");
+    (*env)->CallVoidMethod(env, refObj, indexMethod, color->index);
+    (*env)->CallVoidMethod(env, refObj, flagMethod, color->flag);
+    (*env)->CallVoidMethod(env, refObj, rawMethod, color->raw);
+    (*env)->CallVoidMethod(env, refObj, rgbMethod, color->rgb);
+    (*env)->CallVoidMethod(env, refObj, methodMethod, color->method);
+    const char* name_chars = color->name;
+    char utf_chars[256];
+    gbk_to_utf8(name_chars, utf_chars, sizeof(utf_chars));
+    jstring nameStr = (*env)->NewStringUTF(env, utf_chars);
+    (*env)->CallVoidMethod(env, refObj, nameMethod, nameStr);
+    const char* book_name_chars = color->book_name;
+    gbk_to_utf8(book_name_chars, utf_chars, sizeof(utf_chars));
+    jstring bookNameStr = (*env)->NewStringUTF(env, utf_chars);
+    (*env)->CallVoidMethod(env, refObj, bookNameMethod, bookNameStr);
+    // (*env)->CallVoidMethod(env, refObj, handleMethod, createDwgObjectRef(env, color->handle));
+    (*env)->CallVoidMethod(env, refObj, alphaRawMethod, color->alpha_raw);
+    (*env)->CallVoidMethod(env, refObj, alphaTypeMethod, color->alpha_type);
+    (*env)->CallVoidMethod(env, refObj, alphaMethod, color->alpha);
+    (*env)->DeleteLocalRef(env, refClass);
+    return refObj;
+}

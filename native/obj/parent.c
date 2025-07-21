@@ -11,13 +11,27 @@
 #include "helper.h"
 
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColor(JNIEnv *env, jobject job, jlong ref, jint color) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColor(JNIEnv *env, jobject job, jlong ref, jobject color) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return;
     }
-    entity->color.index = color;
-    entity->color.flag = 0;
+    jclass colorClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgColor");
+    if (colorClass == NULL) {
+        return;
+    }
+    jmethodID refMethod = (*env)->GetMethodID(env, colorClass, "getRef", "()J");
+    jlong reference = (*env)->CallLongMethod(env, color, refMethod);
+    if (reference > 0) {
+        Dwg_Color *ref_color = (Dwg_Color *)(intptr_t)reference;
+        entity->color = *ref_color;
+    }
+    else {
+        jmethodID indexMethod = (*env)->GetMethodID(env, colorClass, "getIndex", "()I");
+        jint index = (*env)->CallIntMethod(env, color, indexMethod);
+        entity->color.index = index;
+    }
+    (*env)->DeleteLocalRef(env, colorClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewt(JNIEnv *env, jobject job, jlong ref, jint linewt) {
@@ -90,12 +104,12 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwg(JNIEnv 
     return dwg;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getColor(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getColor(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
-        return 0;
+        return NULL;
     }
-    return (jint)entity->color.index;
+    return createDwgColor(env, &entity->color);
 }
 
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewt(JNIEnv *env, jobject job, jlong ref) {
