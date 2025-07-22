@@ -3,6 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgColor;
 import java.util.List;
 
 public class MText extends Common {
@@ -153,7 +154,14 @@ public class MText extends Common {
         return this.getBgFillScale(this.ref);
     }
 
-    // TODO : bg_fill_color
+
+    public DwgColor getBgFillColor() {
+        return this.getBgFillColor(this.ref);
+    }
+
+    public void setBgFillColor(DwgColor bgFillColor) {
+        this.setBgFillColor(this.ref, bgFillColor);
+    }
 
     public void setBgFillTrans(int bgFillTrans) {
         this.setBgFillTrans(this.ref, bgFillTrans);
@@ -289,6 +297,7 @@ public class MText extends Common {
     private native void setBgFillFlag(long ref, int bgFillFlag);
     private native void setBgFillScale(long ref, int bgFillScale);
     private native void setBgFillTrans(long ref, int bgFillTrans);
+    private native void setBgFillColor(long ref, DwgColor bgFillColor);
     private native void setIsNotAnnotative(long ref, int isNotAnnotative);
     private native void setClassVersion(long ref, int classVersion);
     private native void setDefaultFlag(long ref, int defaultFlag);
@@ -321,6 +330,7 @@ public class MText extends Common {
     private native int getBgFillFlag(long ref);
     private native int getBgFillScale(long ref);
     private native int getBgFillTrans(long ref);
+    private native DwgColor getBgFillColor(long ref);
     private native int getIsNotAnnotative(long ref);
     private native int getClassVersion(long ref);
     private native int getDefaultFlag(long ref);

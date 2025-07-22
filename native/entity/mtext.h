@@ -24,6 +24,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setUnknownB0(JNIEn
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setBgFillFlag(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setBgFillScale(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setBgFillTrans(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setBgFillColor(JNIEnv *, jobject, jlong, jobject);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setIsNotAnnotative(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setClassVersion(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setDefaultFlag(JNIEnv *, jobject, jlong, jint);
@@ -56,6 +57,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getUnknownB0(JNIEn
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getBgFillFlag(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getBgFillScale(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getBgFillTrans(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getBgFillColor(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getIsNotAnnotative(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getClassVersion(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_MText_getDefaultFlag(JNIEnv *, jobject, jlong);
