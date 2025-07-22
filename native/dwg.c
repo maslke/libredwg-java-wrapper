@@ -48,7 +48,7 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_createObjectBlockHeaderNat
     const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    Dwg_Object_BLOCK_HEADER *block_header = dwg_add_BLOCK_HEADER(dwg_data, chars);
+    Dwg_Object_BLOCK_HEADER *block_header = dwg_add_BLOCK_HEADER(dwg_data, strdup(gbk_text));
     (*env)->ReleaseStringUTFChars(env, name, chars);
     return (jlong)(intptr_t)block_header;
 }

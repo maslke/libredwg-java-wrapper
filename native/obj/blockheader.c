@@ -209,7 +209,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    Dwg_Entity_BLOCK *block = dwg_add_BLOCK(hdr, chars);
+    Dwg_Entity_BLOCK *block = dwg_add_BLOCK(hdr, strdup(gbk_text));
     if (block == NULL) {
         return NULL;
     }

@@ -166,6 +166,9 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_entity_Text_getTextValue(JNI
         return NULL;
     }
     char *chars = text_entity->text_value;
+    if (chars == NULL) {
+        return NULL;
+    }
     char utf_chars[256];
     gbk_to_utf8(chars, utf_chars, sizeof(utf_chars));
     return (*env)->NewStringUTF(env, utf_chars);
