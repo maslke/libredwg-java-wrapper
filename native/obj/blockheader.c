@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -32,6 +30,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, pointClass, "<init>", "(J)V");
     jobject pointObj = (*env)->NewObject(env, pointClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, pointClass);
     return pointObj;
 }
 
@@ -63,6 +62,7 @@ jobject start, jobject end) {
     }
     jmethodID constructor = (*env)->GetMethodID(env, lineClass, "<init>", "(J)V");
     jobject lineObj = (*env)->NewObject(env, lineClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, lineClass);
     return lineObj;
 }
 
@@ -88,6 +88,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, textClass, "<init>", "(J)V");
     jobject textObj = (*env)->NewObject(env, textClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, textClass);
     return textObj;
 }
 
@@ -112,6 +113,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, mtextClass, "<init>", "(J)V");
     jobject mtextObj = (*env)->NewObject(env, mtextClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, mtextClass);
     return mtextObj;
 }
 
@@ -155,6 +157,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, arcClass, "<init>", "(J)V");
     jobject arcObj = (*env)->NewObject(env, arcClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, arcClass);
     return arcObj;
 }
 
@@ -176,6 +179,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, ellipseClass, "<init>", "(J)V");
     jobject ellipseObj = (*env)->NewObject(env, ellipseClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, ellipseClass);
     return ellipseObj;
 }
 
@@ -192,7 +196,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     const char* chars = (*env)->GetStringUTFChars(env, block_name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
-    Dwg_Entity_INSERT *insert_entity = dwg_add_INSERT(hdr, &ins_pt, chars, scale_x, scale_y, scale_z, rotation);
+    Dwg_Entity_INSERT *insert_entity = dwg_add_INSERT(hdr, &ins_pt, strdup(gbk_text), scale_x, scale_y, scale_z, rotation);
     (*env)->ReleaseStringUTFChars(env, block_name, chars);
     jclass insertClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Insert");
     if (insertClass == NULL) {
@@ -265,6 +269,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, lwpolylineClass, "<init>", "(J)V");
     jobject lwpolylineObj = (*env)->NewObject(env, lwpolylineClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, lwpolylineClass);
     return lwpolylineObj;
 }
 
@@ -304,5 +309,97 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jmethodID constructor = (*env)->GetMethodID(env, rayClass, "<init>", "(J)V");
     jobject rayObj = (*env)->NewObject(env, rayClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, rayClass);
     return rayObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addSolid(JNIEnv *env, jobject job, jlong ref, jobject corner1, jobject corner2, jobject corner3, jobject corner4) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || corner1 == NULL || corner2 == NULL || corner3 == NULL || corner4 == NULL) {
+        return NULL;
+    }
+    jclass clazz = (*env)->GetObjectClass(env, corner1);
+    if (clazz == NULL) {
+        return NULL;
+    }
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble corner1_x = (*env)->GetDoubleField(env, corner1, fidX);
+    jdouble corner1_y = (*env)->GetDoubleField(env, corner1, fidY);
+    jdouble corner1_z = (*env)->GetDoubleField(env, corner1, fidZ);
+    dwg_point_3d corner1_pt = {.x = corner1_x, .y = corner1_y, .z = corner1_z};
+    jclass corner2Class = (*env)->GetObjectClass(env, corner2);
+    if (corner2Class == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        return NULL;
+    }
+    jfieldID corner2XField = (*env)->GetFieldID(env, corner2Class, "x", "D");
+    jfieldID corner2YField = (*env)->GetFieldID(env, corner2Class, "y", "D");
+    jfieldID corner2ZField = (*env)->GetFieldID(env, corner2Class, "z", "D");
+    jdouble corner2_x = (*env)->GetDoubleField(env, corner2, corner2XField);
+    jdouble corner2_y = (*env)->GetDoubleField(env, corner2, corner2YField);
+    dwg_point_2d corner2_pt = {.x = corner2_x, .y = corner2_y};
+    jdouble corner3_x = (*env)->GetDoubleField(env, corner3, corner2XField);
+    jdouble corner3_y = (*env)->GetDoubleField(env, corner3, corner2YField);
+    dwg_point_2d corner3_pt = {.x = corner3_x, .y = corner3_y};
+    jdouble corner4_x = (*env)->GetDoubleField(env, corner4, corner2XField);
+    jdouble corner4_y = (*env)->GetDoubleField(env, corner4, corner2YField);
+    dwg_point_2d corner4_pt = {.x = corner4_x, .y = corner4_y};
+    Dwg_Entity_SOLID *solid = dwg_add_SOLID(hdr, &corner1_pt, &corner2_pt, &corner3_pt, &corner4_pt);
+    jlong reference = (jlong)(intptr_t)solid;
+    jclass solidClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Solid");
+    if (solidClass == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, solidClass, "<init>", "(J)V");
+    if (constructor == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        (*env)->DeleteLocalRef(env, corner2Class);
+        (*env)->DeleteLocalRef(env, solidClass);
+        return NULL;
+    }
+    jobject solidObj = (*env)->NewObject(env, solidClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, clazz);
+    (*env)->DeleteLocalRef(env, corner2Class);
+    (*env)->DeleteLocalRef(env, solidClass);
+    return solidObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addShape(JNIEnv *env, jobject job, jlong ref, jstring name, jobject point, jdouble scale, jdouble obliqueAngle) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || point == NULL) {
+        return NULL;
+    }
+    jclass clazz = (*env)->GetObjectClass(env, point);
+    if (clazz == NULL) {
+        return NULL;
+    }
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, point, fidX);
+    jdouble y = (*env)->GetDoubleField(env, point, fidY);
+    jdouble z = (*env)->GetDoubleField(env, point, fidZ);
+    dwg_point_3d ins_pt = {.x = x, .y = y, .z = z};
+    const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    Dwg_Entity_SHAPE *shape = dwg_add_SHAPE(hdr, strdup(gbk_text), &ins_pt, scale, obliqueAngle);
+    jlong reference = (jlong)(intptr_t)shape;
+    jclass shapeClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Shape");
+    if (shapeClass == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, shapeClass, "<init>", "(J)V");
+    if (constructor == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        (*env)->DeleteLocalRef(env, shapeClass);
+        return NULL;
+    }
+    jobject shapeObj = (*env)->NewObject(env, shapeClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, clazz);
+    (*env)->DeleteLocalRef(env, shapeClass);
+    return shapeObj;
 }

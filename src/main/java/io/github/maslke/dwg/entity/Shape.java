@@ -61,11 +61,11 @@ public class Shape extends Common {
         return this.getThickness(this.ref);
     }
 
-    public void setStyleId(long styleId) {
+    public void setStyleId(int styleId) {
         this.setStyleId(this.ref, styleId);
     }
 
-    public long getStyleId() {
+    public int getStyleId() {
         return this.getStyleId(this.ref);
     }
 
@@ -113,9 +113,9 @@ public class Shape extends Common {
 
     private native double getThickness(long ref);
 
-    private native void setStyleId(long ref, long styleId);
+    private native void setStyleId(long ref, int styleId);
 
-    private native long getStyleId(long ref);
+    private native int getStyleId(long ref);
 
     private native void setStyle(long ref, DwgObjectRef style);
 

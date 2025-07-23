@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Block_setName(JNIEnv *env, jobject obj, jlong ref, jstring name) {
@@ -18,6 +16,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Block_setName(JNIEnv *en
     const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    if (block_entity->name != NULL) {
+        free(block_entity->name);
+    }
     block_entity->name = strdup(gbk_text);
     (*env)->ReleaseStringUTFChars(env, name, chars);
 }
@@ -46,6 +47,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Block_setXrefPname(JNIEn
     const char* chars = (*env)->GetStringUTFChars(env, name, NULL);
     char gbk_text[200];
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    if (block_entity->xref_pname != NULL) {
+        free(block_entity->xref_pname);
+    }
     block_entity->xref_pname = strdup(gbk_text);
     (*env)->ReleaseStringUTFChars(env, name, chars);
 }
@@ -63,7 +67,7 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_entity_Block_getName(JNIEnv 
     if (block_entity == NULL) {
         return NULL;
     }
-    char *chars = block_entity->name;
+    const char *chars = block_entity->name;
     if (chars == NULL) {
         return NULL;
     }
@@ -77,7 +81,7 @@ JNIEXPORT jstring JNICALL Java_io_github_maske_dwg_entity_Block_getXrefPname(JNI
     if (block_entity == NULL) {
         return NULL;
     }
-    char *chars = block_entity->xref_pname;
+    const char *chars = block_entity->xref_pname;
     if (chars == NULL) {
         return NULL;
     }

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -58,8 +56,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Point_setExtrusion(JNIEn
     jdouble x = (*env)->GetDoubleField(env, extrusion, xField);
     jdouble y = (*env)->GetDoubleField(env, extrusion, yField);
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
-    BITCODE_BE extrusion2 = {.x = x, .y = y, .z = z};
-    point_entity->extrusion = extrusion2;
+    point_entity->extrusion.x = x;
+    point_entity->extrusion.y = y;
+    point_entity->extrusion.z = z;
     (*env)->DeleteLocalRef(env, vectorCls);
 }
 

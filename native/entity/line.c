@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -26,8 +24,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setStart(JNIEnv *en
     jdouble x = (*env)->GetDoubleField(env, start, fidX);
     jdouble y = (*env)->GetDoubleField(env, start, fidY);
     jdouble z = (*env)->GetDoubleField(env, start, fidZ);
-    BITCODE_3BD s = {.x = x, .y = y, .z = z};
-    line_entity->start = s;
+    line_entity->start.x = x;
+    line_entity->start.y = y;
+    line_entity->start.z = z;
     (*env)->DeleteLocalRef(env, start_class);
 }
 
@@ -46,8 +45,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setEnd(JNIEnv *env,
     jdouble x = (*env)->GetDoubleField(env, end, fidX);
     jdouble y = (*env)->GetDoubleField(env, end, fidY);
     jdouble z = (*env)->GetDoubleField(env, end, fidZ);
-    BITCODE_3BD e = {.x = x, .y = y, .z = z};
-    line_entity->end = e;
+    line_entity->end.x = x;
+    line_entity->end.y = y;
+    line_entity->end.z = z;
     (*env)->DeleteLocalRef(env, end_class);
 }
 
@@ -74,8 +74,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Line_setExtrusion(JNIEnv
     jdouble x = (*env)->GetDoubleField(env, extrusion, xField);
     jdouble y = (*env)->GetDoubleField(env, extrusion, yField);
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
-    BITCODE_BE extrusion2 = {.x = x, .y = y, .z = z};
-    line_entity->extrusion = extrusion2;
+    line_entity->extrusion.x = x;
+    line_entity->extrusion.y = y;
+    line_entity->extrusion.z = z;
     (*env)->DeleteLocalRef(env, vectorClass);
 }
 

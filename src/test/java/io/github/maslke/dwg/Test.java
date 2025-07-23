@@ -14,6 +14,7 @@ import io.github.maslke.dwg.obj.DwgObjectVport;
 import io.github.maslke.dwg.support.HorizAlignment;
 import io.github.maslke.dwg.support.TableType;
 import io.github.maslke.dwg.support.VertAlignment;
+import io.github.maslke.dwg.obj.DwgColor;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +35,10 @@ public class Test {
         Point3d end = new Point3d(200, 200, 0);
         Line line = dwgBlockHeader.addLine(start, end);
         Parent parent = line.getParent();
-//        parent.setColor(3);
-//        parent.setLinewt(50);
+        DwgColor color = parent.getColor();
+        color.setIndex(3);
+        parent.setColor(color);
+        parent.setLinewt(50);
 
 
         Text text = dwgBlockHeader.addText("This is libredwg", new Point3d(150, 150, 0), 2.5);
@@ -50,8 +53,9 @@ public class Test {
         Circle circle = dwgBlockHeader.addCircle(new Point3d(150, 150, 0), 30);
         Arc arc = dwgBlockHeader.addArc(new Point3d(300, 300, 0), 100, 0, 1.57);
         circle.getParent().setLinewt(30);
-//        circle.getParent().setColor(2);
-//        arc.getParent().setColor(4);
+        DwgColor color2 = circle.getParent().getColor();
+        color2.setIndex(2);
+        circle.getParent().setColor(color2);
 
         dwgBlockHeader.addEllipse(new Point3d(120, 120, 0), 100, 0.8);
 

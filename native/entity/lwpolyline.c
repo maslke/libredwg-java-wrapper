@@ -6,8 +6,6 @@
 #include <malloc.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setFlag(JNIEnv *env, jobject obj, jlong ref, jint flag) {
@@ -90,6 +88,10 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setBulges(JNI
 
     }
 
+    if (lwpolyline_entity->bulges != NULL) {
+        free(lwpolyline_entity->bulges);
+    }
+
     lwpolyline_entity->bulges = bulges;
     (*env)->DeleteLocalRef(env, listClass);
     (*env)->DeleteLocalRef(env, doubleClass);
@@ -128,6 +130,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setWidths(JNI
         }
     }
 
+    if (lwpolyline_entity->widths != NULL) {
+        free(lwpolyline_entity->widths);
+    }
     lwpolyline_entity->widths = widths;
     lwpolyline_entity->num_widths = size;
     (*env)->DeleteLocalRef(env, listClass);
@@ -162,6 +167,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Lwpolyline_setPoints(JNI
         }
     }
 
+    if (lwpolyline_entity->points != NULL) {
+        free(lwpolyline_entity->points);
+    }
     lwpolyline_entity->points = pnts;
     lwpolyline_entity->num_points = size;
     lwpolyline_entity->num_vertexids = size;

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenter(JNIEnv *env, jobject job, jlong ref, jobject point) {
@@ -28,8 +26,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setCenter(JNIEnv
     jdouble x = (*env)->GetDoubleField(env, point, xField);
     jdouble y = (*env)->GetDoubleField(env, point, yField);
     jdouble z = (*env)->GetDoubleField(env, point, zField);
-    BITCODE_3BD center = {.x = x, .y = y, .z = z};
-    ellipse->center = center;
+    ellipse->center.x = x;
+    ellipse->center.y = y;
+    ellipse->center.z = z;
     (*env)->DeleteLocalRef(env, pointClass);
 }
 
@@ -38,9 +37,8 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setMajorAxis(JNI
     if (ellipse == NULL) {
         return;
     }
-    BITCODE_3BD sm_axis = {.x = major_axis, .y = major_axis, .z = 0};
-    sm_axis.z = ellipse->center.z;
-    ellipse->sm_axis = sm_axis;
+    ellipse->sm_axis.x = major_axis;
+    ellipse->sm_axis.y = major_axis;
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setAxisRatio(JNIEnv *env, jobject job, jlong ref, jdouble ratio) {
@@ -69,8 +67,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ellipse_setExtrusion(JNI
     jdouble x = (*env)->GetDoubleField(env, extrusion, xField);
     jdouble y = (*env)->GetDoubleField(env, extrusion, yField);
     jdouble z = (*env)->GetDoubleField(env, extrusion, zField);
-    BITCODE_3BD extrusion2 = {.x = x, .y = y, .z = z};
-    ellipse->extrusion = extrusion2;
+    ellipse->extrusion.x = x;
+    ellipse->extrusion.y = y;
+    ellipse->extrusion.z = z;
     (*env)->DeleteLocalRef(env, vectorClass);
 }
 

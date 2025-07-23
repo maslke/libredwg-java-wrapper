@@ -10,7 +10,6 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.entity.Parent;
 import io.github.maslke.dwg.entity.Line;
-import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import org.junit.After;
 
 public class DwgColorTest {
@@ -185,20 +184,5 @@ public class DwgColorTest {
         color.setAlphaType((short) 3);
         alphaType = color.getAlphaType();
         assertEquals((short) 3, alphaType);
-    }
-
-    @Test
-    @Ignore
-    public void testHandle() {
-        parent = getParent();
-        assertNotNull(parent);
-        assertTrue(parent.getRef() > 0);
-        DwgColor color = parent.getColor();
-        assertNotNull(color);
-        assertTrue(color.getRef() > 0);
-        DwgObjectRef handle = color.getHandle();
-        assertNotNull(handle);
-        assertTrue(handle.getRef() > 0);
-    }
-    
+    }   
 }

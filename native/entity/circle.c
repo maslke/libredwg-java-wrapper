@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
-
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Circle_setCenter(JNIEnv *env, jobject job, jlong ref, jobject center) {
     Dwg_Entity_CIRCLE *circle_entity = (Dwg_Entity_CIRCLE*)(intptr_t)ref;

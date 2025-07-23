@@ -1,13 +1,8 @@
 #include <jni.h>
-#include <stdio.h>
 #include "objectref.h"
 #include <dwg_api.h>
-#include <string.h>
-#include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getAbsoluteRefNative(JNIEnv *env, jobject obj, jlong ref) {

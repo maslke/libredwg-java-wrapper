@@ -13,10 +13,10 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setRotation(JNIEn
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setExtrusion(JNIEnv *, jobject, jlong, jobject);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setHasAttribs(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumOwned(JNIEnv *, jobject, jlong, jint);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setBlockHeader(JNIEnv *, jobject, jlong, jlong);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setFirstAttrib(JNIEnv *, jobject, jlong, jlong);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setLastAttrib(JNIEnv *, jobject, jlong, jlong);
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setSeqend(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setBlockHeader(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setFirstAttrib(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setLastAttrib(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setSeqend(JNIEnv *, jobject, jlong, jobject);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setAttribs(JNIEnv *, jobject, jlong, jobject);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumCols(JNIEnv *, jobject, jlong, jint);
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Insert_setNumRows(JNIEnv *, jobject, jlong, jint);
@@ -30,8 +30,17 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getScaleFlag(JNIE
 JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Insert_getRotation(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getExtrusion(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getHasAttribs(JNIEnv *, jobject, jlong);
-
-
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getNumOwned(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getBlockHeader(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getFirstAttrib(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getLastAttrib(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getSeqend(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Insert_getAttribs(JNIEnv *, jobject, jlong);
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getNumCols(JNIEnv *, jobject, jlong);
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Insert_getNumRows(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Insert_getColSpacing(JNIEnv *, jobject, jlong);
+JNIEXPORT jdouble JNICALL Java_io_github_maslke_dwg_entity_Insert_getRowSpacing(JNIEnv *, jobject, jlong);
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_entity_Insert_getBlockName(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

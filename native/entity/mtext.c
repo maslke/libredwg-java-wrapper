@@ -6,19 +6,20 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setText(JNIEnv *env, jobject job, jlong ref, jstring value) {
     Dwg_Entity_MTEXT *text_entity = (Dwg_Entity_MTEXT*)(intptr_t)ref;
-    if (text_entity == NULL) {
+    if (text_entity == NULL || value == NULL) {
         return;
     }
     char gbk_text[200];
     const char *chars = (*env)->GetStringUTFChars(env, value, NULL);
     utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    if (text_entity->text != NULL) {
+        free(text_entity->text);
+    }
     text_entity->text = strdup(gbk_text);
     (*env)->ReleaseStringUTFChars(env, value, chars);
 }
@@ -221,6 +222,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setAppid(JNIEnv *e
     jlong reference = (*env)->CallLongMethod(env, appid, getRef);
     if (reference == 0) {
         return;
+    }
+    if (text_entity->appid != NULL) {
+        free(text_entity->appid);
     }
     text_entity->appid = (Dwg_Object_Ref*)reference;
 }

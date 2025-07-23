@@ -5,190 +5,180 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.common.Vector2d;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 
-
-@Getter
-@Setter
-@NoArgsConstructor
 public class Image extends Common {
 
-    private long classVersion;
-    private Point3d pt0;
-    private Vector3d uVec;
-    private Vector3d vVec;
-    private Vector2d size;
-    private int displayProps;
-    private int clipping;
-    private int brightness;
-    private int contrast;
-    private int fade;
-    private int clipMode;
-    private int clipBoundaryType;
-    private long numClipVerts;
-    private List<Vector2d> clipVerts;
-    private DwgObjectRef imageDef;
-    private DwgObjectRef imageDefReactor;
+    public Image() {
+    }
 
-    public Image(long header) {
-        this.header = header;
+    public Image(long ref) {
+        this();
+        this.ref = ref;
     }
 
     public void setClassVersion(long classVersion) {
-        this.classVersion = classVersion;
-        if (this.ref > 0) {
-            this.setClassVersionNative(this.ref, this.classVersion);
-        }
+        this.setClassVersion(this.ref, classVersion);
+    }
+
+    public long getClassVersion() {
+        return this.getClassVersion(this.ref);
     }
 
     public void setPt0(Point3d pt0) {
-        if (pt0 == null) {
-            return;
-        }
-        this.pt0 = pt0;
-        if (this.ref > 0) {
-            this.setPt0Native(this.ref, this.pt0.getX(), this.pt0.getY(), this.pt0.getZ());
-        }
+        this.setPt0(this.ref, pt0);
+    }
+
+    public Point3d getPt0() {
+        return this.getPt0(this.ref);
+    }
+
+    public void setUVec(Vector3d uVec) {
+        this.setUVec(this.ref, uVec);
+    }
+
+    public Vector3d getUVec() {
+        return this.getUVec(this.ref);
     }
 
     public void setVVec(Vector3d vVec) {
-        if (vVec == null) {
-            return;
-        }
-        this.vVec = vVec;
-        if (this.ref > 0) {
-            this.setVVecNative(this.ref, this.vVec.getX(), this.vVec.getY(), this.vVec.getZ());
-        }
+        this.setVVec(this.ref, vVec);
+    }
+
+    public Vector3d getVVec() {
+        return this.getVVec(this.ref);
     }
 
     public void setSize(Vector2d size) {
-        if (size == null) {
-            return;
-        }
-        this.size = size;
-        if (this.ref > 0) {
-            this.setSizeNative(this.ref, this.size.getX(), this.size.getY());
-        }
+        this.setSize(this.ref, size);
+    }
+
+    public Vector2d getSize() {
+        return this.getSize(this.ref);
     }
 
     public void setDisplayProps(int displayProps) {
-        this.displayProps = displayProps;
-        if (this.ref > 0) {
-            this.setDisplayPropsNative(this.ref, this.displayProps);
-        }
+        this.setDisplayProps(this.ref, displayProps);
+    }
+
+    public int getDisplayProps() {
+        return this.getDisplayProps(this.ref);
     }
 
     public void setClipping(int clipping) {
-        this.clipping = clipping;
-        if (this.ref > 0) {
-            this.setClippingNative(this.ref, this.clipping);
-        }
+        this.setClipping(this.ref, clipping);
+    }
+
+    public int getClipping() {
+        return this.getClipping(this.ref);
     }
 
     public void setBrightness(int brightness) {
-        this.brightness = brightness;
-        if (this.ref > 0) {
-            this.setBrightnessNative(this.ref, this.brightness);
-        }
+        this.setBrightness(this.ref, brightness);
+    }
+
+    public int getBrightness() {
+        return this.getBrightness(this.ref);
     }
 
     public void setContrast(int contrast) {
-        this.contrast = contrast;
-        if (this.ref > 0) {
-            this.setContrastNative(this.ref, this.contrast);
-        }
+        this.setContrast(this.ref, contrast);
+    }
+
+    public int getContrast() {
+        return this.getContrast(this.ref);
     }
 
     public void setFade(int fade) {
-        this.fade = fade;
-        if (this.ref > 0) {
-            this.setFadeNative(this.ref, this.fade);
-        }
+        this.setFade(this.ref, fade);
+    }
+
+    public int getFade() {
+        return this.getFade(this.ref);
     }
 
     public void setClipMode(int clipMode) {
-        this.clipMode = clipMode;
-        if (this.ref > 0) {
-            this.setClipModeNative(this.ref, this.clipMode);
-        }
+        this.setClipMode(this.ref, clipMode);
+    }
+
+    public int getClipMode() {
+        return this.getClipMode(this.ref);
     }
 
     public void setClipBoundaryType(int clipBoundaryType) {
-        this.clipBoundaryType = clipBoundaryType;
-        if (this.ref > 0) {
-            this.setClipBoundaryTypeNative(this.ref, this.clipBoundaryType);
-        }
+        this.setClipBoundaryType(this.ref, clipBoundaryType);
+    }
+
+    public int getClipBoundaryType() {
+        return this.getClipBoundaryType(this.ref);
     }
 
     public void setNumClipVerts(long numClipVerts) {
-        this.numClipVerts = numClipVerts;
-        if (this.ref > 0) {
-            this.setNumClipVertsNative(this.ref, this.numClipVerts);
-        }
+        this.setNumClipVerts(this.ref, numClipVerts);
+    }
+
+    public long getNumClipVerts() {
+        return this.getNumClipVerts(this.ref);
     }
 
     public void setClipVerts(List<Vector2d> clipVerts) {
-        this.clipVerts = clipVerts;
-        if (this.ref > 0) {
-            this.setClipVertsNative(this.ref, this.clipVerts);
-        }
+        this.setClipVerts(this.ref, clipVerts);
+    }
+
+    public List<Vector2d> getClipVerts() {
+        return this.getClipVerts(this.ref);
     }
 
     public void setImageDef(DwgObjectRef imageDef) {
-        if (imageDef == null) {
-            return;
-        }
-        this.imageDef = imageDef;
-        if (this.ref > 0) {
-            this.setImageDefNative(this.ref, this.imageDef);
-        }
+        this.setImageDef(this.ref, imageDef);
+    }
+
+    public DwgObjectRef getImageDef() {
+        return this.getImageDef(this.ref);
     }
 
     public void setImageDefReactor(DwgObjectRef imageDefReactor) {
-        if (imageDefReactor == null) {
-            return;
-        }
-        this.imageDefReactor = imageDefReactor;
-        if (this.ref > 0) {
-            this.setImageDefReactorNative(this.ref, this.imageDefReactor);
-        }
+        this.setImageDefReactor(this.ref, imageDefReactor);
+    }
+
+    public DwgObjectRef getImageDefReactor() {
+        return this.getImageDefReactor(this.ref);
     }
 
     public Parent getParent() {
-        return new Parent(this.getParentNative(this.ref));
+        return new Parent(this.getParent(this.ref));
     }
 
-
-    private native void setClassVersionNative(long ref, long classVersion);
-    private native void setPt0Native(long ref, double x, double y, double z);
-    private native void setUVecNative(long ref, double x, double y, double z);
-    private native void setVVecNative(long ref, double x, double y, double z);
-    private native void setSizeNative(long ref, double width, double height);
-    private native void setDisplayPropsNative(long ref, int displayProps);
-    private native void setClippingNative(long ref, int clipping);
-    private native void setBrightnessNative(long ref, int brightness);
-    private native void setContrastNative(long ref, int contrast);
-    private native void setFadeNative(long ref, int fade);
-    private native void setClipModeNative(long ref, int clipMode);
-    private native void setClipBoundaryTypeNative(long ref, int clipBoundaryType);
-    private native void setNumClipVertsNative(long ref, long numClipVerts);
-    private native void setClipVertsNative(long ref, List<Vector2d> clipVerts);
-    private native void setImageDefNative(long ref, DwgObjectRef imageDef);
-    private native void setImageDefReactorNative(long ref, DwgObjectRef imageDefReactor);
-
-    private native long getClassVersionNative(long ref);
-    private native Point3d getPt0Native(long ref);
-    private native Vector3d getUVecNative(long ref);
-    private native Vector3d getVVecNative(long ref);
-    private native Vector2d getSizeNative(long ref);
-    private native int getDisplayPropsNative(long ref);
-    private native int getClippingNative(long ref);
-    private native int getBrightnessNative(long ref);
-    private native int getContrastNative(long ref);
-    private native int getFadeNative(long ref);
-    private native int getClipModeNative(long ref);
-    private native int getClipBoundaryTypeNative(long ref);
-    private native long getParentNative(long ref);
+    private native void setClassVersion(long ref, long classVersion);
+    private native long getClassVersion(long ref);
+    private native void setPt0(long ref, Point3d pt0);
+    private native Point3d getPt0(long ref);
+    private native void setUVec(long ref, Vector3d uVec);
+    private native Vector3d getUVec(long ref);
+    private native void setVVec(long ref, Vector3d vVec);
+    private native Vector3d getVVec(long ref);
+    private native void setSize(long ref, Vector2d size);
+    private native Vector2d getSize(long ref);
+    private native void setDisplayProps(long ref, int displayProps);
+    private native int getDisplayProps(long ref);
+    private native void setClipping(long ref, int clipping);
+    private native int getClipping(long ref);
+    private native void setBrightness(long ref, int brightness);
+    private native int getBrightness(long ref);
+    private native void setContrast(long ref, int contrast);
+    private native int getContrast(long ref);
+    private native void setFade(long ref, int fade);
+    private native int getFade(long ref);
+    private native void setClipMode(long ref, int clipMode);
+    private native int getClipMode(long ref);
+    private native void setClipBoundaryType(long ref, int clipBoundaryType);
+    private native int getClipBoundaryType(long ref);
+    private native void setNumClipVerts(long ref, long numClipVerts);
+    private native long getNumClipVerts(long ref);
+    private native void setClipVerts(long ref, List<Vector2d> clipVerts);
+    private native List<Vector2d> getClipVerts(long ref);
+    private native void setImageDef(long ref, DwgObjectRef imageDef);
+    private native DwgObjectRef getImageDef(long ref);
+    private native void setImageDefReactor(long ref, DwgObjectRef imageDefReactor);
+    private native DwgObjectRef getImageDefReactor(long ref);
+    private native long getParent(long ref);
 }

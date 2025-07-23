@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -90,12 +88,17 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgColor_setHandle(JNIEnv *
         return;
     }
     jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObjectRef");
+    if (refClass == NULL) {
+        return;
+    }
     jmethodID getRef = (*env)->GetMethodID(env, refClass, "getRef", "()J");
     jlong reference = (*env)->CallLongMethod(env, handle, getRef);
     if (reference == 0) {
+        (*env)->DeleteLocalRef(env, refClass);
         return;
     }
     color->handle = (Dwg_Object_Ref *)(intptr_t)reference;
+    (*env)->DeleteLocalRef(env, refClass);
 }
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgColor_setAlphaRaw(JNIEnv *env, jobject obj, jlong ref, jint alphaRaw) {
@@ -168,6 +171,9 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_obj_DwgColor_getName(JNIEnv 
         return NULL;
     }
     char *chars = color->name;
+    if (chars == NULL) {
+        return NULL;
+    }
     char utf_chars[256];
     gbk_to_utf8(chars, utf_chars, sizeof(utf_chars));
     return (*env)->NewStringUTF(env, utf_chars);

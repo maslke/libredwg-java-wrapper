@@ -22,8 +22,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setPoint(JNIEnv *env
     jdouble x = (*env)->GetDoubleField(env, point, fidX);
     jdouble y = (*env)->GetDoubleField(env, point, fidY);
     jdouble z = (*env)->GetDoubleField(env, point, fidZ);
-    BITCODE_3BD p = {.x = x, .y = y, .z = z};
-    ray_entity->point = p;
+    ray_entity->point.x = x;
+    ray_entity->point.y = y;
+    ray_entity->point.z = z;
     (*env)->DeleteLocalRef(env, point_class);
 }
 
@@ -39,8 +40,9 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Ray_setVector(JNIEnv *en
     jdouble x = (*env)->GetDoubleField(env, vector, fidX);
     jdouble y = (*env)->GetDoubleField(env, vector, fidY);
     jdouble z = (*env)->GetDoubleField(env, vector, fidZ);
-    BITCODE_3BD v = {.x = x, .y = y, .z = z};
-    ray_entity->vector = v;
+    ray_entity->vector.x = x;
+    ray_entity->vector.y = y;
+    ray_entity->vector.z = z;
     (*env)->DeleteLocalRef(env, vector_class);
 }
 

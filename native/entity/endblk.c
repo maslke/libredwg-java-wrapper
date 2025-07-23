@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_EndBlk_getParent(JNIEnv *env, jobject obj, jlong ref) {

@@ -16,6 +16,8 @@ import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Ray;
 import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.MText;
+import io.github.maslke.dwg.entity.Solid;
+import io.github.maslke.dwg.entity.Shape;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -83,6 +85,7 @@ public class DwgObjectBlockHeader {
         Insert insert = this.addInsert(this.ref, point3d, blockName, scaleX, scaleY, scaleZ, rotation);
         if (insert != null) {
             insert.setHeader(this.ref);
+            insert.setBlockName(blockName);
         }
         return insert;
     }
@@ -135,6 +138,30 @@ public class DwgObjectBlockHeader {
         return arc;
     }
 
+    public Solid addSolid(Point3d corner1, Point2d corner2, Point2d corner3, Point2d corner4) {
+        Solid solid = this.addSolid(this.ref, corner1, corner2, corner3, corner4);
+        if (solid != null) {
+            solid.setHeader(this.ref);
+        }
+        return solid;
+    }
+
+    public Solid addSolid(Point2d corner1, Point2d corner2, Point2d corner3, Point2d corner4, double thickness) {
+        if (corner1 == null) {
+            return null;
+        }
+        Point3d corner = new Point3d(corner1.getX(), corner1.getY(), thickness);
+        return this.addSolid(corner, corner2, corner3, corner4);
+    }
+
+    public Shape addShape(String name, Point3d point, double scale, double obliqueAngle) {
+        Shape shape = this.addShape(this.ref, name, point, scale, obliqueAngle);
+        if (shape != null) {
+            shape.setHeader(this.ref);
+        }
+        return shape;
+    }
+
 
     private native Point addPoint(long ref, Point3d point);
     private native Line addLine(long ref, Point3d start, Point3d end);
@@ -158,4 +185,8 @@ public class DwgObjectBlockHeader {
     private native Lwpolyline addLwpolyline(long ref, List<Point2d> points);
 
     private native Ray addRay(long ref, Point3d point, Vector3d vector);
+
+    private native Solid addSolid(long ref, Point3d corner1, Point2d corner2, Point2d corner3, Point2d corner4);
+
+    private native Shape addShape(long ref, String name, Point3d point, double scale, double obliqueAngle);
 }

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -53,6 +51,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtype(JNIEnv *
     }
     jmethodID styleMethod = (*env)->GetMethodID(env, styleClass, "getRef", "()J");
     if (styleMethod == NULL) {
+        (*env)->DeleteLocalRef(env, styleClass);
         return;
     }
     jlong ltype_ref = (*env)->CallLongMethod(env, ltype, styleMethod);
@@ -71,6 +70,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayer(JNIEnv *
     }
     jmethodID styleMethod = (*env)->GetMethodID(env, styleClass, "getRef", "()J");
     if (styleMethod == NULL) {
+        (*env)->DeleteLocalRef(env, styleClass);
         return;
     }
     jlong layer_ref = (*env)->CallLongMethod(env, layer, styleMethod);
@@ -89,14 +89,17 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwg(JNIEnv 
     }
     jmethodID dwgConstructor = (*env)->GetMethodID(env, dwgClass, "<init>", "()V");
     if (dwgConstructor == NULL) {
+        (*env)->DeleteLocalRef(env, dwgClass);
         return NULL;
     }
     jobject dwg = (*env)->NewObject(env, dwgClass, dwgConstructor);
     if (dwg == NULL) {
+        (*env)->DeleteLocalRef(env, dwgClass);
         return NULL;
     }
     jfieldID refField = (*env)->GetFieldID(env, dwgClass, "ref", "J");
     if (refField == NULL) {
+        (*env)->DeleteLocalRef(env, dwgClass);
         return NULL;
     }
     (*env)->SetLongField(env, dwg, refField, (jlong)entity->dwg);
