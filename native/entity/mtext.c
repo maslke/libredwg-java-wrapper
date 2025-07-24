@@ -74,12 +74,16 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setStyle(JNIEnv *e
     if (text_entity == NULL || style == NULL) {
         return;
     }
-    jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/DwgObjectRef");
+    jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObjectRef");
+    if (refClass == NULL) {
+        return;
+    }
     jmethodID getRef = (*env)->GetMethodID(env, refClass, "getRef", "()J");
     jlong reference = (*env)->CallLongMethod(env, style, getRef);
     if (reference == 0) {
         return;
     }
+    (*env)->DeleteLocalRef(env, refClass);
     text_entity->style = (Dwg_Object_Ref*)reference;
 }
 
@@ -217,15 +221,16 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setAppid(JNIEnv *e
     if (text_entity == NULL || appid == NULL) {
         return;
     }
-    jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/DwgObjectRef");
+    jclass refClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObjectRef");
+    if (refClass == NULL) {
+        return;
+    }
     jmethodID getRef = (*env)->GetMethodID(env, refClass, "getRef", "()J");
     jlong reference = (*env)->CallLongMethod(env, appid, getRef);
     if (reference == 0) {
         return;
     }
-    if (text_entity->appid != NULL) {
-        free(text_entity->appid);
-    }
+    (*env)->DeleteLocalRef(env, refClass);
     text_entity->appid = (Dwg_Object_Ref*)reference;
 }
 
@@ -299,17 +304,30 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_MText_setColumnHeights(J
         return;
     }
     jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return;
+    }
     jmethodID get = (*env)->GetMethodID(env, listClass, "get", "(I)Ljava/lang/Object;");
     jmethodID size = (*env)->GetMethodID(env, listClass, "size", "()I");
     jint length = (*env)->CallIntMethod(env, columnHeights, size);
+    if (text_entity->column_heights != NULL) {
+        free(text_entity->column_heights);
+    }
     text_entity->column_heights = (double*)malloc(length * sizeof(double));
+    jclass doubleClass = (*env)->FindClass(env, "java/lang/Double");
+    if (doubleClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return;
+    }
+    jmethodID doubleValueMethod = (*env)->GetMethodID(env, doubleClass, "doubleValue", "()D");
     for (jint i = 0; i < length; i++) {
         jobject item = (*env)->CallObjectMethod(env, columnHeights, get, i);
-        jclass cls = (*env)->GetObjectClass(env, item);
-        jmethodID getDouble = (*env)->GetMethodID(env, cls, "doubleValue", "()D");
-        text_entity->column_heights[i] = (*env)->CallDoubleMethod(env, item, getDouble);
+        jdouble val = (*env)->CallDoubleMethod(env, item, doubleValueMethod);
+        text_entity->column_heights[i] = val;
     }
+    text_entity->num_column_heights = length;
     (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, doubleClass);
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getInsPt(JNIEnv *env, jobject obj, jlong ref) {
@@ -317,7 +335,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getInsPt(JNIEnv
     if (text_entity == NULL) {
         return NULL;
     }
-    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Point3d");
+    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
     jmethodID init = (*env)->GetMethodID(env, pointClass, "<init>", "(DDD)V");
     jobject point = (*env)->NewObject(env, pointClass, init, text_entity->ins_pt.x, text_entity->ins_pt.y, text_entity->ins_pt.z);
     (*env)->DeleteLocalRef(env, pointClass);
@@ -329,7 +347,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getExtrusion(JN
     if (text_entity == NULL) {
         return NULL;
     }
-    jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Vector3d");
+    jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
     jmethodID init = (*env)->GetMethodID(env, vectorClass, "<init>", "(DDD)V");
     jobject vector = (*env)->NewObject(env, vectorClass, init, text_entity->extrusion.x, text_entity->extrusion.y, text_entity->extrusion.z);
     (*env)->DeleteLocalRef(env, vectorClass);
@@ -341,7 +359,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getXAxisDir(JNI
     if (text_entity == NULL) {
         return NULL;
     }
-    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Point3d");
+    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
     jmethodID init = (*env)->GetMethodID(env, pointClass, "<init>", "(DDD)V");
     jobject point = (*env)->NewObject(env, pointClass, init, text_entity->x_axis_dir.x, text_entity->x_axis_dir.y, text_entity->x_axis_dir.z);
     (*env)->DeleteLocalRef(env, pointClass);
@@ -603,12 +621,23 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_MText_getColumnHeight
         return NULL;
     }
     jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return NULL;
+    }
     jmethodID init = (*env)->GetMethodID(env, listClass, "<init>", "()V");
     jobject list = (*env)->NewObject(env, listClass, init);
     jmethodID add = (*env)->GetMethodID(env, listClass, "add", "(Ljava/lang/Object;)Z");
     jclass doubleClass = (*env)->FindClass(env, "java/lang/Double");
+    if (doubleClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
     jmethodID doubleInit = (*env)->GetMethodID(env, doubleClass, "<init>", "(D)V");
-
+    if (doubleInit == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, doubleClass);
+        return NULL;
+    }
     for (int i = 0; i < text_entity->num_column_heights; i++) {
         jobject doubleObj = (*env)->NewObject(env, doubleClass, doubleInit, text_entity->column_heights[i]);
         (*env)->CallBooleanMethod(env, list, add, doubleObj);

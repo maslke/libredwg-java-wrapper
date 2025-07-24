@@ -18,6 +18,7 @@ import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.entity.Solid;
 import io.github.maslke.dwg.entity.Shape;
+import io.github.maslke.dwg.entity.Spline;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,8 +49,8 @@ public class DwgObjectBlockHeader {
         return text;
     }
 
-    public MText addMText(String textValue, Point3d point, double height) {
-        MText mtext = this.addMText(this.ref, textValue, point, height);
+    public MText addMText(String textValue, Point3d point, double rectWidth) {
+        MText mtext = this.addMText(this.ref, textValue, point, rectWidth);
         if (mtext != null) {
             mtext.setHeader(this.ref);
         }
@@ -162,13 +163,21 @@ public class DwgObjectBlockHeader {
         return shape;
     }
 
+    public Spline addSpline(List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec) {
+        Spline spline = this.addSpline(this.ref, fitPoints, begTanVec, endTanVec);
+        if (spline != null) {
+            spline.setHeader(this.ref);
+        }
+        return spline;
+    }
+
 
     private native Point addPoint(long ref, Point3d point);
     private native Line addLine(long ref, Point3d start, Point3d end);
 
     private native Text addText(long ref, String textValue, Point3d insPt, double height);
 
-    private native MText addMText(long ref, String textValue, Point3d insPt, double height);
+    private native MText addMText(long ref, String textValue, Point3d insPt, double rectWidth);
 
     private native Circle addCircle(long ref, Point3d center, double radius);
 
@@ -189,4 +198,6 @@ public class DwgObjectBlockHeader {
     private native Solid addSolid(long ref, Point3d corner1, Point2d corner2, Point2d corner3, Point2d corner4);
 
     private native Shape addShape(long ref, String name, Point3d point, double scale, double obliqueAngle);
+
+    private native Spline addSpline(long ref, List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec);
 }

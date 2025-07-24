@@ -175,7 +175,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Image_setClipVerts(JNIEn
         return;
     }
     
-    jclass listCls = (*env)->FindClass(env, "java/util/List");
+    jclass listCls = (*env)->FindClass(env, "java/util/ArrayList");
     if (listCls == NULL) {
         return;
     }

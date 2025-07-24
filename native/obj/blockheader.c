@@ -92,7 +92,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return textObj;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addMText(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble height) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addMText(JNIEnv *env, jobject job, jlong ref, jstring text_value, jobject ins_pt, jdouble rect_width) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     const char *chars = (*env)->GetStringUTFChars(env, text_value, NULL);
     char gbk_text[200];
@@ -105,7 +105,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     jdouble ins_y = (*env)->GetDoubleField(env, ins_pt, fidY);
     jdouble ins_z = (*env)->GetDoubleField(env, ins_pt, fidZ);
     dwg_point_3d insert_pt = { .x = ins_x, .y = ins_y, .z = ins_z };
-    Dwg_Entity_MTEXT *mtext_entity = dwg_add_MTEXT(hdr, &insert_pt, height, strdup(gbk_text));
+    Dwg_Entity_MTEXT *mtext_entity = dwg_add_MTEXT(hdr, &insert_pt, rect_width, strdup(gbk_text));
     jlong reference = (jlong)(intptr_t)mtext_entity;
     jclass mtextClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/MText");
     if (mtextClass == NULL) {
@@ -336,7 +336,6 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     }
     jfieldID corner2XField = (*env)->GetFieldID(env, corner2Class, "x", "D");
     jfieldID corner2YField = (*env)->GetFieldID(env, corner2Class, "y", "D");
-    jfieldID corner2ZField = (*env)->GetFieldID(env, corner2Class, "z", "D");
     jdouble corner2_x = (*env)->GetDoubleField(env, corner2, corner2XField);
     jdouble corner2_y = (*env)->GetDoubleField(env, corner2, corner2YField);
     dwg_point_2d corner2_pt = {.x = corner2_x, .y = corner2_y};
@@ -402,4 +401,78 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     (*env)->DeleteLocalRef(env, clazz);
     (*env)->DeleteLocalRef(env, shapeClass);
     return shapeObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addSpline(JNIEnv *env, jobject job, jlong ref, jobject fitPoints, jobject begTanVec, jobject endTanVec) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || fitPoints == NULL) {
+        return NULL;
+    }
+    jclass listClass = (*env)->GetObjectClass(env, fitPoints);
+    jmethodID sizeMethod = (*env)->GetMethodID(env, listClass, "size", "()I");
+    jint num_points = (*env)->CallIntMethod(env, fitPoints, sizeMethod);
+    if (num_points == 0) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
+    if (pointClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jmethodID getMethod = (*env)->GetMethodID(env, listClass, "get", "(I)Ljava/lang/Object;");
+    jfieldID xField = (*env)->GetFieldID(env, pointClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointClass, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointClass, "z", "D");
+    dwg_point_3d *pnts = malloc(sizeof(dwg_point_3d) * num_points);
+    for (int i = 0; i < num_points; ++i) {
+        jobject pointObj = (*env)->CallObjectMethod(env, fitPoints, getMethod, i);
+        jdouble x = (*env)->GetDoubleField(env, pointObj, xField);
+        jdouble y = (*env)->GetDoubleField(env, pointObj, yField);
+        jdouble z = (*env)->GetDoubleField(env, pointObj, zField);
+        pnts[i].x = x;
+        pnts[i].y = y;
+        pnts[i].z = z;
+    }
+    jclass vectorClass = (*env)->GetObjectClass(env, begTanVec);
+    if (vectorClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, pointClass);
+        return NULL;
+    }
+    jfieldID vectorXField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID vectorYField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID vectorZField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    jdouble begTanVecX = (*env)->GetDoubleField(env, begTanVec, vectorXField);
+    jdouble begTanVecY = (*env)->GetDoubleField(env, begTanVec, vectorYField);
+    jdouble begTanVecZ = (*env)->GetDoubleField(env, begTanVec, vectorZField);
+    dwg_point_3d begTanVecPt = {.x = begTanVecX, .y = begTanVecY, .z = begTanVecZ};
+    jdouble endTanVecX = (*env)->GetDoubleField(env, endTanVec, vectorXField);
+    jdouble endTanVecY = (*env)->GetDoubleField(env, endTanVec, vectorYField);
+    jdouble endTanVecZ = (*env)->GetDoubleField(env, endTanVec, vectorZField);
+    dwg_point_3d endTanVecPt = {.x = endTanVecX, .y = endTanVecY, .z = endTanVecZ};
+    Dwg_Entity_SPLINE *spline = dwg_add_SPLINE(hdr, num_points, pnts,
+         &begTanVecPt, &endTanVecPt);
+    jlong reference = (jlong)(intptr_t)spline;
+    jclass splineClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Spline");
+    if (splineClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, pointClass);
+        (*env)->DeleteLocalRef(env, vectorClass);
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, splineClass, "<init>", "(J)V");
+    if (constructor == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, pointClass);
+        (*env)->DeleteLocalRef(env, vectorClass);
+        (*env)->DeleteLocalRef(env, splineClass);
+        return NULL;
+    }
+    jobject splineObj = (*env)->NewObject(env, splineClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, pointClass);
+    (*env)->DeleteLocalRef(env, vectorClass);
+    (*env)->DeleteLocalRef(env, splineClass);
+    return splineObj;
 }

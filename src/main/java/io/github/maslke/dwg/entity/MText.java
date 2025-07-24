@@ -7,8 +7,7 @@ import io.github.maslke.dwg.obj.DwgColor;
 import java.util.List;
 
 public class MText extends Common {
-    // TODO MORE ATTRIBUTES
-
+    
     public MText() {
 
     }

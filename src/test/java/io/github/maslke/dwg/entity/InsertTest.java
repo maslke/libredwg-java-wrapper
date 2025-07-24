@@ -1,7 +1,6 @@
 package io.github.maslke.dwg.entity;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
@@ -191,7 +190,6 @@ public class InsertTest extends AbstractEntityTest {
     }
 
     @Test
-    @Ignore
     public void testSeqend() {
         insert = createInsert(0, 0, 0, "TestBlock");
         assertNotNull(insert);

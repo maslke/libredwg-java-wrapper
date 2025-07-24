@@ -163,6 +163,10 @@ public class Spline extends Common {
         this.setNumCtrlPts(this.ref, numCtrlPts);
     }
 
+    public long getNumCtrlPts() {
+        return this.getNumCtrlPts(this.ref);
+    }
+
     public void setControlPoints(List<Point3d> ctrlPts) {
         this.setControlPoints(this.ref, ctrlPts);
     }

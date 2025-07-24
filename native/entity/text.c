@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Text_setTextValue(JNIEnv *env, jobject job, jlong ref, jstring value) {
