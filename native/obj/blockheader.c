@@ -438,7 +438,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
         pnts[i].y = y;
         pnts[i].z = z;
     }
-    Dwg_Entity_POLYLINE3D *polyline3d = dwg_add_POLYLINE3D(hdr, num_points, pnts);
+    Dwg_Entity_POLYLINE_3D *polyline3d = dwg_add_POLYLINE_3D(hdr, num_points, pnts);
     jlong reference = (jlong)(intptr_t)polyline3d;
     jclass polyline3dClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Polyline3d");
     if (polyline3dClass == NULL) {
@@ -485,7 +485,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
         pnts[i].x = x;
         pnts[i].y = y;
     }
-    Dwg_Entity_POLYLINE2D *polyline2d = dwg_add_POLYLINE2D(hdr, num_points, pnts);
+    Dwg_Entity_POLYLINE_2D *polyline2d = dwg_add_POLYLINE_2D(hdr, num_points, pnts);
     jlong reference = (jlong)(intptr_t)polyline2d;
     jclass polyline2dClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Polyline2d");
     if (polyline2dClass == NULL) {
