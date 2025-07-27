@@ -22,12 +22,12 @@ public class Polyline2d extends Common {
         return this.getHasVertex(this.ref);
     }
 
-    public void setNumVertex(long numVertex) {
-        this.setNumVertex(this.ref, numVertex);
+    public void setNumOwned(long numOwned) {
+        this.setNumOwned(this.ref, numOwned);
     }
 
-    public long getNumVertex() {
-        return this.getNumVertex(this.ref);
+    public long getNumOwned() {
+        return this.getNumOwned(this.ref);
     }
 
     public void setFirstVertex(DwgObjectRef firstVertex) {
@@ -157,8 +157,8 @@ public class Polyline2d extends Common {
     private native long getParent(long ref);
     private native void setHasVertex(long ref, int hasVertex);
     private native int getHasVertex(long ref);
-    private native void setNumVertex(long ref, long numVertex);
-    private native long getNumVertex(long ref);
+    private native void setNumOwned(long ref, long numOwned);
+    private native long getNumOwned(long ref);
     private native void setFirstVertex(long ref, DwgObjectRef firstVertex);
     private native DwgObjectRef getFirstVertex(long ref);
     private native void setLastVertex(long ref, DwgObjectRef lastVertex);
