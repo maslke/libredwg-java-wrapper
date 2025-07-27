@@ -19,7 +19,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addRay(JNIEnv *, jobject, jlong, jobject, jobject);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addSolid(JNIEnv *, jobject, jlong, jobject, jobject, jobject, jobject);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addShape(JNIEnv *, jobject, jlong, jstring, jobject, jdouble, jdouble);
-
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPolyline3d(JNIEnv *, jobject, jlong, jobject points);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPolyline2d(JNIEnv *, jobject, jlong, jobject points);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addXLine(JNIEnv *, jobject, jlong, jobject, jobject);
 #ifdef __cplusplus
 }
 #endif

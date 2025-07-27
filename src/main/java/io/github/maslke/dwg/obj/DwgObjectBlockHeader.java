@@ -18,6 +18,9 @@ import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.entity.Solid;
 import io.github.maslke.dwg.entity.Shape;
+import io.github.maslke.dwg.entity.Polyline3d;
+import io.github.maslke.dwg.entity.Polyline2d;
+import io.github.maslke.dwg.entity.XLine;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -162,7 +165,29 @@ public class DwgObjectBlockHeader {
         return shape;
     }
 
+    public Polyline3d addPolyline3d(List<Point3d> points) {
+        Polyline3d polyline3d = this.addPolyline3d(this.ref, points);
+        if (polyline3d != null) {
+            polyline3d.setHeader(this.ref);
+        }
+        return polyline3d;
+    }
 
+    public Polyline2d addPolyline2d(List<Point2d> points) {
+        Polyline2d polyline2d = this.addPolyline2d(this.ref, points);
+        if (polyline2d != null) {
+            polyline2d.setHeader(this.ref);
+        }
+        return polyline2d;
+    }
+
+    public XLine addXLine(Point3d point, Vector3d vector) {
+        XLine xline = this.addXLine(this.ref, point, vector);
+        if (xline != null) {
+            xline.setHeader(this.ref);
+        }
+        return xline;
+    }
     private native Point addPoint(long ref, Point3d point);
     private native Line addLine(long ref, Point3d start, Point3d end);
 
@@ -189,4 +214,11 @@ public class DwgObjectBlockHeader {
     private native Solid addSolid(long ref, Point3d corner1, Point2d corner2, Point2d corner3, Point2d corner4);
 
     private native Shape addShape(long ref, String name, Point3d point, double scale, double obliqueAngle);
+
+    private native Polyline3d addPolyline3d(long ref, List<Point3d> points);
+
+    private native Polyline2d addPolyline2d(long ref, List<Point2d> points);
+
+    private native XLine addXLine(long ref, Point3d point, Vector3d vector);
 }
+
