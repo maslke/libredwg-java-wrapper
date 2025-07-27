@@ -11,6 +11,8 @@ import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
+import io.github.maslke.dwg.entity.Polyline2d;
+import io.github.maslke.dwg.entity.Polyline3d;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.Ray;
@@ -21,10 +23,13 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 public class DwgObjectBlockHeaderTest {
 
@@ -181,6 +186,52 @@ public class DwgObjectBlockHeaderTest {
         Ray ray = hdr.addRay(new Point3d(0, 0, 0), new Vector3d(1, 1, 0));
         assertNotNull(ray);
         assertFalse(ray.isEmpty());
+    }
+
+    @Test
+    public void testAddPolyline3d() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertTrue(hdr.getRef() > 0);
+        List<Point3d> points = Arrays.asList(
+                new Point3d(0, 0, 0),
+                new Point3d(1, 1, 0)
+        );
+        Polyline3d polyline3d = hdr.addPolyline3d(points);
+        assertNotNull(polyline3d);
+        assertFalse(polyline3d.isEmpty());
+
+        polyline3d = hdr.addPolyline3d(null);
+        assertNull(polyline3d);
+
+        polyline3d = hdr.addPolyline3d(new ArrayList<>());
+        assertNull(polyline3d);
+    }
+
+    @Test
+    public void testAddPolyline2d() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        assertTrue(hdr.getRef() > 0);
+        List<Point2d> points = Arrays.asList(
+                new Point2d(0, 0),
+                new Point2d(1, 1)
+        );
+        Polyline2d polyline2d = hdr.addPolyline2d(points);
+        assertNotNull(polyline2d);
+        assertFalse(polyline2d.isEmpty());
+        
+        polyline2d = hdr.addPolyline2d(null);
+        assertNull(polyline2d);
+
+        polyline2d = hdr.addPolyline2d(new ArrayList<>());
+        assertNull(polyline2d);
     }
 
 }
