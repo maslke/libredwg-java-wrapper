@@ -403,6 +403,147 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return shapeObj;
 }
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPolyline3d(JNIEnv *env, jobject job, jlong ref, jobject pointList) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || pointList == NULL) {
+        return NULL;
+    }
+    jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return NULL;
+    }
+    jmethodID getMethod = (*env)->GetMethodID(env, listClass, "get", "(I)Ljava/lang/Object;");
+    jmethodID sizeMethod = (*env)->GetMethodID(env, listClass, "size", "()I");
+    jint num_points = (*env)->CallIntMethod(env, pointList, sizeMethod);
+    if (num_points == 0) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point3d");
+    if (pointClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jfieldID xField = (*env)->GetFieldID(env, pointClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointClass, "y", "D");
+    jfieldID zField = (*env)->GetFieldID(env, pointClass, "z", "D");
+    dwg_point_3d *pnts = malloc(sizeof(dwg_point_3d) * num_points);
+    for (int i = 0; i < num_points; ++i) {
+        jobject pointObj = (*env)->CallObjectMethod(env, pointList, getMethod, i);
+        jdouble x = (*env)->GetDoubleField(env, pointObj, xField);
+        jdouble y = (*env)->GetDoubleField(env, pointObj, yField);
+        jdouble z = (*env)->GetDoubleField(env, pointObj, zField);
+        pnts[i].x = x;
+        pnts[i].y = y;
+        pnts[i].z = z;
+    }
+    Dwg_Entity_POLYLINE_3D *polyline3d = dwg_add_POLYLINE_3D(hdr, num_points, pnts);
+    jlong reference = (jlong)(intptr_t)polyline3d;
+    jclass polyline3dClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Polyline3d");
+    if (polyline3dClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, pointClass);
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, polyline3dClass, "<init>", "(J)V");
+    jobject polyline3dObj = (*env)->NewObject(env, polyline3dClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, polyline3dClass);
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, pointClass);
+    return polyline3dObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPolyline2d(JNIEnv *env, jobject job, jlong ref, jobject pointList) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || pointList == NULL) {
+        return NULL;
+    }
+    jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return NULL;
+    }
+    jmethodID getMethod = (*env)->GetMethodID(env, listClass, "get", "(I)Ljava/lang/Object;");
+    jmethodID sizeMethod = (*env)->GetMethodID(env, listClass, "size", "()I");
+    jint num_points = (*env)->CallIntMethod(env, pointList, sizeMethod);
+    if (num_points == 0) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jclass pointClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Point2d");
+    if (pointClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        return NULL;
+    }
+    jfieldID xField = (*env)->GetFieldID(env, pointClass, "x", "D");
+    jfieldID yField = (*env)->GetFieldID(env, pointClass, "y", "D");
+    dwg_point_2d *pnts = malloc(sizeof(dwg_point_2d) * num_points);
+    for (int i = 0; i < num_points; ++i) {
+        jobject pointObj = (*env)->CallObjectMethod(env, pointList, getMethod, i);
+        jdouble x = (*env)->GetDoubleField(env, pointObj, xField);
+        jdouble y = (*env)->GetDoubleField(env, pointObj, yField);
+        pnts[i].x = x;
+        pnts[i].y = y;
+    }
+    Dwg_Entity_POLYLINE_2D *polyline2d = dwg_add_POLYLINE_2D(hdr, num_points, pnts);
+    jlong reference = (jlong)(intptr_t)polyline2d;
+    jclass polyline2dClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/Polyline2d");
+    if (polyline2dClass == NULL) {
+        (*env)->DeleteLocalRef(env, listClass);
+        (*env)->DeleteLocalRef(env, pointClass);
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, polyline2dClass, "<init>", "(J)V");
+    jobject polyline2dObj = (*env)->NewObject(env, polyline2dClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, polyline2dClass);
+    (*env)->DeleteLocalRef(env, listClass);
+    (*env)->DeleteLocalRef(env, pointClass);
+    return polyline2dObj;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addXLine(JNIEnv *env, jobject job, jlong ref, jobject point, jobject vector) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL || point == NULL || vector == NULL) {
+        return NULL;
+    }
+    jclass clazz = (*env)->GetObjectClass(env, point);
+    if (clazz == NULL) {
+        return NULL;
+    }
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, point, fidX);
+    jdouble y = (*env)->GetDoubleField(env, point, fidY);
+    jdouble z = (*env)->GetDoubleField(env, point, fidZ);
+    dwg_point_3d pt = {.x = x, .y = y, .z = z};
+    jclass vectorClass = (*env)->GetObjectClass(env, vector);
+    if (vectorClass == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        return NULL;
+    }
+    jfieldID vectorXField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+    jfieldID vectorYField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+    jfieldID vectorZField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+    jdouble vectorX = (*env)->GetDoubleField(env, vector, vectorXField);
+    jdouble vectorY = (*env)->GetDoubleField(env, vector, vectorYField);
+    jdouble vectorZ = (*env)->GetDoubleField(env, vector, vectorZField);
+    dwg_point_3d vec = {.x = vectorX, .y = vectorY, .z = vectorZ};
+    Dwg_Entity_XLINE *xline = dwg_add_XLINE(hdr, &pt, &vec);
+    jlong reference = (jlong)(intptr_t)xline;
+    jclass xlineClass = (*env)->FindClass(env, "io/github/maslke/dwg/entity/XLine");
+    if (xlineClass == NULL) {
+        (*env)->DeleteLocalRef(env, clazz);
+        (*env)->DeleteLocalRef(env, vectorClass);
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, xlineClass, "<init>", "(J)V");
+    jobject xlineObj = (*env)->NewObject(env, xlineClass, constructor, reference);
+    (*env)->DeleteLocalRef(env, xlineClass);
+    (*env)->DeleteLocalRef(env, clazz);
+    (*env)->DeleteLocalRef(env, vectorClass);
+    return xlineObj;
+}
+
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addSpline(JNIEnv *env, jobject job, jlong ref, jobject fitPoints, jobject begTanVec, jobject endTanVec) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
     if (hdr == NULL || fitPoints == NULL) {

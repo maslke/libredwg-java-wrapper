@@ -18,6 +18,9 @@ import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.entity.Solid;
 import io.github.maslke.dwg.entity.Shape;
+import io.github.maslke.dwg.entity.Polyline3d;
+import io.github.maslke.dwg.entity.Polyline2d;
+import io.github.maslke.dwg.entity.XLine;
 import io.github.maslke.dwg.entity.Spline;
 import lombok.Getter;
 import lombok.Setter;
@@ -163,6 +166,29 @@ public class DwgObjectBlockHeader {
         return shape;
     }
 
+    public Polyline3d addPolyline3d(List<Point3d> points) {
+        Polyline3d polyline3d = this.addPolyline3d(this.ref, points);
+        if (polyline3d != null) {
+            polyline3d.setHeader(this.ref);
+        }
+        return polyline3d;
+    }
+
+    public Polyline2d addPolyline2d(List<Point2d> points) {
+        Polyline2d polyline2d = this.addPolyline2d(this.ref, points);
+        if (polyline2d != null) {
+            polyline2d.setHeader(this.ref);
+        }
+        return polyline2d;
+    }
+
+    public XLine addXLine(Point3d point, Vector3d vector) {
+        XLine xline = this.addXLine(this.ref, point, vector);
+        if (xline != null) {
+            xline.setHeader(this.ref);
+        }
+        return xline;
+    }
     public Spline addSpline(List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec) {
         Spline spline = this.addSpline(this.ref, fitPoints, begTanVec, endTanVec);
         if (spline != null) {
@@ -199,5 +225,11 @@ public class DwgObjectBlockHeader {
 
     private native Shape addShape(long ref, String name, Point3d point, double scale, double obliqueAngle);
 
+    private native Polyline3d addPolyline3d(long ref, List<Point3d> points);
+
+    private native Polyline2d addPolyline2d(long ref, List<Point2d> points);
+
+    private native XLine addXLine(long ref, Point3d point, Vector3d vector);
+    
     private native Spline addSpline(long ref, List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec);
 }
