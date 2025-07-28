@@ -47,4 +47,4 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_getNumNVerts(
 }
 #endif
 
-#endif /* _POLYLINE2D_H_ */
+#endif
