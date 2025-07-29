@@ -1,6 +1,5 @@
 package io.github.maslke.dwg.entity;
 
-import lombok.NoArgsConstructor;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 
