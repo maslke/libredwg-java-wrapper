@@ -125,6 +125,12 @@ public class Lwpolyline extends Common {
         return new Parent(this.getParent(this.ref));
     }
 
+    public boolean isClosed() {
+        int flag = this.getFlag();
+        return flag == 512;
+    }
+
+
     private native void setFlag(long ref, int flag);
     private native void setConstWidth(long ref, double constWidth);
     private native void setElevation(long ref, double elevation);
