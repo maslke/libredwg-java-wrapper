@@ -105,7 +105,7 @@ public class Polyline2d extends Common {
     public double getThickness() {
         return this.getThickness(this.ref);
     }
-    
+
     public void setElevation(double elevation) {
         this.setElevation(this.ref, elevation);
     }
@@ -145,13 +145,18 @@ public class Polyline2d extends Common {
     public int getNumMVerts() {
         return this.getNumMVerts(this.ref);
     }
-    
+
     public void setNumNVerts(int numNVerts) {
         this.setNumNVerts(this.ref, numNVerts);
     }
 
     public int getNumNVerts() {
         return this.getNumNVerts(this.ref);
+    }
+
+
+    public boolean isClosed() {
+        return this.getFlag() == 1;
     }
 
     private native long getParent(long ref);

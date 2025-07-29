@@ -24,12 +24,12 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_getHasVertex(
     return polyline2d->has_vertex;
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_setNumOwned(JNIEnv *env, jobject obj, jlong ref, jlong numOwned) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_setNumOwned(JNIEnv *env, jobject obj, jlong ref, jlong num_owned) {
     Dwg_Entity_POLYLINE_2D *polyline2d = (Dwg_Entity_POLYLINE_2D*)(intptr_t)ref;
     if (polyline2d == NULL) {
         return;
     }
-    polyline2d->num_owned = numOwned;
+    polyline2d->num_owned = num_owned;
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_getNumOwned(JNIEnv *env, jobject obj, jlong ref) {
@@ -306,11 +306,11 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_setExtrusion(
     jfieldID xField = (*env)->GetFieldID(env, vectorClass, "x", "D");
     jfieldID yField = (*env)->GetFieldID(env, vectorClass, "y", "D");
     jfieldID zField = (*env)->GetFieldID(env, vectorClass, "z", "D");
-    
+
     polyline2d->extrusion.x = (*env)->GetDoubleField(env, extrusion, xField);
     polyline2d->extrusion.y = (*env)->GetDoubleField(env, extrusion, yField);
     polyline2d->extrusion.z = (*env)->GetDoubleField(env, extrusion, zField);
-    
+
     (*env)->DeleteLocalRef(env, vectorClass);
 }
 
@@ -319,19 +319,19 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_getExtrusi
     if (polyline2d == NULL) {
         return NULL;
     }
-    
+
     jclass vectorClass = (*env)->FindClass(env, "io/github/maslke/dwg/common/Vector3d");
     jmethodID constructor = (*env)->GetMethodID(env, vectorClass, "<init>", "()V");
     jobject vectorObj = (*env)->NewObject(env, vectorClass, constructor);
-    
+
     jfieldID xField = (*env)->GetFieldID(env, vectorClass, "x", "D");
     jfieldID yField = (*env)->GetFieldID(env, vectorClass, "y", "D");
     jfieldID zField = (*env)->GetFieldID(env, vectorClass, "z", "D");
-    
+
     (*env)->SetDoubleField(env, vectorObj, xField, polyline2d->extrusion.x);
     (*env)->SetDoubleField(env, vectorObj, yField, polyline2d->extrusion.y);
     (*env)->SetDoubleField(env, vectorObj, zField, polyline2d->extrusion.z);
-    
+
     (*env)->DeleteLocalRef(env, vectorClass);
     return vectorObj;
 }
@@ -403,4 +403,4 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Polyline2d_getNumNVerts(
         return 0;
     }
     return polyline2d->num_n_verts;
-} 
+}
