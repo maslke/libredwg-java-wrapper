@@ -1,5 +1,8 @@
 package io.github.maslke.dwg;
 
+import java.util.List;
+
+import io.github.maslke.dwg.obj.DwgObject;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectVport;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
@@ -91,6 +94,18 @@ public final class Dwg {
         return vport;
     }
 
+    public long getNumObjects() {
+        return this.getNumObjects(this.ref);
+    }
+
+    public long getNumEntities() {
+        return this.getNumEntities(this.ref);
+    }
+
+    public List<DwgObject> getObject() {
+        return this.getObject(this.ref);
+    }
+
     private native String getVersionNative();
 
     private static native long createNative();
@@ -112,4 +127,10 @@ public final class Dwg {
     private native long getVportNative(long ref, String name);
 
     private native int releaseNative(long ref);
+
+    private native long getNumObjects(long ref);
+
+    private native long getNumEntities(long ref);
+
+    private native List<DwgObject> getObject(long ref);
 }

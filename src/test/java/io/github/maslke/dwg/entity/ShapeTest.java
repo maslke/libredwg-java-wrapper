@@ -7,6 +7,7 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.support.TableType;
 
@@ -143,9 +144,9 @@ public class ShapeTest extends AbstractEntityTest {
         assertNotNull(shape);
         assertFalse(shape.isEmpty());
         assertTrue(shape.getHeader() > 0);
-        Parent parent = shape.getParent();
+        DwgObjectEntity parent = shape.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertNotEquals(0, parent.ref);
     }
 
     @After

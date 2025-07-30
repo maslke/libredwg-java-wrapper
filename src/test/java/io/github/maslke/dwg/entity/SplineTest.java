@@ -4,6 +4,7 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import org.junit.After;
 import org.junit.Test;
 
@@ -354,9 +355,9 @@ public class SplineTest extends AbstractEntityTest {
         spline = createSpline();
         assertNotNull(spline);
         assertFalse(spline.isEmpty());
-        Parent parent = spline.getParent();
+        DwgObjectEntity parent = spline.getParent();
         assertNotNull(parent);
-        assertTrue(parent.getRef() > 0);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.ref > 0);
+        assertNotEquals(0, parent.ref);
     }
 }

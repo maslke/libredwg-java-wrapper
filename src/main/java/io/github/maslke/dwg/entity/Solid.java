@@ -2,6 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 
 public class Solid extends Common {
@@ -63,8 +64,8 @@ public class Solid extends Common {
         return this.getExtrusion(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native void setThickness(long ref, double thickness);

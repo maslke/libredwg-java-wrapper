@@ -4,6 +4,8 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
+
 import org.junit.After;
 import org.junit.Test;
 
@@ -120,8 +122,8 @@ public class ArcTest extends AbstractEntityTest {
     public void testParent() {
         arc = createArc();
         assertNotNull(arc);
-        Parent parent = arc.getParent();
+        DwgObjectEntity parent = arc.getParent();
         assertNotNull(parent);
-        assertTrue(parent.getRef() > 0);
+        assertTrue(parent.ref > 0);
     }
 }

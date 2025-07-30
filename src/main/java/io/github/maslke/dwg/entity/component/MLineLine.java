@@ -3,16 +3,23 @@ package io.github.maslke.dwg.entity.component;
 import java.util.List;
 
 import io.github.maslke.dwg.entity.Common;
-import io.github.maslke.dwg.entity.Parent;
 
-public class MLineLine extends Common {
+
+public class MLineLine {
+
+    private long ref;
+
     public MLineLine() {
-        super();
+        this.ref = 0;
     }
 
     public MLineLine(long ref) {
         this();
         this.ref = ref;
+    }
+
+    public long getRef() {
+        return this.ref;
     }
 
     
@@ -48,8 +55,8 @@ public class MLineLine extends Common {
         return this.getAreaFillparms(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public MLineVertex getParent() {
+        return new MLineVertex(this.getParent(this.ref));
     }
 
     private native void setNumSegparms(long ref, int numSegparms);

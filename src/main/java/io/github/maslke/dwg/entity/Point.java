@@ -1,6 +1,7 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Point extends Common {
     
@@ -54,8 +55,8 @@ public class Point extends Common {
         return this.getExtrusion(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     public native void setX(long ref, double x);

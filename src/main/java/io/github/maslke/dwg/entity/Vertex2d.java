@@ -1,6 +1,7 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Vertex2d extends Common {
     public Vertex2d() {
@@ -68,8 +69,8 @@ public class Vertex2d extends Common {
         return this.getTangentDir(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native long getParent(long ref);

@@ -4,6 +4,8 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
+
 import org.junit.After;
 import org.junit.Test;
 
@@ -92,9 +94,9 @@ public class CircleTest extends AbstractEntityTest {
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
         assertTrue(circle.getHeader() > 0);
-        Parent parent = circle.getParent();
+        DwgObjectEntity parent = circle.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.getRef() > 0);
     }
 
     @After

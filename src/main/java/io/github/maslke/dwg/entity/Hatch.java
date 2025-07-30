@@ -3,6 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.entity.component.HatchColor;
 import io.github.maslke.dwg.common.Vector3d;
 import java.util.List;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Hatch extends Common {
 
@@ -31,8 +32,8 @@ public class Hatch extends Common {
         return this.getReserved(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     public void setGradientAngle(double gradientAngle) {

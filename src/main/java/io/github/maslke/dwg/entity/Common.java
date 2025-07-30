@@ -1,5 +1,6 @@
 package io.github.maslke.dwg.entity;
 
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +10,9 @@ public abstract class Common {
     protected long ref;
     protected long header;
 
-    protected Parent parent;
+    protected DwgObjectEntity parent;
 
-    public abstract Parent getParent();
+    public abstract DwgObjectEntity getParent();
 
     public boolean isEmpty() {
         return this.ref == 0;

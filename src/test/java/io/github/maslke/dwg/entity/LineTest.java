@@ -4,6 +4,7 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import org.junit.After;
 import org.junit.Test;
 
@@ -108,8 +109,8 @@ public class LineTest extends AbstractEntityTest {
         assertFalse(line.isEmpty());
         assertTrue(line.getHeader() > 0);
         assertNotEquals(0, line.getRef());
-        Parent parent = line.getParent();
+        DwgObjectEntity parent = line.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertNotEquals(0, parent.ref);
     }
 }

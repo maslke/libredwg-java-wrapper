@@ -1,6 +1,6 @@
 #include <jni.h>
 #include <stdio.h>
-#include "parent.h"
+#include "objectentity.h"
 #include <dwg_api.h>
 #include <string.h>
 #include <stdlib.h>
@@ -9,7 +9,7 @@
 #include "helper.h"
 
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColor(JNIEnv *env, jobject job, jlong ref, jobject color) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_setColor(JNIEnv *env, jobject job, jlong ref, jobject color) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return;
@@ -32,7 +32,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setColor(JNIEnv *
     (*env)->DeleteLocalRef(env, colorClass);
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewt(JNIEnv *env, jobject job, jlong ref, jint linewt) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_setLinewt(JNIEnv *env, jobject job, jlong ref, jint linewt) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return;
@@ -40,7 +40,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLinewt(JNIEnv 
     entity->linewt = dxf_find_lweight(linewt);
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtype(JNIEnv *env, jobject job, jlong ref, jobject ltype) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_setLtype(JNIEnv *env, jobject job, jlong ref, jobject ltype) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return;
@@ -59,7 +59,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLtype(JNIEnv *
     (*env)->DeleteLocalRef(env, styleClass);
 }
 
-JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayer(JNIEnv *env, jobject job, jlong ref, jobject layer) {
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_setLayer(JNIEnv *env, jobject job, jlong ref, jobject layer) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return;
@@ -78,7 +78,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_entity_Parent_setLayer(JNIEnv *
     (*env)->DeleteLocalRef(env, styleClass);
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwg(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getDwg(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return NULL;
@@ -107,7 +107,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getDwg(JNIEnv 
     return dwg;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getColor(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getColor(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return NULL;
@@ -115,7 +115,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getColor(JNIEn
     return createDwgColor(env, &entity->color);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewt(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLinewt(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return 0;
@@ -124,7 +124,7 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_entity_Parent_getLinewt(JNIEnv 
     return find_linewt_by_index(type);
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLayer(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLayer(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return NULL;
@@ -133,11 +133,27 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLayer(JNIEn
     return createDwgObjectRef(env, layer);
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Parent_getLtype(JNIEnv *env, jobject job, jlong ref) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLtype(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return NULL;
     }
     Dwg_Object_Ref *ltype = entity -> ltype;
     return createDwgObjectRef(env, ltype);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntity(JNIEnv *env, jobject job, jlong ref, jint entityType) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    return NULL;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getObjId(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return 0;
+    }
+    return entity->objid;
 }

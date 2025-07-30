@@ -3,6 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class MLine extends Common {
     public MLine() {
@@ -81,8 +82,8 @@ public class MLine extends Common {
         return this.getMlineStyle(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
 

@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include <iconv.h>
-#include <ctype.h>
-#include <math.h>
 #include "helper.h"
 
 
@@ -119,4 +117,29 @@ JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_releaseNative(JNIEnv *env, 
         dwg_free(dwg_data);
     }
     return 0;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getNumObjects(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return 0;
+    }
+    return (jlong)dwg_data->num_objects;
+}
+
+JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_Dwg_getNumEntities(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return 0;
+    }
+    return (jlong)dwg_data->num_entities;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getObject(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    
+    return NULL;
 }

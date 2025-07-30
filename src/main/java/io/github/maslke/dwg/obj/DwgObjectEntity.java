@@ -1,30 +1,30 @@
-package io.github.maslke.dwg.entity;
+package io.github.maslke.dwg.obj;
 
+import io.github.maslke.dwg.entity.Common;
 import io.github.maslke.dwg.Dwg;
-import io.github.maslke.dwg.obj.DwgObjectRef;
-import io.github.maslke.dwg.obj.DwgColor;
 
-public class Parent {
-    // TODO MORE ATTRIBUTES
-    private long ref;
+public class DwgObjectEntity {
+    public long ref;
 
-    public Parent() {
-
+    public DwgObjectEntity() {
+        this.ref = 0;
     }
 
-    public Parent(long ref) {
-        this();
+    public DwgObjectEntity(long ref) {
         this.ref = ref;
     }
-
+    
     public long getRef() {
         return this.ref;
     }
 
-    public void setRef(long ref) {
-        this.ref = ref;
+    public long getObjId() {
+        return this.getObjId(this.ref);
     }
 
+    public Common getEntity(int entityType) {
+        return this.getEntity(this.ref, entityType);
+    }
 
     public void setColor(DwgColor color) {
         this.setColor(this.ref, color);
@@ -57,19 +57,21 @@ public class Parent {
 
     public void setLayer(DwgObjectRef layer) {
         this.setLayer(this.ref, layer);
-    }
+    } 
 
     public Dwg getDwg() {
         return this.getDwg(this.ref);
     }
 
-    private native Dwg getDwg(long ref);
+    private native long getObjId(long ref);
+    private native Common getEntity(long ref, int entityType);
     private native void setColor(long ref, DwgColor color);
+    private native DwgColor getColor(long ref);
     private native void setLinewt(long ref, int linewt);
+    private native int getLinewt(long ref);
     private native void setLtype(long ref, DwgObjectRef ltype);
+    private native DwgObjectRef getLtype(long ref);
     private native void setLayer(long ref, DwgObjectRef layer);
-    protected native DwgColor getColor(long ref);
-    protected native DwgObjectRef getLayer(long ref);
-    protected native DwgObjectRef getLtype(long ref);
-    protected native int getLinewt(long ref);
+    private native DwgObjectRef getLayer(long ref);
+    private native Dwg getDwg(long ref);
 }

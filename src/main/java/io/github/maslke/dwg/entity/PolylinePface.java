@@ -2,6 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import java.util.List;
 
 public class PolylinePface extends Common {
@@ -46,8 +47,8 @@ public class PolylinePface extends Common {
         return this.getLastVertex(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     public void setVertex(List<DwgObjectRef> vertex) {

@@ -17,7 +17,9 @@ JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_findTableHandleNative(JN
 JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_addHandleRefNative(JNIEnv *, jobject, jlong, jint, jlong, jlong);
 JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getVportNative(JNIEnv *, jobject, jlong, jstring);
 JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_releaseNative(JNIEnv *, jobject, jlong);
-
+JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getNumObjects(JNIEnv *, jobject, jlong);
+JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getNumEntities(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getObject(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

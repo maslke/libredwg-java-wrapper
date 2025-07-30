@@ -7,15 +7,16 @@ import static org.junit.Assert.assertTrue;
 
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
-import io.github.maslke.dwg.entity.Parent;
 import io.github.maslke.dwg.entity.Line;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
+
 import org.junit.After;
 
 public class DwgColorTest {
 
-    private Parent parent;
+    private DwgObjectEntity parent;
 
-    public Parent getParent() {
+    public DwgObjectEntity getParent() {
         Dwg dwg = Dwg.create();
         DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
         Line line = hdr.addLine(new Point3d(0, 0, 0), new Point3d(10, 10, 0));

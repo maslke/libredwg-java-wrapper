@@ -5,6 +5,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.common.Vector2d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Image extends Common {
 
@@ -144,8 +145,8 @@ public class Image extends Common {
         return this.getImageDefReactor(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native void setClassVersion(long ref, long classVersion);

@@ -1,6 +1,7 @@
 package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Face3d extends Common {
     public Face3d() {
@@ -61,8 +62,8 @@ public class Face3d extends Common {
     }
 
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native long getParent(long ref);

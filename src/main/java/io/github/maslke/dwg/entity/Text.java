@@ -3,6 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Text extends Common {
 
@@ -119,8 +120,8 @@ public class Text extends Common {
         return this.getStyle(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native void setTextValue(long ref, String textValue);

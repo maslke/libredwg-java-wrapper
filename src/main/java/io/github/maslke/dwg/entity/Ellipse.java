@@ -2,6 +2,8 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
+
 
 public class Ellipse extends Common {
 
@@ -62,8 +64,8 @@ public class Ellipse extends Common {
         return this.getEndAngle(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native void setCenter(long ref, Point3d center);

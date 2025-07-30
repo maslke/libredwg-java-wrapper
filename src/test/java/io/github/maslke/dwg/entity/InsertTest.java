@@ -16,6 +16,7 @@ import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class InsertTest extends AbstractEntityTest {
 
@@ -287,8 +288,8 @@ public class InsertTest extends AbstractEntityTest {
         assertFalse(insert.isEmpty());
         assertTrue(insert.getHeader() > 0);
         assertNotEquals(0, insert.getRef());
-        Parent parent = insert.getParent();
+        DwgObjectEntity parent = insert.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertNotEquals(0, parent.ref);
     }
 }

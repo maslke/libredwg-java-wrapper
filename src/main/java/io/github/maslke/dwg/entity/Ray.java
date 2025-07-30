@@ -2,6 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 public class Ray extends Common {
 
@@ -31,8 +32,8 @@ public class Ray extends Common {
     }
 
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native void setPoint(long ref, Point3d point);

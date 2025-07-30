@@ -4,6 +4,7 @@ import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgColor;
 import io.github.maslke.dwg.support.TableType;
@@ -450,9 +451,9 @@ public class MTextTest extends AbstractEntityTest {
         mtext = createMText();
         assertNotNull(mtext);
         assertFalse(mtext.isEmpty());
-        Parent parent = mtext.getParent();
+        DwgObjectEntity parent = mtext.getParent();
         assertNotNull(parent);
-        assertTrue(parent.getRef() > 0);
-        assertNotEquals(0, parent.getRef());
+        assertTrue(parent.ref > 0);
+        assertNotEquals(0, parent.ref);
     }
 }

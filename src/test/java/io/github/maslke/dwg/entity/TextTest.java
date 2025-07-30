@@ -6,6 +6,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import io.github.maslke.dwg.support.HorizAlignment;
 import io.github.maslke.dwg.support.TableType;
 import io.github.maslke.dwg.support.VertAlignment;
@@ -13,7 +14,6 @@ import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -224,9 +224,8 @@ public class TextTest extends AbstractEntityTest {
         text = createText();
         assertNotNull(text);
         assertFalse(text.isEmpty());
-        Parent parent = text.getParent();
+        DwgObjectEntity parent = text.getParent();
         assertNotNull(parent);
         assertTrue(parent.getRef() > 0);
-        assertNotEquals(0, parent.getRef());
     }
 }

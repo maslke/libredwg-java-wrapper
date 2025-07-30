@@ -1,5 +1,7 @@
 package io.github.maslke.dwg.entity;
 
+import io.github.maslke.dwg.obj.DwgObjectEntity;
+
 public class OleFrame extends Common {
     public OleFrame() {
         super();
@@ -42,8 +44,8 @@ public class OleFrame extends Common {
         return this.getData(this.ref);
     }
 
-    public Parent getParent() {
-        return new Parent(this.getParent(this.ref));
+    public DwgObjectEntity getParent() {
+        return new DwgObjectEntity(this.getParent(this.ref));
     }
 
     private native long getParent(long ref);

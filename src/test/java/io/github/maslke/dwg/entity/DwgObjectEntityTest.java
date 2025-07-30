@@ -5,8 +5,8 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.obj.DwgColor;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
-import io.github.maslke.dwg.obj.DwgObjectEntity;
 import io.github.maslke.dwg.support.TableType;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import org.junit.After;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class ParentTest extends AbstractEntityTest {
+public class DwgObjectEntityTest extends AbstractEntityTest {
 
     private DwgObjectEntity parent;
 

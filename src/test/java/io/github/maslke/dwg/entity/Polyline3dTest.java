@@ -5,6 +5,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -105,9 +106,9 @@ public class Polyline3dTest extends AbstractEntityTest {
         assertTrue(polyline3d.getHeader() > 0);
         assertNotEquals(0, polyline3d.getRef());
 
-        Parent parent = polyline3d.getParent();
+        DwgObjectEntity parent = polyline3d.getParent();
         assertNotNull(parent);
-        assertNotEquals(0, parent.getRef());
+        assertNotEquals(0, parent.ref);
     }
 
     @Test
