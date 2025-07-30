@@ -21,6 +21,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_setColor(JN
     jmethodID refMethod = (*env)->GetMethodID(env, colorClass, "getRef", "()J");
     jlong reference = (*env)->CallLongMethod(env, color, refMethod);
     if (reference > 0) {
+
         Dwg_Color *ref_color = (Dwg_Color *)(intptr_t)reference;
         entity->color = *ref_color;
     }
@@ -156,4 +157,12 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getObjId(J
         return 0;
     }
     return entity->objid;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntMode(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return 0;
+    }
+    return entity->entmode;
 }

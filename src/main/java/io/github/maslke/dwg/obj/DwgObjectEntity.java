@@ -63,6 +63,18 @@ public class DwgObjectEntity {
         return this.getDwg(this.ref);
     }
 
+    public int getEntMode() {
+        return this.getEntMode(this.ref);
+    }
+
+    public boolean isInModalSpace() {
+        return this.getEntMode() == 1;
+    }
+
+    public boolean isInPaperSpace() {
+        return this.getEntMode() == 2;
+    }
+
     private native long getObjId(long ref);
     private native Common getEntity(long ref, int entityType);
     private native void setColor(long ref, DwgColor color);
@@ -74,4 +86,5 @@ public class DwgObjectEntity {
     private native void setLayer(long ref, DwgObjectRef layer);
     private native DwgObjectRef getLayer(long ref);
     private native Dwg getDwg(long ref);
+    private native int getEntMode(long ref);
 }

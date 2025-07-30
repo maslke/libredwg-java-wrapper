@@ -16,6 +16,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getColor
 JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLinewt(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLayer(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLtype(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntMode(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
