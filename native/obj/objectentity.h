@@ -27,6 +27,14 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntit
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityMLine(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityHatch(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityLwpolyline(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityBlock(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityEndBlk(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityImage(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityMInsert(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityPolyline2d(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityPolyline3d(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityOleFrame(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityRay(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

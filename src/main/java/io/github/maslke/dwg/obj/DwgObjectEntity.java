@@ -12,6 +12,15 @@ import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.MLine;
 import io.github.maslke.dwg.entity.Spline;
 import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.entity.Block;
+import io.github.maslke.dwg.entity.EndBlk;
+import io.github.maslke.dwg.entity.Image;
+import io.github.maslke.dwg.entity.MInsert;
+import io.github.maslke.dwg.entity.Polyline2d;
+import io.github.maslke.dwg.entity.Polyline3d;
+import io.github.maslke.dwg.entity.OleFrame;
+import io.github.maslke.dwg.entity.Ray;
+
 
 public class DwgObjectEntity {
     public long ref;
@@ -74,6 +83,38 @@ public class DwgObjectEntity {
 
     public Lwpolyline getEntityLwPolyline() {
         return this.getEntityLwpolyline(this.ref);
+    }
+
+    public Block getEntityBlock() {
+        return this.getEntityBlock(this.ref);
+    }
+
+    public EndBlk getEntityEndBlk() {
+        return this.getEntityEndBlk(this.ref);
+    }
+
+    public Image getEntityImage() {
+        return this.getEntityImage(this.ref);
+    }
+
+    public MInsert getEntityMInsert() {
+        return this.getEntityMInsert(this.ref);
+    }
+
+    public Polyline2d getEntityPolyline2d() {
+        return this.getEntityPolyline2d(this.ref);
+    }
+
+    public Polyline3d getEntityPolyline3d() {
+        return this.getEntityPolyline3d(this.ref);
+    }
+
+    public OleFrame getEntityOleFrame() {
+        return this.getEntityOleFrame(this.ref);
+    }
+
+    public Ray getEntityRay() {
+        return this.getEntityRay(this.ref);
     }
 
     public void setColor(DwgColor color) {
@@ -147,4 +188,12 @@ public class DwgObjectEntity {
     private native MLine getEntityMLine(long ref);
     private native Hatch getEntityHatch(long ref);
     private native Lwpolyline getEntityLwpolyline(long ref);
+    private native Block getEntityBlock(long ref);
+    private native EndBlk getEntityEndBlk(long ref);
+    private native Image getEntityImage(long ref);
+    private native MInsert getEntityMInsert(long ref);
+    private native Polyline2d getEntityPolyline2d(long ref);
+    private native Polyline3d getEntityPolyline3d(long ref);
+    private native OleFrame getEntityOleFrame(long ref);
+    private native Ray getEntityRay(long ref);
 }
