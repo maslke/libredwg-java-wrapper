@@ -80,8 +80,6 @@ public class DwgObject {
         return this.getDxfName(this.ref);
     }
 
-    // TODO tio dwg_handle _dwg_struct dwg_class
-
     public DwgObjectEntity getTioEntity() {
         return this.getTioEntity(this.ref);
     }

@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import io.github.maslke.dwg.Dwg;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.entity.Line;
-import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 import org.junit.After;
 

@@ -235,3 +235,16 @@ jobject createDwgColor(JNIEnv *env, Dwg_Color *color) {
     (*env)->DeleteLocalRef(env, refClass);
     return refObj;
 }
+
+jobject create_object(JNIEnv *env, const char* class_names, jlong ref) {
+    jclass class = (*env)->FindClass(env, class_names);
+    if (class == NULL) {
+        return NULL;
+    }
+    jmethodID constructor = (*env)->GetMethodID(env, class, "<init>", "()V");
+    jobject obj = (*env)->NewObject(env, class, constructor);
+    jfieldID refField = (*env)->GetFieldID(env, class, "ref", "J");
+    (*env)->SetLongField(env, obj, refField, ref);
+    (*env)->DeleteLocalRef(env, class);
+    return obj;
+}

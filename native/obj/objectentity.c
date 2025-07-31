@@ -143,13 +143,149 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getLtype
     return createDwgObjectRef(env, ltype);
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntity(JNIEnv *env, jobject job, jlong ref, jint entityType) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityPoint(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
     if (entity == NULL) {
         return NULL;
     }
-    return NULL;
+    Dwg_Entity_POINT *point = entity->tio.POINT;
+    if (point == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Point";
+    return create_object(env, class_name, (jlong)(intptr_t)point);
 }
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityLine(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_LINE *line = entity->tio.LINE;
+    if (line == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Line";
+    return create_object(env, class_name, (jlong)(intptr_t)line);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityArc(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_ARC *arc = entity->tio.ARC;
+    if (arc == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Arc";
+    return create_object(env, class_name, (jlong)(intptr_t)arc);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityCircle(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_CIRCLE *circle = entity->tio.CIRCLE;
+    if (circle == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Circle";
+    return create_object(env, class_name, (jlong)(intptr_t)circle);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityText(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_TEXT *text = entity->tio.TEXT;
+    if (text == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Text";
+    return create_object(env, class_name, (jlong)(intptr_t)text);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityEllipse(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_ELLIPSE *ellipse = entity->tio.ELLIPSE;
+    if (ellipse == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Ellipse";
+    return create_object(env, class_name, (jlong)(intptr_t)ellipse);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntitySpline(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_SPLINE *spline = entity->tio.SPLINE;
+    if (spline == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Spline";
+    return create_object(env, class_name, (jlong)(intptr_t)spline);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityInsert(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_INSERT *insert = entity->tio.INSERT;
+    if (insert == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Insert";
+    return create_object(env, class_name, (jlong)(intptr_t)insert);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityMLine(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_MLINE *mline = entity->tio.MLINE;
+    if (mline == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/MLine";
+    return create_object(env, class_name, (jlong)(intptr_t)mline);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityHatch(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_HATCH *hatch = entity->tio.HATCH;
+    if (hatch == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Hatch";
+    return create_object(env, class_name, (jlong)(intptr_t)hatch);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityLwpolyline(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_LWPOLYLINE *lwpolyline = entity->tio.LWPOLYLINE;
+    if (lwpolyline == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/Lwpolyline";
+    return create_object(env, class_name, (jlong)(intptr_t)lwpolyline);
+}
+
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getObjId(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;

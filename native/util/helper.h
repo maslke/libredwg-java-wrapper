@@ -14,6 +14,8 @@ int gbk_to_utf8(const char *, char *, size_t);
 jobject createDwgObjectRef(JNIEnv *, Dwg_Object_Ref *);
 jobject createDwgColor(JNIEnv *, Dwg_Color *);
 void log_info(JNIEnv *, const char*);
+
+jobject create_object(JNIEnv *, const char* class_names, jlong ref);
 #ifdef __cplusplus
 }
 #endif
