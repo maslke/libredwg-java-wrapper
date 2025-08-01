@@ -10,7 +10,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import io.github.maslke.dwg.Dwg;
-import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.support.DwgObjectType;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.entity.Line;

@@ -25,11 +25,16 @@ public class DwgObjectObject {
         return this.getDwg(this.ref);
     }
 
-    public DwgObjectBlockHeader getBlockHeader() {
-        return this.getBlockHeader(this.ref);
+    public DwgObjectBlockHeader getObjectBlockHeader() {
+        return this.getObjectBlockHeader(this.ref);
+    }
+
+    public DwgObjectStyle getObjectStyle() {
+        return this.getObjectStyle(this.ref);
     }
 
     private native long getObjId(long ref);
     private native Dwg getDwg(long ref);
-    private native DwgObjectBlockHeader getBlockHeader(long ref);
+    private native DwgObjectBlockHeader getObjectBlockHeader(long ref);
+    private native DwgObjectStyle getObjectStyle(long ref);
 }

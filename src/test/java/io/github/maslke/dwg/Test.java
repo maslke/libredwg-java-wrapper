@@ -51,7 +51,7 @@ public class Test {
         text.setTextValue("汉字测试");
 
         Circle circle = dwgBlockHeader.addCircle(new Point3d(150, 150, 0), 30);
-        Arc arc = dwgBlockHeader.addArc(new Point3d(300, 300, 0), 100, 0, 1.57);
+        dwgBlockHeader.addArc(new Point3d(300, 300, 0), 100, 0, 1.57);
         circle.getParent().setLinewt(30);
         DwgColor color2 = circle.getParent().getColor();
         color2.setIndex(2);

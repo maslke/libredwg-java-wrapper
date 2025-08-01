@@ -46,7 +46,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getDwg(J
     return dwg;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getBlockHeader(JNIEnv *env, jobject job, jlong ref) { 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectBlockHeader(JNIEnv *env, jobject job, jlong ref) { 
     Dwg_Object_Object *object = (Dwg_Object_Object*)(intptr_t)ref;
     if (object == NULL) {
         return NULL;
@@ -77,4 +77,36 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getBlock
     (*env)->SetLongField(env, blockHeader, refField, (jlong)block_header);
     (*env)->DeleteLocalRef(env, blockHeaderClass);
     return blockHeader;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectStyle(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Object *object = (Dwg_Object_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return NULL;
+    }
+    Dwg_Object_STYLE *style = object->tio.STYLE;
+    if (style == NULL) {
+        return NULL;
+    }
+    jclass styleClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObjectStyle");
+    if (styleClass == NULL) {
+        return NULL;
+    }
+    jmethodID styleConstructor = (*env)->GetMethodID(env, styleClass, "<init>", "()V");
+    if (styleConstructor == NULL) {
+        (*env)->DeleteLocalRef(env, styleClass);
+        return NULL;
+    }
+    jobject styleobj = (*env)->NewObject(env, styleClass, styleConstructor);
+    if (style == NULL) {
+        (*env)->DeleteLocalRef(env, styleClass);
+        return NULL;
+    }
+    jfieldID refField = (*env)->GetFieldID(env, styleClass, "ref", "J");
+    if (refField == NULL) {
+        (*env)->DeleteLocalRef(env, styleClass);
+    }
+    (*env)->SetLongField(env, styleobj, refField, (jlong)style);
+    (*env)->DeleteLocalRef(env, styleClass);
+    return styleobj;
 }

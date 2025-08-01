@@ -7,7 +7,8 @@ extern "C" {
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjId(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getDwg(JNIEnv *, jobject, jlong);
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getBlockHeader(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectBlockHeader(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectStyle(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
