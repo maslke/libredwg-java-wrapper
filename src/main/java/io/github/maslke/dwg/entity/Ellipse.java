@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 
-public class Ellipse extends Common {
+public class Ellipse extends AbstractBaseEntity {
 
     public Ellipse() {
 

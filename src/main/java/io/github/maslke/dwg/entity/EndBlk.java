@@ -2,7 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class EndBlk extends Common {
+public class EndBlk extends AbstractBaseEntity {
 
     public EndBlk() {
 

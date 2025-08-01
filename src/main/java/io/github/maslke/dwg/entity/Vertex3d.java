@@ -3,7 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Vertex3d extends Common {
+public class Vertex3d extends AbstractBaseEntity {
     public Vertex3d() {
         super();
     }

@@ -2,7 +2,7 @@ package io.github.maslke.dwg.entity;
 
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class OleFrame extends Common {
+public class OleFrame extends AbstractBaseEntity {
     public OleFrame() {
         super();
     }

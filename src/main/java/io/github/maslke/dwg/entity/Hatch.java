@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Vector3d;
 import java.util.List;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Hatch extends Common {
+public class Hatch extends AbstractBaseEntity {
 
     public Hatch() {
         super();

@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Tolerance extends Common {
+public class Tolerance extends AbstractBaseEntity {
     public Tolerance() {
         super();
     }

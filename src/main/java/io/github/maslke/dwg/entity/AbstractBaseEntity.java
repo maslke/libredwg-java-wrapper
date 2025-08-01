@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class Common {
+public abstract class AbstractBaseEntity {
     protected long ref;
     protected long header;
 

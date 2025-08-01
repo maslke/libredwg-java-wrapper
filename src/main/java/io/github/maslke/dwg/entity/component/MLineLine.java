@@ -2,9 +2,6 @@ package io.github.maslke.dwg.entity.component;
 
 import java.util.List;
 
-import io.github.maslke.dwg.entity.Common;
-
-
 public class MLineLine {
 
     private long ref;

@@ -3,7 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Point extends Common {
+public class Point extends AbstractBaseEntity {
     
     public Point() {
 

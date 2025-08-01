@@ -7,7 +7,7 @@ import io.github.maslke.dwg.obj.DwgColor;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 import java.util.List;
 
-public class MText extends Common {
+public class MText extends AbstractBaseEntity {
     
     public MText() {
 

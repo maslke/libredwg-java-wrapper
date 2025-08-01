@@ -3,7 +3,7 @@ package io.github.maslke.dwg.entity;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Block extends Common {
+public class Block extends AbstractBaseEntity {
     
     public Block() {
 

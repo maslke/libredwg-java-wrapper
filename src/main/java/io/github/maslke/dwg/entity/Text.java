@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Text extends Common {
+public class Text extends AbstractBaseEntity {
 
     public Text() {
 

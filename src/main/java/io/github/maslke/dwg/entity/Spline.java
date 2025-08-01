@@ -5,7 +5,7 @@ import java.util.List;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Spline extends Common {
+public class Spline extends AbstractBaseEntity {
     
     public Spline() {
 

@@ -4,7 +4,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class XLine extends Common {
+public class XLine extends AbstractBaseEntity {
     public XLine() {
         super();
     }

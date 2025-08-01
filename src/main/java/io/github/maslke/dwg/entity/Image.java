@@ -7,7 +7,7 @@ import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.common.Vector2d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Image extends Common {
+public class Image extends AbstractBaseEntity {
 
     public Image() {
     }

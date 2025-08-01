@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class MInsert extends Common {
+public class MInsert extends AbstractBaseEntity {
     public MInsert() {
     }
 

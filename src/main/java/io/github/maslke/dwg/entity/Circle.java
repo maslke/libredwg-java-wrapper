@@ -4,7 +4,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Circle extends Common {
+public class Circle extends AbstractBaseEntity {
     
 
     public Circle() {

@@ -5,7 +5,7 @@ import io.github.maslke.dwg.obj.DwgObjectEntity;
 import io.github.maslke.dwg.common.Vector3d;
 import java.util.List;
 
-public class Polyline3d extends Common {
+public class Polyline3d extends AbstractBaseEntity {
     public Polyline3d() {
         super();
     }

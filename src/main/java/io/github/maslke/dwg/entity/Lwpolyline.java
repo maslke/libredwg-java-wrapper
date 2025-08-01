@@ -7,7 +7,7 @@ import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 import java.util.List;
 
-public class Lwpolyline extends Common {
+public class Lwpolyline extends AbstractBaseEntity {
 
     public Lwpolyline() {
 

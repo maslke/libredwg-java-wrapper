@@ -7,7 +7,7 @@ import io.github.maslke.dwg.obj.DwgObjectEntity;
 
 import java.util.List;
 
-public class Insert extends Common {
+public class Insert extends AbstractBaseEntity {
 
     public Insert() {
 

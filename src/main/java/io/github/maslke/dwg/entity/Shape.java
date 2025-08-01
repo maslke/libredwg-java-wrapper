@@ -5,7 +5,7 @@ import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 
-public class Shape extends Common {
+public class Shape extends AbstractBaseEntity {
     public Shape() {
     }
 
