@@ -9,7 +9,8 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getTioEntity(J
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getTioObject(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getHandle(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getParent(JNIEnv *, jobject, jlong);
-
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFixedType(JNIEnv *, jobject, jlong);
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getSuperType(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

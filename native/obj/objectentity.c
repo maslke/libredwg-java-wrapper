@@ -390,6 +390,19 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntit
     return create_object(env, class_name, (jlong)(intptr_t)ray);
 }
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityMText(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Entity *entity = (Dwg_Object_Entity*)(intptr_t)ref;
+    if (entity == NULL) {
+        return NULL;
+    }
+    Dwg_Entity_MTEXT *mtext = entity->tio.MTEXT;
+    if (mtext == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/entity/MText";
+    return create_object(env, class_name, (jlong)(intptr_t)mtext);
+}
+
 
 
 JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getObjId(JNIEnv *env, jobject job, jlong ref) {

@@ -50,7 +50,13 @@ public class DwgObject {
         this.setIndex(this.ref, index);
     }
 
-    // #TODO: DWG_OBJECT_TYPE
+    public int getFixedType() {
+        return this.getFixedType(this.ref);
+    }
+
+    public int getSuperType() {
+        return this.getSuperType(this.ref);
+    }
 
     public DwgHandle getHandle() {
         return this.getHandle(this.ref);
@@ -187,6 +193,8 @@ public class DwgObject {
     private native long getSize(long ref);
     private native String getAddress(long ref);
     private native int getType(long ref);
+    private native int getFixedType(long ref);
+    private native int getSuperType(long ref);
     private native long getIndex(long ref);
     private native void setSize(long ref, long size);
     private native void setAddress(long ref, String address);

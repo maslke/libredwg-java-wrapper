@@ -35,6 +35,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntit
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityPolyline3d(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityOleFrame(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityRay(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectEntity_getEntityMText(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

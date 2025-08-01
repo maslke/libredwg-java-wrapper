@@ -141,5 +141,27 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getObject(JNIEnv *env, j
         return NULL;
     }
     
-    return NULL;
+    int num_objects = dwg_data->num_objects;
+    jclass listclass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listclass == NULL) {
+        return NULL;
+    }
+    jmethodID list_init = (*env)->GetMethodID(env, listclass, "<init>", "()V");
+    jobject list = (*env)->NewObject(env, listclass, list_init);
+    jmethodID list_add = (*env)->GetMethodID(env, listclass, "add", "(Ljava/lang/Object;)Z");
+
+    jclass objectclass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObject");
+    if (objectclass == NULL) {
+        (*env)->DeleteLocalRef(env, list);
+        return NULL;
+    }
+    jmethodID object_init = (*env)->GetMethodID(env, objectclass, "<init>", "(J)V");
+    for (int i = 0; i < num_objects; i++) {
+        Dwg_Object *obj = &dwg_data->object[i];
+        jobject object = (*env)->NewObject(env, objectclass, object_init, (jlong)(intptr_t)obj);
+        (*env)->CallBooleanMethod(env, list, list_add, object);
+    }
+    (*env)->DeleteLocalRef(env, listclass);
+    (*env)->DeleteLocalRef(env, objectclass);
+    return list;
 }

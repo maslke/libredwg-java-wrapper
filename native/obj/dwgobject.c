@@ -17,7 +17,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getTioEntity(J
     if (entity == NULL) {
         return NULL;
     }
-    const char *class_name = "io/github/maslke/dwg/object/DwgObjectEntity";
+    const char *class_name = "io/github/maslke/dwg/obj/DwgObjectEntity";
     return create_object(env, class_name, (jlong)(intptr_t)entity);
 }
 
@@ -30,7 +30,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getTioObject(J
     if (obj == NULL) {
         return NULL;
     }
-    const char *class_name = "io/github/maslke/dwg/object/DwgObjectObject";
+    const char *class_name = "io/github/maslke/dwg/obj/DwgObjectObject";
     return create_object(env, class_name, (jlong)(intptr_t)obj);
 }
 
@@ -52,4 +52,20 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getParent(JNIE
     struct _dwg_struct *parent = object->parent;
     const char *class_name = "io/github/maslke/dwg/Dwg";
     return create_object(env, class_name, (jlong)(intptr_t)parent);
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFixedType(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object *object = (Dwg_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return 0;
+    }
+    return object->fixedtype;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getSuperType(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object *object = (Dwg_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return 0;
+    }
+    return object->supertype;
 }

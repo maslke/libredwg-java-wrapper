@@ -20,7 +20,7 @@ import io.github.maslke.dwg.entity.Polyline2d;
 import io.github.maslke.dwg.entity.Polyline3d;
 import io.github.maslke.dwg.entity.OleFrame;
 import io.github.maslke.dwg.entity.Ray;
-
+import io.github.maslke.dwg.entity.MText;
 
 public class DwgObjectEntity {
     public long ref;
@@ -117,6 +117,10 @@ public class DwgObjectEntity {
         return this.getEntityRay(this.ref);
     }
 
+    public MText getEntityMText() {
+        return this.getEntityMText(this.ref);
+    }
+
     public void setColor(DwgColor color) {
         this.setColor(this.ref, color);
 
@@ -159,11 +163,11 @@ public class DwgObjectEntity {
     }
 
     public boolean isInModalSpace() {
-        return this.getEntMode() == 1;
+        return this.getEntMode() == 2;
     }
 
     public boolean isInPaperSpace() {
-        return this.getEntMode() == 2;
+        return this.getEntMode() == 1;
     }
 
     private native long getObjId(long ref);
@@ -196,4 +200,5 @@ public class DwgObjectEntity {
     private native Polyline3d getEntityPolyline3d(long ref);
     private native OleFrame getEntityOleFrame(long ref);
     private native Ray getEntityRay(long ref);
+    private native MText getEntityMText(long ref);
 }
