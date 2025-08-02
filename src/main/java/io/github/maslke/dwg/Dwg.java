@@ -6,6 +6,7 @@ import io.github.maslke.dwg.obj.DwgObject;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectVport;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgHeader;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -94,6 +95,24 @@ public final class Dwg {
         return vport;
     }
 
+    public int getNumClasses() {
+        return this.getNumClasses(this.ref);
+    }
+
+    public DwgObject getMspaceObject() {
+        return this.getMspaceObject(this.ref);
+    }
+
+    public DwgObject getPspaceBlock() {
+        return this.getPspaceBlock(this.ref);
+    }
+
+    
+
+    public DwgHeader getDwgHeader() {
+        return this.getDwgHeader(this.ref);
+    }
+
     public long getNumObjects() {
         return this.getNumObjects(this.ref);
     }
@@ -133,4 +152,12 @@ public final class Dwg {
     private native long getNumEntities(long ref);
 
     private native List<DwgObject> getObject(long ref);
+
+    private native DwgHeader getDwgHeader(long ref);
+
+    private native int getNumClasses(long ref);
+
+    private native DwgObject getMspaceObject(long ref);
+
+    private native DwgObject getPspaceBlock(long ref);
 }

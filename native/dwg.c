@@ -8,6 +8,28 @@
 #include <iconv.h>
 #include "helper.h"
 
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getDwgHeader(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    Dwg_Header *hdr = &dwg_data->header;
+    return create_object(env, "io/github/maslke/dwg/obj/DwgHeader", (jlong)(intptr_t)hdr);
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_getNumClasses(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    return (jint)dwg_data->num_classes;
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getMspaceObject(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    Dwg_Object *mspace = dwg_data->mspace_block;
+    return create_object(env, "io/github/maslke/dwg/obj/DwgObject", (jlong)(intptr_t)mspace);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getPspaceBlock(JNIEnv *env, jobject obj, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    Dwg_Object *pspace = dwg_data->pspace_block;
+    return create_object(env, "io/github/maslke/dwg/obj/DwgObject", (jlong)(intptr_t)pspace);
+}
 
 JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_Dwg_getVersionNative(JNIEnv *env, jobject obj) {
     return (*env)->NewStringUTF(env, "0.13.3");

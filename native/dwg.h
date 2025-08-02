@@ -20,7 +20,10 @@ JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_releaseNative(JNIEnv *, 
 JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getNumObjects(JNIEnv *, jobject, jlong);
 JNIEXPORT jlong   JNICALL Java_io_github_maslke_dwg_Dwg_getNumEntities(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getObject(JNIEnv *, jobject, jlong);
-
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getDwgHeader(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_getNumClasses(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getMspaceObject(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getPspaceBlock(JNIEnv *, jobject, jlong);
 #ifdef __cplusplus
 }
 #endif
