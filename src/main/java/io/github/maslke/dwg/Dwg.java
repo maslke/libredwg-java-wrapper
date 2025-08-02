@@ -76,7 +76,6 @@ public final class Dwg {
         long handle = this.findTableHandleNative(this.ref, name, table);
         DwgObjectRef ref = new DwgObjectRef();
         ref.setRef(handle);
-        ref.initAbsoluteRef();
         return ref;
     }
 
@@ -84,7 +83,6 @@ public final class Dwg {
         long handle = this.addHandleRefNative(this.ref, code, value, obj);
         DwgObjectRef ref = new DwgObjectRef();
         ref.setRef(handle);
-        ref.initAbsoluteRef();
         return ref;
     }
 

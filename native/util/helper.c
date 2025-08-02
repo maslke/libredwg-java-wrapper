@@ -170,12 +170,7 @@ jobject createDwgObjectRef(JNIEnv *env, Dwg_Object_Ref *style) {
     jobject refObj = (*env)->NewObject(env, refClass, constructor);
 
     jfieldID refField = (*env)->GetFieldID(env, refClass, "ref", "J");
-    jfieldID absoluteRefField = (*env)->GetFieldID(env, refClass, "absoluteRef", "J");
-    jfieldID r11IdxField = (*env)->GetFieldID(env, refClass, "r11Idx", "S");
     (*env)->SetLongField(env, refObj, refField, (jlong)(intptr_t)style);
-    (*env)->SetLongField(env, refObj, absoluteRefField, style->absolute_ref);
-    (*env)->SetShortField(env, refObj, r11IdxField, style->r11_idx);
-    // TODO set DwgHandle
     (*env)->DeleteLocalRef(env, refClass);
     return refObj;
 }

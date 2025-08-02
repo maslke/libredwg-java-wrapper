@@ -4,39 +4,66 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class DwgObjectRef {
     private long ref;
-    private DwgHandle handleRef;
-    private long absoluteRef;
-    private short r11Idx;
 
-
-    public void initAbsoluteRef() {
-        this.absoluteRef = this.getAbsoluteRefNative(this.ref);
+    public DwgObjectRef(long ref) {
+        this.ref = ref;
     }
 
-    public void initR11Idx() {
-        this.r11Idx = this.getR11IdxNative(this.ref);
+    public DwgObjectRef() {
+        this.ref = ref;
+    }
+
+
+    public long getRef() {
+        return this.ref;
+    }
+
+    public void setRef(long ref) {
+        this.ref = ref;
+    }
+
+    public DwgHandle getHandleRef() {
+        return this.getHandleRef(this.ref);
+    }
+
+    public void setHandleRef(DwgHandle handleRef) {
+        this.setHandleRef(this.ref, handleRef);
+    }
+
+    public long getAbsoluteRef() {
+        return this.getAbsoluteRef(this.ref);
     }
 
     public void setAbsoluteRef(long absoluteRef) {
-        this.absoluteRef = absoluteRef;
-        this.setAbsoluteRefNative(this.ref, this.absoluteRef);
+        this.setAbsoluteRef(this.ref, absoluteRef);
     }
 
-    public void setR11Idx(short r11Idx) {
-        this.r11Idx = r11Idx;
-        this.setR11IdxNative(this.ref, this.r11Idx);
+    public int getR11Idx() {
+        return this.getR11Idx(this.ref);
+    }
+
+    public void setR11Idx(int r11Idx) {
+        this.setR11Idx(this.ref, r11Idx);
+    }
+
+    public DwgObject getObject() {
+        return this.getObject(this.ref);
+    }
+
+    public void setObject(DwgObject object) {
+        this.setObject(this.ref, object);
     }
 
 
-    private native void setAbsoluteRefNative(long ref, long absoluteRef);
-
-    private native void setR11IdxNative(long ref, short r11Idx);
-
-    private native long getAbsoluteRefNative(long ref);
-    private native short getR11IdxNative(long ref);
+    private native DwgHandle getHandleRef(long ref);
+    private native void setHandleRef(long ref, DwgHandle handleRef);
+    private native long getAbsoluteRef(long ref);
+    private native void setAbsoluteRef(long ref, long absoluteRef);
+    private native int getR11Idx(long ref);
+    private native void setR11Idx(long ref, int r11Idx);
+    private native DwgObject getObject(long ref);
+    private native void setObject(long ref, DwgObject object);
 }
