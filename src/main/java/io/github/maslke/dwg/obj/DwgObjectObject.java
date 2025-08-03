@@ -33,8 +33,23 @@ public class DwgObjectObject {
         return this.getObjectStyle(this.ref);
     }
 
+    public DwgObjectVport getObjectVport() {
+        return this.getObjectVport(this.ref);
+    }
+
+    public DwgObjectLtype getObjectLtype() {
+        return this.getObjectLtype(this.ref);
+    }
+
+    public DwgObjectLayer getObjectLayer() {
+        return this.getObjectLayer(this.ref);
+    }
+
     private native long getObjId(long ref);
     private native Dwg getDwg(long ref);
     private native DwgObjectBlockHeader getObjectBlockHeader(long ref);
     private native DwgObjectStyle getObjectStyle(long ref);
-}
+    private native DwgObjectVport getObjectVport(long ref);
+    private native DwgObjectLtype getObjectLtype(long ref);
+    private native DwgObjectLayer getObjectLayer(long ref);
+} 

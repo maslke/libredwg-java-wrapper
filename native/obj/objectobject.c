@@ -110,3 +110,42 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjec
     (*env)->DeleteLocalRef(env, styleClass);
     return styleobj;
 }
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectVport(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Object *object = (Dwg_Object_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return NULL;
+    }
+    Dwg_Object_VPORT *vport = object->tio.VPORT;
+    if (vport == NULL) {
+        return NULL;
+    }
+    const char *class_names = "io/github/maslke/dwg/obj/DwgObjectVport";
+    return create_object(env, class_names, (jlong)(intptr_t)vport);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectLtype(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Object *object = (Dwg_Object_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return NULL;
+    }
+    Dwg_Object_LTYPE *ltype = object->tio.LTYPE;
+    if (ltype == NULL) {
+        return NULL;
+    }
+    const char *class_names = "io/github/maslke/dwg/obj/DwgObjectLtype";
+    return create_object(env, class_names, (jlong)(intptr_t)ltype);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectLayer(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_Object *object = (Dwg_Object_Object*)(intptr_t)ref;
+    if (object == NULL) {
+        return NULL;
+    }
+    Dwg_Object_LAYER *layer = object->tio.LAYER;
+    if (layer == NULL) {
+        return NULL;
+    }
+    const char *class_names = "io/github/maslke/dwg/obj/DwgObjectLayer";
+    return create_object(env, class_names, (jlong)(intptr_t)layer);
+}

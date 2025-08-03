@@ -9,6 +9,9 @@ JNIEXPORT jlong JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjId(J
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getDwg(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectBlockHeader(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectStyle(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectVport(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectLtype(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectObject_getObjectLayer(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
