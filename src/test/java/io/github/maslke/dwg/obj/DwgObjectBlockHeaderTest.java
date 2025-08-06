@@ -198,6 +198,7 @@ public class DwgObjectBlockHeaderTest {
         DwgObjectBlockHeader blockHeader = tioObject.getObjectBlockHeader();
         assertNotNull(blockHeader);
         assertTrue(blockHeader.getRef() > 0);
+        assertNotNull(blockHeader);
     }
 
     @Test

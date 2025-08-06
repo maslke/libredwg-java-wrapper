@@ -620,6 +620,9 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getOwnObjects(JNIEnv *env, jobject job, jlong ref) {
     Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return NULL;
+    }
     Dwg_Data *dwg = hdr->parent->dwg;
     if (hdr == NULL) {
         return NULL;
@@ -649,4 +652,40 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_get
     }
     (*env)->DeleteLocalRef(env, listClass);
     return listObj;
+}
+
+JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getName(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return NULL;
+    }
+    const char *chars = hdr->name;
+    if (chars == NULL) {
+        return NULL;
+    }
+    char utf_text[200];
+    gbk_to_utf8(chars, utf_text, sizeof(utf_text));
+    return (*env)->NewStringUTF(env, utf_text);
+}
+
+JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_setName(JNIEnv *env, jobject job, jlong ref, jstring name) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return;
+    }
+    const char *chars = (*env)->GetStringUTFChars(env, name, NULL);
+    char utf_text[200];
+    utf8_to_gbk(chars, utf_text, sizeof(utf_text));
+    hdr->name = strdup(utf_text);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getParent(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return NULL;
+    }
+    if (hdr == NULL) {
+        return NULL;
+    }
+    return create_object(env, "io/github/maslke/dwg/obj/DwgObjectObject", (jlong)(intptr_t)hdr->parent);
 }

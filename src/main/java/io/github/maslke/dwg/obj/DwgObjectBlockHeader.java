@@ -31,9 +31,7 @@ import java.util.List;
 @Setter
 public class DwgObjectBlockHeader {
     private Dwg dwg;
-    private String name;
     private long ref;
-
 
     public Point addPoint(Point3d point) {
         Point pnt = this.addPoint(this.ref, point);
@@ -197,6 +195,18 @@ public class DwgObjectBlockHeader {
         return spline;
     }
 
+    public String getName() {
+        return this.getName(this.ref);
+    }
+
+    public void setName(String name) {
+        this.setName(this.ref, name);
+    }
+
+    public DwgObjectObject getParent() {
+        return this.getParent(this.ref);
+    }
+
     public List<DwgObject> getOwnObjects() {
         return this.getOwnObjects(this.ref);
     }
@@ -238,4 +248,10 @@ public class DwgObjectBlockHeader {
     private native Spline addSpline(long ref, List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec);
 
     private native List<DwgObject> getOwnObjects(long ref);
+
+    private native String getName(long ref);
+
+    private native void setName(long ref, String name);
+
+    private native DwgObjectObject getParent(long ref);
 }
