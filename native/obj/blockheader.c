@@ -617,3 +617,36 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     (*env)->DeleteLocalRef(env, splineClass);
     return splineObj;
 }
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getOwnObjects(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    Dwg_Data *dwg = hdr->parent->dwg;
+    if (hdr == NULL) {
+        return NULL;
+    }
+
+    const char *names = hdr->name;
+    Dwg_Object_Ref *object_ref = dwg_find_tablehandle(dwg, names, "BLOCK");
+    if (object_ref == NULL) {
+        return NULL;
+    }
+
+    Dwg_Object *block_obj = object_ref->obj;
+    jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listClass == NULL) {
+        return NULL;
+    }
+
+    jmethodID constructor = (*env)->GetMethodID(env, listClass, "<init>", "()V");
+    jobject listObj = (*env)->NewObject(env, listClass, constructor);
+    jmethodID addMethod = (*env)->GetMethodID(env, listClass, "add", "(Ljava/lang/Object;)Z");
+
+    Dwg_Object *current_entity = get_first_owned_entity(block_obj);
+    while (current_entity != NULL) {
+        jobject obj = create_object(env, "io/github/maslke/dwg/obj/DwgObject", (jlong)(intptr_t)current_entity);
+        (*env)->CallBooleanMethod(env, listObj, addMethod, obj);
+        current_entity = get_next_owned_entity(block_obj, current_entity);
+    }
+    (*env)->DeleteLocalRef(env, listClass);
+    return listObj;
+}

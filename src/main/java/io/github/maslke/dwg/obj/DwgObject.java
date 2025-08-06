@@ -18,6 +18,10 @@ public class DwgObject {
         return this.ref;
     }
 
+    public void setRef(long ref) {
+        this.ref = ref;
+    }
+
     public long getSize() {
         return this.getSize(this.ref);
     }

@@ -23,6 +23,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPolyline2d(JNIEnv *, jobject, jlong, jobject points);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addXLine(JNIEnv *, jobject, jlong, jobject, jobject);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addSpline(JNIEnv *, jobject, jlong, jobject, jobject, jobject);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getOwnObjects(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
