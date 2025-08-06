@@ -52,13 +52,13 @@ public class DwgObjectTest {
         assertTrue(objects.size() >= 2);
 
         objects = objects.stream().filter(r -> r.getTioEntity() != null && r.getFixedType() != DwgObjectType.DWG_TYPE_BLOCK && r.getFixedType() != DwgObjectType.DWG_TYPE_ENDBLK && r.getTioEntity().isInModalSpace()).collect(Collectors.toList());
-        assertEquals(objects.size(), 2);
+        assertEquals(2, objects.size());
 
-        List<Integer> fixedTypes = objects.stream().map(r -> r.getFixedType()).collect(Collectors.toList());
+        List<Integer> fixedTypes = objects.stream().map(DwgObject::getFixedType).collect(Collectors.toList());
         assertTrue(fixedTypes.contains(DwgObjectType.DWG_TYPE_POINT));
         assertTrue(fixedTypes.contains(DwgObjectType.DWG_TYPE_LINE));
 
-        DwgObjectEntity pointEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_POINT).map(r -> r.getTioEntity()).findFirst().orElse(null);
+        DwgObjectEntity pointEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_POINT).map(DwgObject::getTioEntity).findFirst().orElse(null);
         assertNotNull(pointEntity);
         assertTrue(pointEntity.getRef() > 0);
         assertTrue(pointEntity.isInModalSpace());
@@ -67,7 +67,7 @@ public class DwgObjectTest {
         assertFalse(point.isEmpty());
 
 
-        DwgObjectEntity lineEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_LINE).map(r -> r.getTioEntity()).findFirst().orElse(null);
+        DwgObjectEntity lineEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_LINE).map(DwgObject::getTioEntity).findFirst().orElse(null);
         assertNotNull(lineEntity);
         assertTrue(lineEntity.getRef() > 0);
         assertTrue(lineEntity.isInModalSpace());
@@ -75,7 +75,7 @@ public class DwgObjectTest {
         assertNotNull(line);
         assertFalse(line.isEmpty());
 
-        DwgObjectEntity circleEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_CIRCLE).map(r -> r.getTioEntity()).findFirst().orElse(null);
+        DwgObjectEntity circleEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_CIRCLE).map(DwgObject::getTioEntity).findFirst().orElse(null);
         assertNull(circleEntity);
 
         DwgObjectBlockHeader header = dwg.getObjectBlockHeader();
@@ -89,17 +89,17 @@ public class DwgObjectTest {
         assertTrue(objects.size() >= 3);
 
         objects = objects.stream().filter(r -> r.getTioEntity() != null && r.getFixedType() != DwgObjectType.DWG_TYPE_BLOCK && r.getFixedType() != DwgObjectType.DWG_TYPE_ENDBLK && r.getTioEntity().isInModalSpace()).collect(Collectors.toList());
-        assertEquals(objects.size(), 3);
+        assertEquals(3, objects.size());
 
-        fixedTypes = objects.stream().map(r -> r.getFixedType()).collect(Collectors.toList());
+        fixedTypes = objects.stream().map(DwgObject::getFixedType).collect(Collectors.toList());
         assertTrue(fixedTypes.contains(DwgObjectType.DWG_TYPE_CIRCLE));
 
-        circleEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_CIRCLE).map(r -> r.getTioEntity()).findFirst().orElse(null);
+        circleEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_CIRCLE).map(DwgObject::getTioEntity).findFirst().orElse(null);
         assertNotNull(circleEntity);
         assertTrue(circleEntity.getRef() > 0);
         assertTrue(circleEntity.isInModalSpace());
         Circle circle = circleEntity.getEntityCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
-    }    
+    }
 }

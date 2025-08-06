@@ -236,6 +236,9 @@ jobject create_object(JNIEnv *env, const char* class_names, jlong ref) {
     if (class == NULL) {
         return NULL;
     }
+    if (ref == 0) {
+        return NULL;
+    }
     jmethodID constructor = (*env)->GetMethodID(env, class, "<init>", "()V");
     jobject obj = (*env)->NewObject(env, class, constructor);
     jfieldID refField = (*env)->GetFieldID(env, class, "ref", "J");

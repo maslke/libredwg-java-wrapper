@@ -66,6 +66,7 @@ public class DwgObjectEntityTest extends AbstractEntityTest {
         Dwg dwg = parent.getDwg();
         DwgObjectRef ltypeRef = dwg.findTableHandle("CONTINUOUS", TableType.LTYPE);
         assertNotNull(ltypeRef);
+        assertNotNull(ltypeRef.getObject());
         parent.setLtype(ltypeRef);
         DwgObjectRef ltype = parent.getLtype();
         assertNotNull(ltype);

@@ -197,6 +197,10 @@ public class DwgObjectBlockHeader {
         return spline;
     }
 
+    public List<DwgObject> getOwnObjects() {
+        return this.getOwnObjects(this.ref);
+    }
+
 
     private native Point addPoint(long ref, Point3d point);
     private native Line addLine(long ref, Point3d start, Point3d end);
@@ -232,4 +236,6 @@ public class DwgObjectBlockHeader {
     private native XLine addXLine(long ref, Point3d point, Vector3d vector);
     
     private native Spline addSpline(long ref, List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec);
+
+    private native List<DwgObject> getOwnObjects(long ref);
 }

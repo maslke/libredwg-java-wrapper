@@ -177,6 +177,27 @@ public class DwgObjectBlockHeaderTest {
         Insert insert = objectBlockHeader.addInsert(new Point3d(10, 10 ,0), "blk0", 1.0 ,1.0, 1.0, 0);
         assertNotNull(insert);
         assertFalse(insert.isEmpty());
+
+        DwgObjectRef objectHeaderRef = insert.getBlockHeader();
+        assertNotNull(objectHeaderRef);
+        assertTrue(objectHeaderRef.getRef() > 0);
+
+        long absoluteRef = objectHeaderRef.getAbsoluteRef();
+        assertTrue(absoluteRef > 0);
+
+        if (objectHeaderRef.getObject() == null) {
+            objectHeaderRef.setObject(dwg.resolveHandle(absoluteRef));
+        }
+
+        DwgObject block_obj = objectHeaderRef.getObject();
+        assertNotNull(block_obj);
+        assertTrue(block_obj.getRef() > 0);
+        DwgObjectObject tioObject = block_obj.getTioObject();
+        assertNotNull(tioObject);
+        assertTrue(tioObject.getRef() > 0);
+        DwgObjectBlockHeader blockHeader = tioObject.getObjectBlockHeader();
+        assertNotNull(blockHeader);
+        assertTrue(blockHeader.getRef() > 0);
     }
 
     @Test

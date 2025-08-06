@@ -24,6 +24,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getDwgHeader(JNIEnv *, j
 JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_getNumClasses(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getMspaceObject(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getPspaceBlock(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_resolveHandle(JNIEnv *, jobject, jlong, jlong);
 #ifdef __cplusplus
 }
 #endif

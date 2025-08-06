@@ -86,6 +86,10 @@ public final class Dwg {
         return ref;
     }
 
+    public DwgObject resolveHandle(long absoluteRef) {
+        return this.resolveHandle(this.ref, absoluteRef);
+    }
+
     public DwgObjectVport getVport(String portName) {
         long handle = this.getVportNative(this.ref, portName);
         DwgObjectVport vport = new DwgObjectVport();
@@ -158,4 +162,6 @@ public final class Dwg {
     private native DwgObject getMspaceObject(long ref);
 
     private native DwgObject getPspaceBlock(long ref);
+
+    private native DwgObject resolveHandle(long ref, long handle);
 }

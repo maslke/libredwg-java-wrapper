@@ -187,3 +187,16 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getObject(JNIEnv *env, j
     (*env)->DeleteLocalRef(env, objectclass);
     return list;
 }
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_resolveHandle(JNIEnv *env, jobject job, jlong ref, jlong absolute_ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    Dwg_Object *dwg_object = dwg_resolve_handle(dwg_data, absolute_ref);
+    if (dwg_object == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/obj/DwgObject";
+    return create_object(env, class_name, (jlong)(intptr_t)dwg_object);
+}
