@@ -1,10 +1,5 @@
 package io.github.maslke.dwg.obj;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-
 public class DwgObjectRef {
     private long ref;
 
@@ -13,7 +8,7 @@ public class DwgObjectRef {
     }
 
     public DwgObjectRef() {
-        this.ref = ref;
+        this.ref = 0;
     }
 
 

@@ -1,8 +1,5 @@
 package io.github.maslke.dwg.obj;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 public class DwgHandle {
     private long ref;
@@ -20,7 +17,7 @@ public class DwgHandle {
     }
 
     public DwgHandle() {
-        this.ref = ref;
+        this.ref = 0;
     }
 
     public int getCode() {

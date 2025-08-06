@@ -3,7 +3,6 @@ package io.github.maslke.dwg;
 import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Point3d;
 import io.github.maslke.dwg.common.Vector2d;
-import io.github.maslke.dwg.entity.Arc;
 import io.github.maslke.dwg.entity.Circle;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Text;

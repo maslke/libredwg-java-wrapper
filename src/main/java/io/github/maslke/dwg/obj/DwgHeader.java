@@ -4,7 +4,7 @@ public class DwgHeader {
     private long ref;
 
     public DwgHeader() {
-        this.ref = ref;
+        this.ref = 0;
     }
 
     public DwgHeader(long ref) {
