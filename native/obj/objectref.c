@@ -43,6 +43,14 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectRef_getObject(J
         return NULL;
     }
     const char *class_name = "io/github/maslke/dwg/obj/DwgObject";
+    if (ref_entity->obj == NULL) {
+        int error = 0;
+        Dwg_Object *obj = dwg_ref_get_object(ref_entity, &error);
+        if (error > 0) {
+            return NULL;
+        }
+        return create_object(env, class_name, (jlong)(intptr_t)obj);
+    }
     return create_object(env, class_name, (jlong)(intptr_t)(ref_entity->obj));
 }
 
