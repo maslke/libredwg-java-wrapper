@@ -7,6 +7,7 @@
 #include <float.h>
 #include <iconv.h>
 #include "helper.h"
+#include "jni_md.h"
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getDwgHeader(JNIEnv *env, jobject obj, jlong ref) {
     Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
@@ -199,4 +200,89 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_resolveHandle(JNIEnv *en
     }
     const char *class_name = "io/github/maslke/dwg/obj/DwgObject";
     return create_object(env, class_name, (jlong)(intptr_t)dwg_object);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getFirstObject(JNIEnv *env, jobject job, jlong ref, jint type) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    Dwg_Object *dwg_object = dwg_get_first_object(dwg_data, type);
+    if (dwg_object == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/obj/DwgObject";
+    return create_object(env, class_name, (jlong)(intptr_t)dwg_object);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getNextObject(JNIEnv *env, jobject job, jlong ref, jint type, jint index) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    Dwg_Object *dwg_object = dwg_get_next_object(dwg_data, type, index);
+    if (dwg_object == NULL) {
+        return NULL;
+    }
+    const char *class_name = "io/github/maslke/dwg/obj/DwgObject";
+    return create_object(env, class_name, (jlong)(intptr_t)dwg_object);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getLayers(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    Dwg_Object_LAYER **layers = dwg_get_layers(dwg_data);
+    if (layers == NULL) {
+        return NULL;
+    }
+    jclass listclass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listclass == NULL) {
+        return NULL;
+    }
+    jmethodID list_init = (*env)->GetMethodID(env, listclass, "<init>", "()V");
+    jobject list = (*env)->NewObject(env, listclass, list_init);
+    jmethodID list_add = (*env)->GetMethodID(env, listclass, "add", "(Ljava/lang/Object;)Z");
+
+    for (int i = 0; layers[i] != NULL; i++) {
+        Dwg_Object_LAYER *layer = layers[i];
+        jobject layer_obj = create_object(env, "io/github/maslke/dwg/obj/DwgObjectLayer", (jlong)(intptr_t)layer);
+        (*env)->CallBooleanMethod(env, list, list_add, layer_obj);
+    }
+    (*env)->DeleteLocalRef(env, listclass);
+    return list;
+}
+
+JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_Dwg_getLayerCount(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return 0;
+    }
+    return (jint)dwg_get_layer_count(dwg_data);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getEntities(JNIEnv *env, jobject job, jlong ref) {
+    Dwg_Data *dwg_data = (Dwg_Data*)(intptr_t)ref;
+    if (dwg_data == NULL) {
+        return NULL;
+    }
+    Dwg_Object_Entity **entities = dwg_get_entities(dwg_data);
+    if (entities == NULL) {
+        return NULL;
+    }
+    jclass listclass = (*env)->FindClass(env, "java/util/ArrayList");
+    if (listclass == NULL) {
+        return NULL;
+    }
+    jmethodID list_init = (*env)->GetMethodID(env, listclass, "<init>", "()V");
+    jobject list = (*env)->NewObject(env, listclass, list_init);
+    jmethodID list_add = (*env)->GetMethodID(env, listclass, "add", "(Ljava/lang/Object;)Z");
+    for (int i = 0; entities[i] != NULL; i++) {
+        Dwg_Object_Entity *entity = entities[i];
+        jobject entity_obj = create_object(env, "io/github/maslke/dwg/obj/DwgObjectEntity", (jlong)(intptr_t)entity);
+        (*env)->CallBooleanMethod(env, list, list_add, entity_obj);
+    }
+    (*env)->DeleteLocalRef(env, listclass);
+    return list;
 }

@@ -1,23 +1,23 @@
 package io.github.maslke.dwg.obj;
 
-import org.junit.Test;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import io.github.maslke.dwg.Dwg;
-import io.github.maslke.dwg.support.DwgObjectType;
 import io.github.maslke.dwg.common.Point3d;
+import io.github.maslke.dwg.entity.Circle;
+import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Point;
-import io.github.maslke.dwg.entity.Circle;
+import io.github.maslke.dwg.support.DwgObjectType;
+import org.junit.After;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class DwgObjectTest {
 
@@ -101,5 +101,36 @@ public class DwgObjectTest {
         Circle circle = circleEntity.getEntityCircle();
         assertNotNull(circle);
         assertFalse(circle.isEmpty());
+    }
+
+    @Test
+    public void testGetInsert() {
+        dwg = createDwg();
+        assertNotNull(dwg);
+        assertTrue(dwg.getRef() > 0);
+        DwgObjectBlockHeader header = dwg.getObjectBlockHeader();
+        DwgObjectBlockHeader hdr = dwg.createObjectBlockHeader("blk0");
+        hdr.addBlock("blk0");
+        hdr.addLine(new Point3d(0, 0, 0), new Point3d(1, 1, 0));
+        hdr.addEndBlk();
+        header.addInsert(new Point3d(10, 10, 0), "blk0", 1.0, 1.0, 1.0, 0);
+        List<DwgObject> objects = dwg.getObject();
+        DwgObjectEntity insertEntity = objects.stream().filter(r -> r.getFixedType() == DwgObjectType.DWG_TYPE_INSERT).map(DwgObject::getTioEntity).findFirst().orElse(null);
+        assertNotNull(insertEntity);
+        assertTrue(insertEntity.getRef() > 0);
+        assertTrue(insertEntity.isInModalSpace());
+        Insert insert = insertEntity.getEntityInsert();
+        assertNotNull(insert);
+        assertFalse(insert.isEmpty());
+
+        DwgObjectRef ref = insert.getBlockHeader();
+        DwgObject blockObj = ref.getObject();
+        if (blockObj == null) {
+            blockObj = dwg.resolveHandle(ref.getAbsoluteRef());
+        }
+
+        DwgObjectBlockHeader hdr2 = blockObj.getTioObject().getObjectBlockHeader();
+        List<DwgObject> ownedObjects = hdr2.getOwnObjects(blockObj);
+        assertNotNull(ownedObjects);
     }
 }

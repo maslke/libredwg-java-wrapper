@@ -246,3 +246,18 @@ jobject create_object(JNIEnv *env, const char* class_names, jlong ref) {
     (*env)->DeleteLocalRef(env, class);
     return obj;
 }
+
+jlong get_object_ref(JNIEnv *env, const char* class_names, jobject obj) {
+    jclass class = (*env)->FindClass(env, class_names);
+    if (class == NULL) {
+        return 0;
+    }
+    jfieldID refField = (*env)->GetFieldID(env, class, "ref", "J");
+    if (refField == NULL) {
+        (*env)->DeleteLocalRef(env, class);
+        return 0;
+    }
+    jlong refValue = (*env)->GetLongField(env, obj, refField);
+    (*env)->DeleteLocalRef(env, class);
+    return refValue;
+}

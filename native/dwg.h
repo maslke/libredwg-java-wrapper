@@ -25,6 +25,11 @@ JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_getNumClasses(JNIEnv *, 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getMspaceObject(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getPspaceBlock(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_resolveHandle(JNIEnv *, jobject, jlong, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getFirstObject(JNIEnv *, jobject, jlong, jint);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getNextObject(JNIEnv *, jobject, jlong, jint, jint);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getLayers(JNIEnv *, jobject, jlong);
+JNIEXPORT jint    JNICALL Java_io_github_maslke_dwg_Dwg_getLayerCount(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_Dwg_getEntities(JNIEnv *, jobject, jlong);
 #ifdef __cplusplus
 }
 #endif

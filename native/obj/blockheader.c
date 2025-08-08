@@ -618,23 +618,17 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_add
     return splineObj;
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getOwnObjects(JNIEnv *env, jobject job, jlong ref) {
-    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
-    if (hdr == NULL) {
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getOwnObjects(JNIEnv *env, jobject job, jlong ref, jobject bobj) {
+    if (bobj == NULL) {
         return NULL;
     }
-    Dwg_Data *dwg = hdr->parent->dwg;
-    if (hdr == NULL) {
+    jclass objClass = (*env)->FindClass(env, "io/github/maslke/dwg/obj/DwgObject");
+    if (objClass == NULL) {
         return NULL;
     }
-
-    const char *names = hdr->name;
-    Dwg_Object_Ref *object_ref = dwg_find_tablehandle(dwg, names, "BLOCK");
-    if (object_ref == NULL) {
-        return NULL;
-    }
-
-    Dwg_Object *block_obj = object_ref->obj;
+    jfieldID refField = (*env)->GetFieldID(env, objClass, "ref", "J");
+    jlong refValue = (*env)->GetLongField(env, bobj, refField);
+    Dwg_Object *block_obj = (Dwg_Object*)(intptr_t)refValue;
     jclass listClass = (*env)->FindClass(env, "java/util/ArrayList");
     if (listClass == NULL) {
         return NULL;
@@ -643,7 +637,6 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_get
     jmethodID constructor = (*env)->GetMethodID(env, listClass, "<init>", "()V");
     jobject listObj = (*env)->NewObject(env, listClass, constructor);
     jmethodID addMethod = (*env)->GetMethodID(env, listClass, "add", "(Ljava/lang/Object;)Z");
-
     Dwg_Object *current_entity = get_first_owned_entity(block_obj);
     while (current_entity != NULL) {
         jobject obj = create_object(env, "io/github/maslke/dwg/obj/DwgObject", (jlong)(intptr_t)current_entity);
@@ -677,6 +670,7 @@ JNIEXPORT void JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_setNam
     char utf_text[200];
     utf8_to_gbk(chars, utf_text, sizeof(utf_text));
     hdr->name = strdup(utf_text);
+    (*env)->ReleaseStringUTFChars(env, name, chars);
 }
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getParent(JNIEnv *env, jobject job, jlong ref) {

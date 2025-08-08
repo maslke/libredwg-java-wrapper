@@ -12,16 +12,16 @@ import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
-import io.github.maslke.dwg.entity.Point;
-import io.github.maslke.dwg.entity.Ray;
-import io.github.maslke.dwg.entity.Text;
 import io.github.maslke.dwg.entity.MText;
-import io.github.maslke.dwg.entity.Solid;
-import io.github.maslke.dwg.entity.Shape;
-import io.github.maslke.dwg.entity.Polyline3d;
+import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Polyline2d;
-import io.github.maslke.dwg.entity.XLine;
+import io.github.maslke.dwg.entity.Polyline3d;
+import io.github.maslke.dwg.entity.Ray;
+import io.github.maslke.dwg.entity.Shape;
+import io.github.maslke.dwg.entity.Solid;
 import io.github.maslke.dwg.entity.Spline;
+import io.github.maslke.dwg.entity.Text;
+import io.github.maslke.dwg.entity.XLine;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,8 +41,7 @@ public class DwgObjectBlockHeader {
         return pnt;
     }
 
-    public Text addText(String textValue, Point3d point, double height)
-    {
+    public Text addText(String textValue, Point3d point, double height) {
         Text text = this.addText(this.ref, textValue, point, height);
         if (text != null) {
             text.setHeader(this.ref);
@@ -187,6 +186,7 @@ public class DwgObjectBlockHeader {
         }
         return xline;
     }
+
     public Spline addSpline(List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec) {
         Spline spline = this.addSpline(this.ref, fitPoints, begTanVec, endTanVec);
         if (spline != null) {
@@ -207,12 +207,13 @@ public class DwgObjectBlockHeader {
         return this.getParent(this.ref);
     }
 
-    public List<DwgObject> getOwnObjects() {
-        return this.getOwnObjects(this.ref);
+    public List<DwgObject> getOwnObjects(DwgObject blockObject) {
+        return this.getOwnObjects(this.ref, blockObject);
     }
 
 
     private native Point addPoint(long ref, Point3d point);
+
     private native Line addLine(long ref, Point3d start, Point3d end);
 
     private native Text addText(long ref, String textValue, Point3d insPt, double height);
@@ -244,10 +245,10 @@ public class DwgObjectBlockHeader {
     private native Polyline2d addPolyline2d(long ref, List<Point2d> points);
 
     private native XLine addXLine(long ref, Point3d point, Vector3d vector);
-    
+
     private native Spline addSpline(long ref, List<Point3d> fitPoints, Vector3d begTanVec, Vector3d endTanVec);
 
-    private native List<DwgObject> getOwnObjects(long ref);
+    private native List<DwgObject> getOwnObjects(long ref, DwgObject blockObject);
 
     private native String getName(long ref);
 

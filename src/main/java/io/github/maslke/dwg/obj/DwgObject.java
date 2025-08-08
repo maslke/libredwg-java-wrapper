@@ -194,6 +194,42 @@ public class DwgObject {
         return this.getUnknownRest(this.ref);
     }
 
+    public DwgObject getFirstOwnedEntity() {
+        return this.getFirstOwnedEntity(this.ref);
+    }
+
+    public DwgObject getNextOwnedEntity(DwgObject current) {
+        return this.getNextOwnedEntity(this.ref, current);
+    }
+
+    public DwgObject getFirstOwnedBlock() {
+        return this.getFirstOwnedBlock(this.ref);
+    }
+
+    public DwgObject getNextOwnedBlock(DwgObject current) {
+        return this.getNextOwnedBlock(this.ref, current);
+    }
+
+    public DwgObject getLastOwnedBlock() {
+        return this.getLastOwnedBlock(this.ref);
+    }
+
+    public DwgObject getFirstOwnedSubEntity() {
+        return this.getFirstOwnedSubEntity(this.ref);
+    }
+
+    public DwgObject getNextOwnedSubEntity(DwgObject current) {
+        return this.getNextOwnedSubEntity(this.ref, current);
+    }
+
+    public DwgObject getNextObject() {
+        return this.getNextObject(this.ref);
+    }
+
+    public DwgObject getNextEntity() {
+        return this.getNextEntity(this.ref);
+    }
+
     private native long getSize(long ref);
     private native String getAddress(long ref);
     private native int getType(long ref);
@@ -237,4 +273,13 @@ public class DwgObject {
     private native DwgObjectEntity getTioEntity(long ref);
     private native DwgObjectObject getTioObject(long ref);
     private native DwgHandle getHandle(long ref);
+    private native DwgObject getFirstOwnedEntity(long ref);
+    private native DwgObject getNextOwnedEntity(long ref, DwgObject current);
+    private native DwgObject getFirstOwnedBlock(long ref);
+    private native DwgObject getNextOwnedBlock(long ref, DwgObject current);
+    private native DwgObject getLastOwnedBlock(long ref);
+    private native DwgObject getFirstOwnedSubEntity(long ref);
+    private native DwgObject getNextOwnedSubEntity(long ref, DwgObject current);
+    private native DwgObject getNextObject(long ref);
+    private native DwgObject getNextEntity(long ref);
 }

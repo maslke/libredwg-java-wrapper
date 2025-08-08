@@ -16,6 +16,7 @@ jobject createDwgColor(JNIEnv *, Dwg_Color *);
 void log_info(JNIEnv *, const char*);
 
 jobject create_object(JNIEnv *, const char* class_names, jlong ref);
+jlong get_object_ref(JNIEnv *, const char* class_names, jobject obj);
 #ifdef __cplusplus
 }
 #endif

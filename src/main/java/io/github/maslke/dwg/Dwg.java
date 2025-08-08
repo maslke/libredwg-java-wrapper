@@ -6,7 +6,9 @@ import io.github.maslke.dwg.obj.DwgObject;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectVport;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.obj.DwgObjectLayer;
 import io.github.maslke.dwg.obj.DwgHeader;
+import io.github.maslke.dwg.obj.DwgObjectEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -109,8 +111,6 @@ public final class Dwg {
         return this.getPspaceBlock(this.ref);
     }
 
-    
-
     public DwgHeader getDwgHeader() {
         return this.getDwgHeader(this.ref);
     }
@@ -125,6 +125,27 @@ public final class Dwg {
 
     public List<DwgObject> getObject() {
         return this.getObject(this.ref);
+    }
+
+    public DwgObject getFirstObject(int dwgObjectType) {
+        return this.getFirstObject(this.ref, dwgObjectType);
+    }
+
+    public DwgObject getNextObject(int dwgObjectType, int index) {
+        return this.getNextObject(this.ref, dwgObjectType, index);
+    }
+
+    public List<DwgObjectLayer> getLayers() {
+        return this.getLayers(this.ref);
+    }
+
+    public int getLayerCount() {
+        return this.getLayerCount(this.ref);
+    }
+
+
+    public List<DwgObjectEntity> getEntities() {
+        return this.getEntities(this.ref);
     }
 
     private native String getVersionNative();
@@ -164,4 +185,9 @@ public final class Dwg {
     private native DwgObject getPspaceBlock(long ref);
 
     private native DwgObject resolveHandle(long ref, long handle);
+    private native DwgObject getFirstObject(long ref, int type);
+    private native DwgObject getNextObject(long ref, int type, int index);
+    private native List<DwgObjectLayer> getLayers(long ref);
+    private native int getLayerCount(long ref);
+    private native List<DwgObjectEntity> getEntities(long ref);
 }

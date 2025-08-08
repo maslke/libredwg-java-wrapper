@@ -11,6 +11,18 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getHandle(JNIE
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getParent(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFixedType(JNIEnv *, jobject, jlong);
 JNIEXPORT jint JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getSuperType(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFirstOwnedEntity(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getNextOwnedEntity(JNIEnv *, jobject, jlong, jobject);
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFirstOwnedBlock(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getNextOwnedBlock(JNIEnv *, jobject, jlong, jobject);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getLastOwnedBlock(JNIEnv *, jobject, jlong);
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getFirstOwnedSubEntity(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getNextOwnedSubEntity(JNIEnv *, jobject, jlong, jobject);
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getNextObject(JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObject_getNextEntity(JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
