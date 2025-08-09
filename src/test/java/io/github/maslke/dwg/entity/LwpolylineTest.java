@@ -5,6 +5,8 @@ import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.entity.component.LwpolylineWidth;
 import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
+import io.github.maslke.dwg.support.LwpolylineFlag;
+
 import org.junit.After;
 import org.junit.Test;
 
@@ -184,5 +186,13 @@ public class LwpolylineTest extends AbstractEntityTest {
         assertEquals(1, widths.get(1).getEnd(), TOLERANCE);
     }
 
-
+    @Test
+    public void testClosed() {
+        lwpolyline = createLwpolyline();
+        assertNotNull(lwpolyline);
+        lwpolyline.setFlag(LwpolylineFlag.CLOSED);
+        assertFalse(lwpolyline.isEmpty());
+        assertTrue(lwpolyline.getHeader() > 0);
+        assertTrue(lwpolyline.isClosed());
+    }
 }
