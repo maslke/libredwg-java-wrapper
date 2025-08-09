@@ -7,6 +7,7 @@
 #include <float.h>
 #include <iconv.h>
 #include "helper.h"
+#include "jni_md.h"
 
 
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addPoint(JNIEnv *env, jobject obj, jlong ref, jobject point) {
@@ -682,4 +683,53 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_get
         return NULL;
     }
     return create_object(env, "io/github/maslke/dwg/obj/DwgObjectObject", (jlong)(intptr_t)hdr->parent);
+}
+
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addMInsert(JNIEnv *env, jobject job, jlong ref, jobject ins_pt, jstring block_name, jobject scale, jdouble rotation, jint num_rows, jint col_nums, jdouble row_spacing, jdouble col_spacing) {
+    Dwg_Object_BLOCK_HEADER *hdr = (Dwg_Object_BLOCK_HEADER*)(intptr_t)ref;
+    if (hdr == NULL) {
+        return NULL;
+    }
+    if (ins_pt == NULL) {
+        return NULL;
+    }
+    jclass clazz = (*env)->GetObjectClass(env, ins_pt);
+    if (clazz == NULL) {
+        return NULL;
+    }
+    jfieldID fidX = (*env)->GetFieldID(env, clazz, "x", "D");
+    jfieldID fidY = (*env)->GetFieldID(env, clazz, "y", "D");
+    jfieldID fidZ = (*env)->GetFieldID(env, clazz, "z", "D");
+    jdouble x = (*env)->GetDoubleField(env, ins_pt, fidX);
+    jdouble y = (*env)->GetDoubleField(env, ins_pt, fidY);
+    jdouble z = (*env)->GetDoubleField(env, ins_pt, fidZ);
+    dwg_point_3d insert_pt = {.x = x, .y = y, .z = z};
+    double scale_x = 1.0;
+    double scale_y = 1.0;
+    double scale_z = 1.0;
+    if (scale) {
+        jclass vectorClass = (*env)->GetObjectClass(env, scale);
+        if (vectorClass == NULL) {
+            (*env)->DeleteLocalRef(env, clazz);
+            return NULL;
+        }
+        jfieldID vectorXField = (*env)->GetFieldID(env, vectorClass, "x", "D");
+        jfieldID vectorYField = (*env)->GetFieldID(env, vectorClass, "y", "D");
+        jfieldID vectorZField = (*env)->GetFieldID(env, vectorClass, "z", "D");
+        scale_x = (*env)->GetDoubleField(env, scale, vectorXField);
+        scale_y = (*env)->GetDoubleField(env, scale, vectorYField);
+        scale_z = (*env)->GetDoubleField(env, scale, vectorZField);
+        (*env)->DeleteLocalRef(env, vectorClass);
+    }
+    const char* chars = (*env)->GetStringUTFChars(env, block_name, NULL);
+    char gbk_text[200];
+    utf8_to_gbk(chars, gbk_text, sizeof(gbk_text));
+    Dwg_Entity_MINSERT *minsert = dwg_add_MINSERT(hdr, &insert_pt, strdup(gbk_text), scale_x, scale_y, scale_z, rotation, num_rows, col_nums, row_spacing, col_spacing);
+    (*env)->ReleaseStringUTFChars(env, block_name, chars);
+    (*env)->DeleteLocalRef(env, clazz);
+
+    if (minsert == NULL) {
+        return NULL;
+    }
+    return create_object(env, "io/github/maslke/dwg/entity/MInsert", (jlong)(intptr_t)minsert);
 }

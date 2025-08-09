@@ -12,6 +12,7 @@ import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
+import io.github.maslke.dwg.entity.MInsert;
 import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Polyline2d;
@@ -418,6 +419,19 @@ public class DwgObjectBlockHeaderTest {
         assertNotNull(spline);
         assertFalse(spline.isEmpty());
         assertNotEquals(0, spline.getRef());
+    }
+
+    @Test
+    public void testAddMInsert() {
+        dwg = Dwg.create();
+        assertNotNull(dwg);
+        assertNotEquals(0, dwg.getRef());
+        DwgObjectBlockHeader hdr = dwg.getObjectBlockHeader();
+        assertNotNull(hdr);
+        MInsert minsert = hdr.addMInsert(new Point3d(0, 0, 0), "blk0", new Vector3d(1, 1, 1), 0, 1, 1, 1, 1);
+        assertNotNull(minsert);
+        assertFalse(minsert.isEmpty());
+        assertNotEquals(0, minsert.getRef());
     }
 
     @Test

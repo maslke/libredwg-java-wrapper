@@ -27,6 +27,7 @@ JNIEXPORT jstring JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_get
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getName(JNIEnv *, jobject, jlong);
 JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_getParent(JNIEnv *, jobject, jlong);
 JNIEXPORT void    JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_setName(JNIEnv *, jobject, jlong, jstring);
+JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_obj_DwgObjectBlockHeader_addMInsert(JNIEnv *, jobject, jlong, jobject, jstring, jobject, jdouble, jint, jint, jdouble, jdouble);
 #ifdef __cplusplus
 }
 #endif

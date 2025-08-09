@@ -12,6 +12,7 @@ import io.github.maslke.dwg.entity.EndBlk;
 import io.github.maslke.dwg.entity.Insert;
 import io.github.maslke.dwg.entity.Line;
 import io.github.maslke.dwg.entity.Lwpolyline;
+import io.github.maslke.dwg.entity.MInsert;
 import io.github.maslke.dwg.entity.MText;
 import io.github.maslke.dwg.entity.Point;
 import io.github.maslke.dwg.entity.Polyline2d;
@@ -195,6 +196,14 @@ public class DwgObjectBlockHeader {
         return spline;
     }
 
+    public MInsert addMInsert(Point3d insPt, String blockName, Vector3d scale, double rotation, int numRows, int colNums, double rowSpacing, double colSpacing) {
+        MInsert minsert = this.addMInsert(this.ref, insPt, blockName, scale, rotation, numRows, colNums, rowSpacing, colSpacing);
+        if (minsert != null) {
+            minsert.setHeader(this.ref);
+        }
+        return minsert;
+    }
+
     public String getName() {
         return this.getName(this.ref);
     }
@@ -255,4 +264,6 @@ public class DwgObjectBlockHeader {
     private native void setName(long ref, String name);
 
     private native DwgObjectObject getParent(long ref);
+
+    private native MInsert addMInsert(long ref, Point3d insPt, String blockName, Vector3d scale, double rotation, int numRows, int colNums, double rowSpacing, double colSpacing);
 }
