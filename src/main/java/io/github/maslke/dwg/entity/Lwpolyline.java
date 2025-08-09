@@ -4,6 +4,7 @@ import io.github.maslke.dwg.common.Point2d;
 import io.github.maslke.dwg.common.Vector3d;
 import io.github.maslke.dwg.entity.component.LwpolylineWidth;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
+import io.github.maslke.dwg.support.LwpolylineFlag;
 
 import java.util.List;
 
@@ -127,8 +128,7 @@ public class Lwpolyline extends AbstractBaseEntity {
     }
 
     public boolean isClosed() {
-        int flag = this.getFlag();
-        return flag == 512;
+        return (this.getFlag() & LwpolylineFlag.CLOSED) == LwpolylineFlag.CLOSED;
     }
 
 
