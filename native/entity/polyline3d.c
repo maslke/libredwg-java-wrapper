@@ -171,8 +171,7 @@ JNIEXPORT jobject JNICALL Java_io_github_maslke_dwg_entity_Polyline3d_getVertex(
     jmethodID constructor = (*env)->GetMethodID(env, refClass, "<init>", "()V");
     jfieldID refField = (*env)->GetFieldID(env, refClass, "ref", "J");
 
-    BITCODE_H *pointer = polyline3d->vertex;
-    jint size = sizeof(pointer) / sizeof(BITCODE_H);
+    jint size = polyline3d->num_owned;
     for (int i = 0; i < size; i++) {
         jobject refObj = createDwgObjectRef(env, polyline3d->vertex[i]);
         (*env)->CallBooleanMethod(env, listObj, addMethod, refObj);

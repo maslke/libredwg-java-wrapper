@@ -7,7 +7,6 @@ import io.github.maslke.dwg.obj.DwgObjectBlockHeader;
 import io.github.maslke.dwg.obj.DwgObjectRef;
 import io.github.maslke.dwg.obj.DwgObjectEntity;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -57,7 +56,6 @@ public class Polyline2dTest extends AbstractEntityTest {
     }
 
     @Test
-    @Ignore
     public void testNumOwned() {
         polyline2d = createPolyline2d();
         assertNotNull(polyline2d);
@@ -65,11 +63,7 @@ public class Polyline2dTest extends AbstractEntityTest {
         assertTrue(polyline2d.getHeader() > 0);
 
         long numOwned = polyline2d.getNumOwned();
-        assertTrue(numOwned >= 0);
-
-        polyline2d.setNumOwned((long)5);
-        numOwned = polyline2d.getNumOwned();
-        assertEquals(5, numOwned);
+        assertEquals(3, numOwned);
     }
 
     @Test
@@ -80,9 +74,8 @@ public class Polyline2dTest extends AbstractEntityTest {
         assertTrue(polyline2d.getHeader() > 0);
 
         DwgObjectRef firstVertex = polyline2d.getFirstVertex();
-        if (firstVertex != null) {
-            assertNotEquals(0, firstVertex.getRef());
-        }
+        assertNotNull(firstVertex);
+        assertNotEquals(0, firstVertex.getRef());
     }
 
     @Test
@@ -93,9 +86,20 @@ public class Polyline2dTest extends AbstractEntityTest {
         assertTrue(polyline2d.getHeader() > 0);
 
         DwgObjectRef lastVertex = polyline2d.getLastVertex();
-        if (lastVertex != null) {
-            assertNotEquals(0, lastVertex.getRef());
-        }
+        assertNotNull(lastVertex);
+        assertNotEquals(0, lastVertex.getRef());
+    }
+
+    @Test
+    public void tstGetVertex() {
+        polyline2d = createPolyline2d();
+        assertNotNull(polyline2d);
+        assertFalse(polyline2d.isEmpty());
+        assertTrue(polyline2d.getHeader() > 0);
+
+        List<DwgObjectRef> vertex = polyline2d.getVertex();
+        assertNotNull(vertex);
+        assertEquals(3, vertex.size());
     }
 
     @Test
@@ -119,9 +123,8 @@ public class Polyline2dTest extends AbstractEntityTest {
         assertTrue(polyline2d.getHeader() > 0);
 
         List<DwgObjectRef> vertex = polyline2d.getVertex();
-        if (vertex != null) {
-            assertTrue(vertex.size() >= 0);
-        }
+        assertNotNull(vertex);
+        assertEquals(3, vertex.size());
     }
 
     @Test
@@ -132,9 +135,8 @@ public class Polyline2dTest extends AbstractEntityTest {
         assertTrue(polyline2d.getHeader() > 0);
 
         DwgObjectRef seqend = polyline2d.getSeqend();
-        if (seqend != null) {
-            assertNotEquals(0, seqend.getRef());
-        }
+        assertNotNull(seqend);
+        assertNotEquals(0, seqend.getRef());
     }
 
     @Test
